@@ -178,6 +178,7 @@ where:
 - $m$ is the number of training examples.
 - $\lambda$ is the regularization parameter (hyperparameter) which controls the strength of regularization.
 - $n$ is the number of features.
+- $w_j$ is the $j^{th}$ parameter (weight) of the model for the feature $x_j$.
 
 **Notes:**
 - Division by $2m$ is a common convention, and it doesn't have any effect on the optimization process. It's just for mathematical convenience.
@@ -189,9 +190,11 @@ where:
 **Extended Cost Function with Regularization:**<br>
 Now our new cost function is made up two terms, the first term is the average of loss functions and the seconds term is the regularization term:
 
+
 $$
-J(\vec{\mathbf{w}}, b) = \frac{1}{m} \sum_{i=1}^{m} L(f_{\vec{\mathbf{w}},b}(\mathbf{x}^{(i)}), y^{(i)}) + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2
+J(\vec{\mathbf{w}}, b) = \frac{1}{m} \sum_{i=1}^{m} L(f_{\vec{\mathbf{w}},b}(\mathbf{x}^{(i)}), y^{(i)}) + \underbrace{\frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2}_{\text{Regularization term}}
 $$
+
 
 As we discussed, the goal of training is to minimize the cost function. So, it means as we try to minimize the average losses (first term), we also try to minimize the regularization term (second term). Reducing the regularization term means reducing the parameters $w_j$.
 
