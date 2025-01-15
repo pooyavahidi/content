@@ -278,10 +278,13 @@ We repeat steps of backward pass, forward pass and updating the parameters (step
 ### Gradient Descent Summary:
 We can simply summarize all the steps of the Gradient Descent algorithm for $n$ parameters as follows:
 
-$$\begin{align*} \text{repeat}&\text{ until convergence: } \lbrace \newline
+$$
+\begin{align*} \text{repeat}&\text{ until convergence: } \lbrace \newline
 & w_j = w_j -  \alpha \frac{\partial J(\vec{\mathbf{w}},b)}{\partial w_j} \; & \text{for j = 0..n-1}\newline
 &b\ \ = b -  \alpha \frac{\partial J(\vec{\mathbf{w}},b)}{\partial b}  \newline \rbrace
-\end{align*}$$
+& \text{ simultaneous update}
+\end{align*}
+$$
 
 where:
 - $J$ is the cost function.
@@ -291,6 +294,7 @@ where:
 - $b$ represents the bias term.
 - $\alpha$ is the learning rate.
 
+> **Simultaneous Update:** At each step of the algorithm, the parameters update applies to all parameters (weights and biases) at the same time. In other words, we don't want to first update the weights and then update the biases based on the updated weights. Instead, we want to update all parameters based on the snapshot of the current parameters at any given time.
 
 We can also write this in a more general form for multiple parameters:
 $$\begin{align*} \text{repeat}&\text{ until convergence: } \lbrace \newline
