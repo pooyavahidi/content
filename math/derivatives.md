@@ -303,54 +303,56 @@ The intuition behind the derivative of $e^{ax}$ is that the function grows or de
 
 
 #### Derivative of Natural Logarithm
-
 Let's calculate the derivative of the natural logarithm function $\ln(x)$ using the chain rule.
 
-$$y = \ln(x)$$
+$$f(x) = \ln(x)$$
 
 Using the [logarithmic rule](algebra_basics.md#logarithms), we can rewrite this as:
 
-$$e^y = x$$
+$$e^{f(x)} = e^{ln(x)} = x$$
+
+Let's differentiate both sides with respect to $x$:
+
+$$\frac{d}{dx}(e^{ln(x)}) = \frac{d}{dx}x$$
+
+The derivative of $x$ with respect to $x$ is 1, so we get:
+
+$$\frac{d}{dx}(e^{ln(x)}) = 1$$
+
+The derivative of $e^{ln(x)}$ with respect to $x$ requires the **chain rule**, because $ln(x)$ is a function of $x$.
 
 
-Differentiate both sides with respect to $x$:
-
-$$\frac{d}{dx}[e^y] = \frac{d}{dx}[x]$$
-
-Knowing that derivative of $x$ with respect to $x$ is 1, we get:
-
-$$\frac{d}{dx}[e^y] = 1$$
-
-The derivative of $e^y$ with respect to $x$ requires the **chain rule**, because $y$ is a function of $x$. The chain rule says:
-Let's denote $u = y$ and $f(u) = e^u$:
-$$u = y$$
-$$f(u) = e^u$$
+Let's denote $u = ln(x)$ and define a new function $h(u) = e^u$:
+$$h(u) = e^u$$
 
 The chain rule will be:
 
-$$\frac{df}{dx} = \frac{df}{du} \cdot \frac{du}{dx}$$
+$$\frac{dh}{dx} = \frac{dh}{du} \cdot \frac{du}{dx}$$
 
 The derivative of $e^u$ with respect to $u$ is simply $e^u$. See [Derivative of Exponential Function](euler_number.md#derivative-of-exponentials) for more details:
-$$\frac{df}{du} = e^u$$
 
+$$\frac{d}{du}(e^u) = e^u$$
 
 So, the chain rule gives us:
-$$\frac{df}{dx} = e^u \cdot \frac{du}{dx}$$
 
-Knowing that $u = y$, we can substitute $u$ back to $y$:
+$$\frac{dh}{dx} = e^u \cdot \frac{du}{dx}$$
 
-$$\frac{df}{dx} = e^y \cdot \frac{dy}{dx}$$
+If we substitute $h(u) = e^u$ back into the equation, we get:
+$$\frac{d}{dx}(e^u) = e^u \cdot \frac{du}{dx}$$
 
-We saw earlier that $\frac{d}{dx}[e^y] = 1$, so we can substitute this back:
+And now substitute $u = ln(x)$ back into the equation:
 
-$$e^y \cdot \frac{dy}{dx} = 1$$
+$$\frac{d}{dx}(e^{ln(x)}) = e^{ln(x)} \cdot \frac{d}{dx}(ln(x))$$
 
-Substitute $e^y = x$ back into the equation:
 
-$$x \cdot \frac{dy}{dx} = 1$$
+We know from earlier that $e^{ln(x)} = x$ and $\frac{d}{dx}(e^{ln(x)}) = 1$, so we can substitute these back:
 
-Finally, solve for $\frac{dy}{dx}$:
-$$\frac{dy}{dx} = \frac{1}{x}$$
+$$1 = x \cdot \frac{d}{dx}(ln(x))$$
+
+Finally:
+
+$$\frac{d}{dx}(ln(x)) = \frac{1}{x}$$
+
 
 
 #### Derivative of Sigmoid Function
