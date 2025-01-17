@@ -192,7 +192,7 @@ Now our new cost function is made up two terms, the first term is the average of
 
 
 $$
-J(\vec{\mathbf{w}}, b) = \frac{1}{m} \sum_{i=1}^{m} L(f_{\vec{\mathbf{w}},b}(\mathbf{x}^{(i)}), y^{(i)}) + \underbrace{\frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2}_{\text{Regularization term}}
+J(\vec{\mathbf{w}}, b) = \frac{1}{m} \sum_{i=1}^{m} \left[ L(f_{\vec{\mathbf{w}},b}(\mathbf{x}^{(i)}), y^{(i)}) \right] + \underbrace{\frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2}_{\text{Regularization term}}
 $$
 
 
@@ -204,7 +204,59 @@ $$
 \text{min (cost)} = \text{min} [ \text{Average Loss term + regularization term}]
 $$
 
-**Choosing the Right $\lambda$:**<br>
+#### Gradient Descent with Regularization
+Let's use linear regression as an example to understand how regularization works in Gradient Descent algorithm.
+
+Gradient Descent:
+
+$$\begin{align*} \text{repeat }&\text{until convergence: } \lbrace \newline
+& w_j = w_j -  \alpha \frac{\partial J(\vec{\mathbf{w}},b)}{\partial w_j} \; & \text{for j = 0..n-1}\newline
+&b\ \ = b -  \alpha \frac{\partial J(\vec{\mathbf{w}},b)}{\partial b}  \newline \rbrace
+\end{align*}$$
+
+Now our $J$ has an additional term (regularization term):
+
+$$\frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$$
+
+The partial derivative of this term in respect to $w_j$ is:
+
+$$\frac{\partial}{\partial w_j} \left( \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2 \right) = \frac{\partial}{\partial w_j} \left( \frac{\lambda}{2m} (w_1^2 + w_2^2 + ... + w_n^2) \right) = \frac{\lambda}{m} w_j$$
+
+Since we are taking the partial derivative in respect to $w_j$, the derivative of $w_j^2$ is $2w_j$ and the derivative of all the other terms is $0$.
+
+So, the Gradient Descent algorithm for linear regression with regularization can be written as:
+
+```math
+\begin{align*} \text{repeat }&\text{until convergence: } \lbrace \newline
+& w_j = w_j - \alpha \left[ \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})x^{(i)}_j + \frac{\lambda}{m} w_j \right] \; & \text{for j = 0..n-1}\newline
+& b = b - \alpha \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)}) \newline \rbrace
+\end{align*}
+```
+Recall that we don't regularize the bias term $b$, so the gradient descent update rule for the bias term $b$ remains the same.
+
+**Intuition**:<br>
+At each step of the gradient descent update rule for $w_j$:
+
+$$ w_j = w_j - \alpha \left[ \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})x^{(i)}_j + \frac{\lambda}{m} w_j \right] $$
+
+If we move around the terms:
+
+$$
+w_j = w_j (1 - \alpha \frac{\lambda}{m}) - \underbrace{\alpha \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})x^{(i)}_j}_{\text{Original Part}}
+$$
+
+So, we added a term $w_j (1 - \alpha \frac{\lambda}{m})$ to the original part of the gradient descent update rule.
+
+Knowing the $\lambda$ is a positive number, and $\alpha$ is a small positive number, the term $1 - \alpha \frac{\lambda}{m}$ is always less than $1$.
+
+For example, if $\lambda = 1$ and $\alpha = 0.001$ for $m= 1000$ examples, then:
+$$1 - \alpha \frac{\lambda}{m} = 1 - 0.001 \times \frac{1}{1000} = 0.999999$$
+$$w_j = 0.999999 \times w_j - \text {Original Part}$$
+
+So, what regularization is doing at each step is mutltiplying the weight $w_j$ by a number less than $1$ which in effect **shrinks** the weights a little bit at every step. This is to prevent the weights from growing too large and overfitting the model.
+
+
+#### Choosing the Right Value for $\lambda$
 The regularization parameter $\lambda$ controls the strength of regularization. A higher value of $\lambda$ penalizes the model more for having large parameters. Choosing a very high value of $\lambda$ will force the model to have very small parameters. Recall in the above plot of polynomial function $f(x)$, choosing a very small (near zero) coefficients will make the curve to be a straight line $f(x) = b$ which is the underfit model.
 
 So, there is a trade-off in choosing the right value of $\lambda$. If:

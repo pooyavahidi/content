@@ -405,7 +405,7 @@ $$f_{w,b}(x) = w_{1}x + w_{2}\sqrt{x}+ b$$
 Regularization is a technique used to prevent overfitting in machine learning models. As we discussed in [Regularization](generalization.md#regularization) section, regularization adds a penalty term to the cost function to prevent the model from choosing large weights that can lead to overfitting. We defined the regularized cost function $J$ as:
 
 $$
-J(\vec{\mathbf{w}}, b) = \frac{1}{m} \sum_{i=1}^{m} L(f_{\vec{\mathbf{w}},b}(\mathbf{x}^{(i)}), y^{(i)}) + \underbrace{\frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2}_{\text{Regularization term}}
+J(\vec{\mathbf{w}}, b) = \frac{1}{m} \sum_{i=1}^{m} \left[ L(f_{\vec{\mathbf{w}},b}(\mathbf{x}^{(i)}), y^{(i)}) \right]+ \underbrace{\frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2}_{\text{Regularization term}}
 $$
 
 So, now let's update our Gradient Descent algorithm for linear regression with regularization.
@@ -418,15 +418,6 @@ $$\begin{align*} \text{repeat }&\text{until convergence: } \lbrace \newline
 &b\ \ = b -  \alpha \frac{\partial J(\vec{\mathbf{w}},b)}{\partial b}  \newline \rbrace
 \end{align*}$$
 
-Now our $J$ has an additional term (regularization term):
-
-$$\frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$$
-
-The partial derivative of this term in respect to $w_j$ is:
-
-$$\frac{\partial}{\partial w_j} \left( \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2 \right) = \frac{\partial}{\partial w_j} \left( \frac{\lambda}{2m} (w_1^2 + w_2^2 + ... + w_n^2) \right) = \frac{\lambda}{m} w_j$$
-
-Since we are taking the partial derivative in respect to $w_j$, the derivative of $w_j^2$ is $2w_j$ and the derivative of all the other terms is $0$.
 
 So, the Gradient Descent algorithm for linear regression with regularization can be written as:
 
@@ -438,28 +429,7 @@ So, the Gradient Descent algorithm for linear regression with regularization can
 ```
 Recall that we don't regularize the bias term $b$, so the gradient descent update rule for the bias term $b$ remains the same.
 
-**Intuition**:<br>
-At each step of the gradient descent update rule for $w_j$:
-
-$$ w_j = w_j - \alpha \left[ \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})x^{(i)}_j + \frac{\lambda}{m} w_j \right] $$
-
-If we move around the terms:
-
-$$
-w_j = w_j (1 - \alpha \frac{\lambda}{m}) - \underbrace{\alpha \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})x^{(i)}_j}_{\text{Original Part}}
-$$
-
-So, we added a term $w_j (1 - \alpha \frac{\lambda}{m})$ to the original part of the gradient descent update rule.
-
-Knowing the $\lambda$ is a positive number, and $\alpha$ is a small positive number, the term $1 - \alpha \frac{\lambda}{m}$ is always less than $1$.
-
-For example, if $\lambda = 1$ and $\alpha = 0.001$ for $m= 1000$ examples, then:
-$$1 - \alpha \frac{\lambda}{m} = 1 - 0.001 \times \frac{1}{1000} = 0.999999$$
-$$w_j = 0.999999 \times w_j - \text {Original Part}$$
-
-So, what regularization is doing at each step is mutltiplying the weight $w_j$ by a number less than $1$ which in effect **shrinks** the weights a little bit at every step. This is to prevent the weights from growing too large and overfitting the model.
-
-
+For more details see [Gradient Descent with Regularization](generalization.md#gradient-descent-with-regularization).
 
 ## Resources
 - [Linear Regression using Scikit Learn](labs/linear_regression_scikit_learn.ipynb)

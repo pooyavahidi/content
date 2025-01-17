@@ -329,3 +329,22 @@ And for the parameter $b$ is:
 $$\frac{\partial J(\vec{\mathbf{w}},b)}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)} \right)$$
 
 See [Derivative of Logistic Regression Cost Function](../math/derivatives.md#derivative-of-the-logistic-regression-cost-function) for the details of this derivation.
+
+### Regularization for Logistic Regression
+Regularization is a technique used to prevent overfitting in machine learning models. As we discussed in [Regularization](generalization.md#regularization) section, regularization adds a penalty term to the cost function to prevent the model from choosing large weights that can lead to overfitting. We defined the regularized cost function $J$ as:
+
+$$
+J(\vec{\mathbf{w}}, b) = \frac{1}{m} \sum_{i=1}^{m} \left[ L(f_{\vec{\mathbf{w}},b}(\mathbf{x}^{(i)}), y^{(i)}) \right]+ \underbrace{\frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2}_{\text{Regularization term}}
+$$
+
+So, the Gradient Descent algorithm for linear regression with regularization can be written as:
+
+```math
+\begin{align*} \text{repeat }&\text{until convergence: } \lbrace \newline
+& w_j = w_j - \alpha \left[ \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})x^{(i)}_j + \frac{\lambda}{m} w_j \right] \; & \text{for j = 0..n-1}\newline
+& b = b - \alpha \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)}) \newline \rbrace
+\end{align*}
+```
+Recall that we don't regularize the bias term $b$, so the gradient descent update rule for the bias term $b$ remains the same.
+
+For more details see [Gradient Descent with Regularization](generalization.md#gradient-descent-with-regularization).

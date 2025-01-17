@@ -43,7 +43,7 @@ Where:
 - $\theta_t$ represents the parameters (weights and biases) at step $t$ (current parameters).
 - $\theta_{t+1}$ represents the updated parameters at step $t+1$.
 - $\eta$ is the learning rate.
-- $\nabla_{\theta} J(\theta)$ is the gradient of the cost function $J$ with respect to the parameters $\theta$.
+- $\nabla_{\theta} J(\theta_t)$ is the gradient of the cost function $J$ with respect to the parameters $\theta_t$.
 
 The gradient represents the slope, which is mathematically equal to the derivative of the function at a given point. It points in the direction of the steepest ascent (or descent for minimization) on the loss surface, indicating how much the error changes as each weight is adjusted. The gradient is fundamental to optimization techniques like gradient descent, where it **guides** the iterative updates to minimize the cost function.
 
