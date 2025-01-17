@@ -139,22 +139,50 @@ As you can see, the partial derivatives of the function $J(w_1, w_2)$ with respe
 ## Chain Rule
 The chain rule is a fundamental tool in calculus for computing the derivative of a function composition. It allows us to break down complex functions into simpler ones when differentiating.
 
-Formally, suppose we have a function $f$ of $x$, which is a composition of function $g$ of $x$:
+Formally, suppose we have a function $f$ of $x$, which is a composition of function $u$ of $x$, then we can define function $h$ of $u$ as:
 
-$$f(x) = f(g(x))$$
+$$f(x) = h(u(x))$$
 
-The chain rule states that the derivative of $f$ with respect to $x$ can be computed by multiplying the derivative of $f$ with respect to $g$ by the derivative of $g$ with respect to $x:
+For example for the following function $f$:
 
-$$\frac{df}{dx} = \frac{df}{dg} \cdot \frac{dg}{dx}$$
+$$f(x) = (3x + 1)^2$$
+
+We can break it down into two functions:
+- The **inner function** $u(x) = 3x + 1$
+- The **outer function** $h(u) = u^2$
+
+So far, we just broke down the function $f(x)$ into two simpler functions.
+
+$$h(u(x)) = h(3x+1)= (3x+1)^2 = f(x)$$
+
+The chain rule states that the derivative of $f$ with respect to $x$ can be computed by multiplying the derivative of outer function $h$ with respect to $u$ by the derivative of inner function $u$ with respect to $x:
+
+$$\frac{df}{dx} = \frac{dh}{du} \cdot \frac{du}{dx}$$
 
 
-For simplicity, we usually use variables like $u$, $v$, and $w$, ... to represent intermediate functions. For example, when function $f$ of $x$ is a composition of function $g$ of $x$, we can write it as:
-$$u = g(x)$$
-$$f(x) = f(g(x)) = f(u)$$
+So, in our example, let's calculate each term:
 
-Then the chain rule can be written as:
-$$\frac{df}{dx} = \frac{df}{du} \cdot \frac{du}{dx}$$
 
+1. Differentiate the outer function $h$ with respect to $u$:
+    $$\frac{d}{du}(u^2) = 2u$$
+
+2. Differentiate the inner function $u$ with respect to $x$:
+    $$\frac{d}{dx}(3x + 1) = 3$$
+
+3. Apply the chain rule by multiplying:
+    $$\frac{df}{dx} = 2u \cdot 3$$
+
+4. Substitute back $u = 3x + 1$:
+    $$\frac{df}{dx} = 2(3x + 1) \cdot 3 = 6(3x + 1)$$
+
+
+> Note: The chain rule is multiplication of derivatives of outer function with respect to inner function and inner function with respect to the variable.
+> $$\frac{df}{dx} = \frac{dh}{du} \cdot \frac{du}{dx}$$
+>
+> However, the  widely used notation which has become the standard in teaching and text books is:
+> $$\frac{df}{dx} = \frac{df}{du} \cdot \frac{du}{dx}$$
+>
+> This notation is widely used in calculus and mathematical literature. However, it's important to understand that this is actually an abuse of notation that's become conventional because it's convenient, compact and suggests the idea of "canceling" the derivative terms (like fractions).
 
 **Prime Notation:**
 
@@ -188,38 +216,9 @@ The chain rule is crucial in many areas of calculus, including the computation o
 
 ### Examples
 
-#### Simple Composite Function
-Suppose you have a function:
-
-$$f(x) = \left(3x + 1\right)^2$$
-
-This is a **composite function** because it consists of two parts:
-- The **inner function** is $g(x) = 3x + 1$.
-- The **outer function** is $f(u) = u^2$, where $u = g(x) = 3x + 1$.
-
-$$f(x) = f(g(x))$$
-
-Using the chain rule:
-$$\frac{df}{dx} = \frac{df}{dg} \cdot \frac{dg}{dx}$$
-
-Rewriting the above using the new variable $u = g(x)$:
-$$\frac{df}{dx} = \frac{df}{du} \cdot \frac{du}{dx}$$
 
 
-1. Differentiate the outer function $f(u) = u^2$:
-   $$\frac{d}{du}(u^2) = 2u$$
-
-2. Differentiate the inner function $g(x) = 3x + 1$:
-   $$\frac{d}{dx}(3x + 1) = 3$$
-
-3. Apply the chain rule by multiplying:
-   $$\frac{df}{dx} = 2u \cdot 3$$
-
-To get the final derivative of $f$ with respect to $x$, we need to substitute back $u = 3x + 1$:
-$$\frac{df}{dx} = 2(3x + 1) \cdot 3 = 6(3x + 1)$$
-
-
-**Example:**
+#### Simple Example
 
 Now let's go through another example with a bit more complex function composition. We are given function $f$ of $x$ as follows:
 
@@ -464,45 +463,60 @@ Here:
 
 Let $z^{(i)} = \vec{\mathbf{w}} \cdot \vec{\mathbf{x}}^{(i)} + b$, so $f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) = \sigma(z^{(i)})$.
 
-**Partial Derivative with Respect to $\vec{\mathbf{w}}$
+Partial Derivative with Respect to $\vec{\mathbf{w}}$
 1. Rewrite $J(\vec{\mathbf{w}}, b)$: Substituting $f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) = \sigma(z^{(i)})$:
 
    $$
    J(\vec{\mathbf{w}}, b) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(\sigma(z^{(i)})) + (1 - y^{(i)}) \log(1 - \sigma(z^{(i)})) \right]
    $$
 
-2. Focus on the derivative of a single term in the summation: Let:
+2. Focus on the derivative of a single term in the summation. The derivative of the Loss function $L^{(i)}$ for a single training example is:
 
    $$
    L^{(i)} = -\left[ y^{(i)} \log(\sigma(z^{(i)})) + (1 - y^{(i)}) \log(1 - \sigma(z^{(i)}) \right]
    $$
 
-   We need $\frac{\partial L^{(i)}}{\partial \vec{\mathbf{w}}}$.
-
-3. Take the derivative of $L^{(i)}$: Use the chain rule:
+3. Take the derivative of $L^{(i)}$ in respect to $\vec{\mathbf{w}}$ using the chain rule:
 
    $$
    \frac{\partial L^{(i)}}{\partial \vec{\mathbf{w}}} = \frac{\partial L^{(i)}}{\partial \sigma(z^{(i)})} \cdot \frac{\partial \sigma(z^{(i)})}{\partial z^{(i)}} \cdot \frac{\partial z^{(i)}}{\partial \vec{\mathbf{w}}}
    $$
 
 4. Compute each term:
-    - $\frac{\partial L^{(i)}}{\partial \sigma(z^{(i)})}$: Differentiate $L^{(i)}$ with respect to $\sigma(z^{(i)})$:
+    - Differentiate $L^{(i)}$ with respect to $\sigma(z^{(i)})$:
         $$
-        \frac{\partial L^{(i)}}{\partial \sigma(z^{(i)})} = -\frac{y^{(i)}}{\sigma(z^{(i)})} + \frac{1 - y^{(i)}}{1 - \sigma(z^{(i)})}
+        \frac{\partial L^{(i)}}{\partial \sigma(z^{(i)})} = -\frac{y^{(i)}}{\sigma(z^{(i)})} - (1-y^{(i)})\frac{\partial \log(1-\sigma(z^{(i)})}{\partial \sigma(z^{(i)})}
         $$
-        Note that in above we also needed to use chain rule again for the derivative of $\log(1-\sigma(z^{(i)})$ as $(1-\sigma(z^{(i)}))$ is a function of $z^{(i)}$. Let's denote $u = \sigma(z^{(i)})$.
-        $$
-        \frac{\partial \log(1-u)}{\partial u} = \frac{\partial \log(1-u)}{\partial (1-u)} \cdot \frac{\partial (1-u)}{\partial u} = -\frac{1}{1-u}$$
 
-         The derivative of $\log(1-\sigma(z^{(i)})$ with respect to $\sigma(z^{(i)})$ is $-\frac{1}{1-\sigma(z^{(i)})}$.
+        Note that in above we also needed to use chain rule again for the derivative of $\log(1-\sigma(z^{(i)}))$ as $(1-\sigma(z^{(i)}))$ is a function of $\sigma(z^{(i)})$. Let's denote $u = 1 - \sigma(z^{(i)})$.
 
-    - $\frac{\partial \sigma(z^{(i)})}{\partial z^{(i)}}$: The derivative of the sigmoid function $\sigma(z)$ is (See [Derivative of Sigmoid Function](#derivative-of-sigmoid-function) for more details):
+        Based on the chain rule:
+
+        $$
+        \frac{\partial \log(u)}{\partial \sigma(z^{(i)})} = \frac{\partial \log(u)}{\partial u} \cdot \frac{\partial u}{\partial \sigma(z^{(i)})}
+        $$
+        So, if we calculate the derivative of each term (see [Derivative of Logarithm](#derivative-of-natural-logarithm) for more details):
+        $$
+        \frac{\partial \log(u)}{\partial \sigma(z^{(i)})} = \frac{1}{u} \cdot -1
+        $$
+        Let's substitute $u = 1 - \sigma(z^{(i)})$ back:
+
+        $$
+        \frac{\partial \log(1-\sigma(z^{(i)})}{\partial \sigma(z^{(i)})} = -\frac{1}{1-\sigma(z^{(i)})}
+        $$
+
+        So, the derivative of $L^{(i)}$ with respect to $\sigma(z^{(i)})$ is:
+
+        $$
+        \frac{\partial L^{(i)}}{\partial \sigma(z^{(i)})} = -\frac{y^{(i)}}{\sigma(z^{(i)})} + \frac{(1-y^{(i)})}{1-\sigma(z^{(i)})}
+        $$
+    - Differentiate $\sigma(z^{(i)})$ with respect to $z^{(i)}$ (See [Derivative of Sigmoid Function](#derivative-of-sigmoid-function) for more details):
 
         $$
         \frac{\partial \sigma(z)}{\partial z} = \sigma(z)(1 - \sigma(z))
         $$
 
-    - $\frac{\partial z^{(i)}}{\partial \vec{\mathbf{w}}}$: Since $z^{(i)} = \vec{\mathbf{w}} \cdot \vec{\mathbf{x}}^{(i)} + b$, we have:
+    - Differentiate $z^{(i)}$ with respect to $\vec{\mathbf{w}}$:
         $$
         \frac{\partial z^{(i)}}{\partial \vec{\mathbf{w}}} = \vec{\mathbf{x}}^{(i)}
         $$
@@ -512,25 +526,31 @@ Let $z^{(i)} = \vec{\mathbf{w}} \cdot \vec{\mathbf{x}}^{(i)} + b$, so $f_{\vec{\
 
 
 6. Simplify the term in parentheses:
-   Use the fact that $\sigma(z^{(i)}) = f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})$:
-    $$
-    -\frac{y^{(i)}}{\sigma(z^{(i)})} + \frac{1 - y^{(i)}}{1 - \sigma(z^{(i)})} = \sigma(z^{(i)}) - y^{(i)}
-    $$
 
+    $$
+    \left( -y^{(i)}(1 - \sigma(z^{(i)})) + (1 - y^{(i)})\sigma(z^{(i)}) \right) \cdot \vec{\mathbf{x}}^{(i)} = (\sigma(z^{(i)}) - y^{(i)}) \cdot \vec{\mathbf{x}}^{(i)}
+    $$
     So:
     $$
     \frac{\partial L^{(i)}}{\partial \vec{\mathbf{w}}} = (\sigma(z^{(i)}) - y^{(i)}) \cdot \vec{\mathbf{x}}^{(i)}
     $$
+7.  Substitute $\sigma(z^{(i)}) = f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})$:
+
+    $$
+    \frac{\partial L^{(i)}}{\partial \vec{\mathbf{w}}} = (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)}) \cdot \vec{\mathbf{x}}^{(i)}
+    $$
 Now, to get the derivative of the cost function $J(\vec{\mathbf{w}}, b)$ with respect to $\vec{\mathbf{w}}$, we sum over all training examples:
    The gradient of $J(\vec{\mathbf{w}}, b)$ with respect to $\vec{\mathbf{w}}$ is:
     $$
-    \frac{\partial J}{\partial \vec{\mathbf{w}}} = \frac{1}{m} \sum_{i=1}^{m} (\sigma(z^{(i)}) - y^{(i)}) \cdot \vec{\mathbf{x}}^{(i)}
+    \frac{\partial J}{\partial \vec{\mathbf{w}}} = \frac{1}{m} \sum_{i=1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)}) \cdot \vec{\mathbf{x}}^{(i)}
     $$
 
 We can apply the same steps to find the derivative of $J(\vec{\mathbf{w}}, b)$ with respect to $b$. The final result for the gradient of $J(\vec{\mathbf{w}}, b)$ with respect to $b$ is:
+
 $$
-\frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} (\sigma(z^{(i)}) - y^{(i)})
+\frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})
 $$
+
 ### Rate of Change
 
 When we're taking the derivative of a function, we're trying to understand how fast the function is changing at a particular point. If we have a complex function formed by composing several simpler functions, we're interested in how fast that whole composition is changing.
