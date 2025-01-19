@@ -1,5 +1,7 @@
 # Gradient Descent
-Gradient Descent is an optimization algorithm used to minimize any function that can be expressed as a sum of differentiable functions.
+Gradient descent is an iterative optimization algorithm that finds a local minimum of a differentiable function by repeatedly stepping in the direction of the steepest descent, which is given by the negative of the function's first derivative (gradient).
+
+Gradient Descent is a _first order_ optimization algorithm, meaning it uses the first derivative (gradient) of the function to update the parameters. This makes it computationally simpler than _second order_ methods like Newton's method, which uses the second derivative (Hessian matrix).
 
 Gradient Descent is the most common algorithm used for minimizing the cost function of many machine learning models, from linear regression to the most complex neural networks.
 
@@ -332,6 +334,8 @@ The following plot is an example of the cost function decreasing with each itera
 ![](images/learning_curve_cost_vs_iterations.png)
 
 It's not always easy to guess how many iterations are needed to reach convergence. This plot helps visualize the training process and determine when to stop training.
+
+This [learning jumps](https://www.fast.ai/posts/2023-09-04-learning-jumps/) is an interesting article that dives into plot of cost function against iterations in fine-tuning LLMs.
 
 **Automatic Convergence Test**
 
