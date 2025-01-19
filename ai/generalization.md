@@ -279,3 +279,6 @@ L1 regularization is defined as the sum of the absolute values of the weights:
 $$
 \frac{\lambda}{m} \sum_{j=1}^{n} |w_j|
 $$
+
+
+> Regularization is a technique to prevent overfitting. However, it's implemented differently for different algorithms. For example, in neural networks and linear regression it's implemented by penalizing the model for having large parameters. In decision trees, it's implemented by limiting the depth of the tree or the number of leaf nodes.
