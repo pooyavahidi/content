@@ -73,28 +73,28 @@ During training, model tries to learn the best weights for the connections betwe
 
 
 
-### Details of the Neurons in a Layer
+### Inside the Neurons of a Layer
 Let dive a bit deeper into the internal structure of a neurons in a layer.
 
 ![](images/nn_neuron_activation_function.png)
 
+**Notation For Layers and Neurons**:<br>
+To denote the layers and neurons in a neural network, we use the following notation:
 
-**logit**: The weighted sum of the inputs to the neuron is called logit of the neuron. The logit is the input of the activation function.
-
-In the above figure, the logit denoted as:
-
-$$z^{[layer]}_{neuron}$$
+$$z^{[layer]}_{neuron} \quad \vec{\mathbf{w}}^{[layer]}_{neuron} \quad b^{[layer]}_{neuron} \quad a^{[layer]}_{neuron}$$
 
 Where:
-- $[layer]$ is the number of the layer.
-- $neuron$ is the number of the neuron in the layer.
+- Superscript $[layer]$ is the number of the layer.
+- Subscript $neuron$ is the number of the neuron in the layer.
 
+**logit**:<br>
+The weighted sum of the inputs to the neuron is called logit of the neuron. The logit is the input of the activation function. The logit of the neuron $n$ in the layer $l$ is denoted as:
 
-For example, in the above figure, Logit of the second neuron in the first layer is denoted as:
+$$z^{[l]}_{n}$$
+
+For example, Logit of the second neuron in the first layer is denoted as:
 
 $$z^{[1]}_2$$
-
-We use the similar notation for the weights, bias, and activation of the neuron.
 
 
 The logit of the first neuron in the first layer is calculated as:
@@ -168,11 +168,6 @@ a^{[1]}_n
 where:
 - $a^{[1]}_n$ is the activation value of the $n^{th}$ neuron in the first layer.
 
-**Each Layer Inputs a Vector and Outputs another Vector**:<br>
-As we discussed, the output of each layer is the **input** vector for the **next layer** and so on. So, $\vec{\mathbf{a}}^{[1]}$ is the input vector (features) for the second layer, $\vec{\mathbf{a}}^{[2]}$ is the input vector for the third layer, and so on.
-
-We can also denote input layer features $\vec{\mathbf{x}}$ as $\vec{\mathbf{a}}^{[0]}$ which represents the the output of the layer zero (input layer) and input vector of the layer 1.
-
 ### Each Layer Learns From the Previous Layer
 This is the key reason why neural networks are so capable and can learn complex patterns from the data. Because they can learn **new** features from the input features, and then learn **new** features from those learned features, and so on. The deeper (more layers) the neural network, the more new learned features it can have, so the more complex patterns it can learn.
 
@@ -185,7 +180,7 @@ This is the key difference comparing to othe ML algorithms which the model is li
 An intuitive way to think about a neural network is that just look at the last hidden layer and the output layer. This about the last hidden layer output as the input feature and the output layer as the model that predicts the target variable. But the key difference is that the last hidden layer features are **not** the original input features from our training dataset, but they are the **learned** and more complex features that learned from previous layers (other learned features) until they reach the last hidden layer. So, we changing the original input features with these learned features, to make the model more capable to learn complex patterns from the original data.
 
 **Example**<br>
-Let's say we want to classify images of persons. An image is a matrix of pixels. For example for a $100 \times 100$ pixel image, we have $10,000$$ pixels. If the image is grayscale (black and white), each pixel has a value between 0 and 255 which represents the _intensity_ of the pixel (0 is the complete black and 255 is the complete white, and all numbers between are shades of gray). So, this image can be represented as a $100\times100$ matrix of scalar values between 0 and 255. We can represent this matrix as a vector of $10,000$ values.
+Let's say we want to classify images of persons. An image is a matrix of pixels. For example for a $100 \times 100$ pixel image, we have $10,000$ pixels. If the image is grayscale (black and white), each pixel has only one value between 0 and 255 which called _pixel intensity_ (a value between 0 which is the complete black and 255 which is the complete white). So, this image can be represented as a $100\times100$ matrix of scalar values between 0 and 255. We can represent this matrix as a vector of $10,000$ values.
 
 
 $$
@@ -201,11 +196,11 @@ x_{10000}
 \end{bmatrix}
 $$
 
-where:
+Where:
 - $x_i$ is the intensity of the $i^{th}$ pixel. $x_1$ is the first pixel in the first row, $x_2$ is the second pixel in the first row, $x_{101}$ is the first pixel in the second row, and so on.
 
 
-> Most images use the RGB (Red, Green, Blue) color model, where the color of each pixel is determined by the combination of three color channels: red, green, and blue. Each channel has a value ranging from 0 to 255, where 0 represents the lowest intensity and 255 the highest intensity. So, if our example image was colored, we would have 3 channels for each pixel, and the image would be represented as a $100 \times 100 \times 3$ matrix of scalar values between 0 and 255, which can also be represented as a vector of $30,000$ values.
+> Most images use the RGB (Red, Green, Blue) color model, where the color of each pixel is determined by the combination of three color channels: red, green, and blue. Each channel has a value ranging from 0 to 255, where 0 represents the lowest intensity and 255 the highest intensity. So, if in our example the $100 \times 100$ image was colored, we would have 3 channels for each pixel (3 numbers for each pixel), and the image would be represented as a $100 \times 100 \times 3$ matrix of scalar values between 0 and 255, which can also be represented as a vector of $30,000$ values.
 
 **Each layer learns a more complex feature from learned-features of the previous layer**<br>
 The first layer of the neural network can learn features like edges, corners, and textures from the input image. The second layer can learn features like shapes, objects, and patterns from the learned features of the first layer. The third layer can learn features like faces, objects, and scenes from the learned features of the second layer. And so on.
@@ -217,9 +212,86 @@ Source: [Convolutional Deep Belief Networks
 for Scalable Unsupervised Learning of Hierarchical Representations](https://web.eecs.umich.edu/~honglak/icml09-ConvolutionalDeepBeliefNetworks.pdf)
 
 
+So, the neural network can learn complex patterns from the input data by learning new features from the learned features of the previous layer on its own. We don't need to engineer these features manually or even know what these features are. The neural network learns these features from low level features (like edges, corners, and textures) to high level features (like faces, objects, and scenes) completely on its own.
 
-### Notation
-
-![](images/nn_notations_details.png)
 
 Further reading here: [Understanding Neural Networks Through Deep Visualization](https://arxiv.org/abs/1506.06579)
+
+## Inference (Forward Pass)
+Forward pass (also called **Forward Propagation**) is the process of passing the input features $\vec{\mathbf{x}}$ through the first layer, then calculate the output of the first layer $\vec{\mathbf{a}}^{[1]}$, then pass this output to the second layer and calculate the output of the second layer $\vec{\mathbf{a}}^{[2]}$, and so on until we reach the output layer.
+
+As the name suggests, in the forward pass, we _pass_ the input features _forward_ through the network layer by layer to reach the output layer. In other words, we _propagate_ the activations of neurons from the input layer to the output layer.
+
+**Each Layer Inputs a Vector and Outputs another Vector**:<br>
+As we discussed, each layer inputs a vector of scalar values (features) and outputs another vector of scalar values (activation values of the neurons in that layer). The output of the layer is the input of the next layer and so on.
+
+So, $\vec{\mathbf{a}}^{[1]}$ is the input vector (features) for the second layer, $\vec{\mathbf{a}}^{[2]}$ is the input vector for the third layer, and so on.
+
+We can also denote input layer features $\vec{\mathbf{x}}$ as $\vec{\mathbf{a}}^{[0]}$ which represents the the output of the layer zero (input layer) and input vector of the layer 1.
+
+> By convention, when we say a neural network has $l$ layers, it means it has $l-1$ hidden layers and 1 output layer. So, we count the output layer as a layer, but we don't count the input layer. The above example has 3 layers, 2 hidden layers and 1 output layer.
+
+The following shows the details of the input and output of each layer and how they are calculated and connected to each other.
+
+![](images/nn_forward_pass.png)
+
+**Weights and Biases of Neurons**:<br>
+Each neuron has a weight for each input feature and a bias term. So, if the input vector for a layer has $n$ features, each neuron in that layer has $n$ weights and 1 bias term. We denote them as $\vec{\mathbf{w}}^{[layer]}_{neuron}$ and $b^{[layer]}_{neuron}$. The weight vector is a vector of weights for each input feature to the neuron. For example, $\vec{\mathbf{w}}^{[2]}_{1}$ and $b^{[2]}_{1}$ are the weight vector and bias term for the first neuron in the second layer.
+
+**Logit of a Neuron**:<br>
+Logit of a neuron is calculated by dot product of the weight vector for that neuron and the input vector of the layer (output of the previous layer) plus the bias term:
+
+$$z^{[l]}_{j} = \vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j}$$
+
+Where:
+- $l$ is the layer number.
+- $j$ is the neuron number in the layer.
+- $\vec{\mathbf{w}}^{[l]}_{j}$ is the weight vector for the neuron $j$ in the layer $l$.
+- $\vec{\mathbf{a}}^{[l-1]}$ is the output vector of the previous layer (input vector of the current layer).
+
+So, the activation value for neuron for layer $l$ neuron $j$ is calculated as:
+
+$$a^{[l]}_{j} = f(z^{[l]}_{j}) = f(\vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j})$$
+
+
+The output of the layer is calculated as by applying the activation function to the logit of each neuron in the layer:
+
+$$\vec{\mathbf{a}}^{[l]} = f(\vec{\mathbf{z}}^{[l]})$$
+
+
+**Activation Values are Scalar Numbers**<br>
+Remember that these input and output vectors are the vectors of activation values which are scalar numbers. For example using imaginary numbers, the input and output of each layer can be represented as:
+
+![](images/nn_vector_input_output.png)
+
+
+- $\vec{\mathbf{x}}=\vec{\mathbf{a}}^{[0]}$ is a vector of 2 numbers which is the input vector for the first layer.
+- $\vec{\mathbf{a}}^{[1]}$ is the output of the first layer which is a vector of 3 numbers. This vector is the input vector for the second layer.
+- $\vec{\mathbf{a}}^{[2]}$ is the output of the second layer which is a vector of 2 numbers. This vector is the input vector for the third layer.
+- $\vec{\mathbf{a}}^{[3]}$ is the output of the third layer (output layer) which is a vector of 1 number. This number is the output of the neural network and based on that we can predict the target variable $\hat{y}$.
+
+**Activation Functions for Each Layer**:<br>
+Each layer can have a different activation function.
+- The hidden layers can have the same activation function or different activation functions depending on the problem and performance.
+- The **output layer** is determined by the type of the problem we are solving. The output of this layer should provide the model's prediction, so we choose the activation function of this layer based on what we are predicting. For example, if we are solving a binary classification problem, we can use the Sigmoid Function as the activation function of the output layer, and if we are solving a multi-class classification problem, we can use the **Softmax** Function as the activation function of the output layer.
+
+**Derive the Prediction of $\hat{y}$ from the Output of the Neural Network**:<br>
+The output of the neural network is the output of the output layer. The output layer is the last layer of the neural network.
+
+Let's say in the above example we are solving a binary classification problem, and we designed the output layer to have only one neuron with Sigmoid function as the activation function. The output of the neural network is the output of this neuron:
+
+$$\vec{\mathbf{a}}^{[3]} = \begin{bmatrix} a^{[3]}_1 \\
+\end{bmatrix}$$
+Which
+
+$$a^{[3]}_1 = \sigma(z^{[3]}_1) = \sigma(\vec{\mathbf{w}}^{[3]}_{1} \cdot \vec{\mathbf{a}}^{[2]} + b^{[3]}_{1})$$
+
+If we set the threshold of the Sigmoid function to 0.5, the output of the neural network is:
+
+$$\hat{y} = 1 \quad \text{if} \quad a^{[3]}_1 \geq 0.5$$
+$$\hat{y} = 0 \quad \text{if} \quad a^{[3]}_1 < 0.5$$
+
+
+So, in the above example the model's prediction is $1$.
+
+$$a^{[3]}_1=0.72 \Rightarrow \hat{y}=1$$
