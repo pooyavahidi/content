@@ -87,6 +87,14 @@ Where:
 - Superscript $[layer]$ is the number of the layer.
 - Subscript $neuron$ is the number of the neuron in the layer.
 
+**Each Neuron has Two Steps of Calculation**:<br>
+Each neuron in a layer has two steps to calculate its output.
+
+1. **Linear Step:** Compute $\vec{\mathbf{w}} \cdot \vec{\mathbf{x}} + b$ to output the _logit_ $z$. This step also called _linear transformation_.
+.
+2. **Activation Step:** Apply the activation function (which usually is a nonlinear function)  e.g., ReLU, Sigmoid, or Tanh to $z$.
+
+
 **logit**:<br>
 The weighted sum of the inputs to the neuron is called logit of the neuron. The logit is the input of the activation function. The logit of the neuron $n$ in the layer $l$ is denoted as:
 
@@ -295,3 +303,61 @@ $$\hat{y} = 0 \quad \text{if} \quad a^{[3]}_1 < 0.5$$
 So, in the above example the model's prediction is $1$.
 
 $$a^{[3]}_1=0.72 \Rightarrow \hat{y}=1$$
+
+### Neural Network as a Function
+A nerual network can be seen as a composite function made of one or many internal functions (activation functions and their parameters).
+
+We can write a neural network as a function $f$ that takes an input vector $\vec{\mathbf{x}}$ and produces an output vector $\vec{\mathbf{y}}$:
+
+$$
+f_{\mathbf{W}, \mathbf{B}}(\mathbf{x})
+\;=\;
+f^{(L)}\bigl(\,f^{(L-1)}(\cdots f^{(1)}(\mathbf{x})\cdots)\bigr),
+$$
+
+
+Where:
+- $\mathbf{W}$ represent the **collection** of all weight matrices $\mathbf{W}^{(1)}, \mathbf{W}^{(2)},\dots,\mathbf{W}^{(L)}$ in each layer, flattened or treated together as one “big” parameter vector/matrix.
+- $\mathbf{B}$ can represent the **collection** of all bias vectors (one bias vector per layer), similarly combined.
+
+
+
+$$f_{{\mathbf{W}}, {\mathbf{B}}} (\vec{\mathbf{x}}) = \hat{y}$$
+
+
+> Note that $\mathbf{W}$ and $\mathbf{B}$ can each be a collection of layer-wise matrices/vectors rather than a single matrix or vector. However, grouping them into “big” parameter objects is quite standard in many notations.
+
+Using the simplified notation, we can denote all the weights and biases of the neural network as $\theta$:
+
+$$f_{\theta}(\vec{\mathbf{x}}) = \hat{y}$$
+
+Where $\theta$ is the collection of all weights and biases of the neural network.
+
+
+### Neural Network with One Neuron
+In the most simplest form, a neural network can have only one layer with one neuron. This is called a **Single Layer Perceptron**.
+
+**Single Neuron with No Activation Function**:<br>
+As we discussed, each neuron has two steps of calculation, the linear step (logit) and the activation step. If we drop the second step (activation step), the output of the neuron is the logit of the neuron.
+
+$$a^{[l]}_{j} = z^{[l]}_{j} = \vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j}$$
+
+Knowing that we have only one neuron and one layer, we can drop the superscript $l$ and subscript $j$, and write $\vec{\mathbf{x}}$ instead of $\vec{\mathbf{a}}^{[l-1]}$:
+
+$$a = z = \vec{\mathbf{w}} \cdot \vec{\mathbf{x}} + b$$
+
+Since we have only one neuron, the output $a$ of this neuron is the output of the whole neural network:
+
+$$f_{{\mathbf{W}}, {\mathbf{B}}} (\vec{\mathbf{x}}) = \hat{y} = a$$
+So:
+$$f_{{\mathbf{W}}, {\mathbf{B}}} (\vec{\mathbf{x}}) = = \vec{\mathbf{w}} \cdot \vec{\mathbf{x}} + b$$
+
+The above is the output of a neural network with one neuron and one layer. This is also equivalent to a **Linear Regression** model.
+
+Recall, the linear regression model is defined as:
+$$f_{\vec{\mathbf{w}}, b}(\vec{\mathbf{x}}) = \vec{\mathbf{w}} \cdot \vec{\mathbf{x}} + b$$
+
+
+So, a neural network with one neuron and one layer without the activation function (no activation step) is equivalent to a linear regression model.
+
+See this in action in [here]()
