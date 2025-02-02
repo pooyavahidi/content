@@ -88,4 +88,92 @@ This is a special case of matrix multiplication where one of the matrices has on
 $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \text{ , } \vec{\mathbf{b}} = \begin{bmatrix} 5 \\ 6 \end{bmatrix}$$
 
 $$\vec{\mathbf{c}} = A \cdot \vec{\mathbf{b}} = \begin{bmatrix} 1 \cdot 5 + 2 \cdot 6 \\ 3 \cdot 5 + 4 \cdot 6 \end{bmatrix} = \begin{bmatrix} 17 \\ 39 \end{bmatrix}$$
-$$
+
+## Tensor
+
+A **tensor** is a generalized multi-dimensional array that extends the concepts of **scalars (0D), vectors (1D), and matrices (2D)** to **higher dimensions (3D, 4D, etc.)**. Formally, a tensor is an element of a **tensor space**, which follows specific transformation rules under coordinate changes.
+
+In simple terms, a tensor is a **generalized** way to represent data of any number of dimensions, from 0D (scalar) to n-dimensional space.
+
+- A **scalar** (single number) is a **0D tensor**.
+- A **vector** (1D array) is a **1D tensor**.
+- A **matrix** (2D array) is a **2D tensor**.
+- A **higher-order tensor** (3D, 4D, etc.) represents **multi-dimensional data** e.g. high-dimensional features space.
+
+A tensor is just a flexible way to handle data of **any dimension (shape)** in mathematics (specially in linear algebra, differential geometry), physics and programming.
+
+Example of tensors in Python using NumPy:
+
+```python
+import numpy as np
+
+# A scalar (0D tensor), shape: ()
+scalar = np.array(5)
+# 5
+
+# A vector (1D tensor), shape: (3,) = 3 elements
+vector = np.array([1, 2, 3])
+# [1 2 3]
+
+# A matrix (2D tensor), shape: (3, 2) = 3 rows, 2 columns
+matrix = np.array([[1, 2], [3, 4], [5, 6]])
+# [[1 2]
+#  [3 4]
+#  [5 6]]
+
+# A 3D tensor, shape: (2, 2, 2) = 2x2x2 cube
+tensor_3d = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
+# [[[1 2]
+#   [3 4]]
+#
+#  [[5 6]
+#   [7 8]]]
+
+```
+
+
+**Matrix $2 \times 3$**:<br> 2 rows and 3 columns
+
+$$\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}$$
+
+```python
+np.array([[1, 2, 3], [4, 5, 6]])
+```
+
+**Matrix $3 \times 2$**:<br>
+3 rows and 2 columns
+
+$$\begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}$$
+
+```python
+np.array([[1, 2], [3, 4], [5, 6]])
+```
+
+**Column Vector as a Matrix**:<br>
+A column vector can be represented as a matrix with a single column.
+
+Column vector with 3 elements is a $3 \times 1$ matrix:
+
+$$\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$$
+
+```python
+np.array([[1], [2], [3]])
+```
+
+**Row Vector as a Matrix**:<br>
+A row vector can be represented as a matrix with a single row.
+
+Row vector with 3 elements is a $1 \times 3$ matrix:
+
+$$\begin{bmatrix} 1 & 2 & 3 \end{bmatrix}$$
+
+```python
+np.array([[1, 2, 3]])
+```
+
+> Machine learning libraries like TensorFlow, PyTorch uses 2D tensors to represent vectors and matrices for efficient computation. So, a 1D vector is represented as a 2D tensor with a single roj or column.
+>
+> Both PyTorch and TensorFlow has their own tensor classes to represent multi-dimensional data. For example, a 1D row vector in PyTorch is represented as a 2D tensor with a single row.
+> ```python
+> vector = torch.tensor([[1, 2, 3]])
+> ```
