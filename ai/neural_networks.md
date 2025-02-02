@@ -309,7 +309,9 @@ Where:
 
 So, the activation value of neuron $j$ in layer $l$ is calculated as:
 
-$$a^{[l]}_{j} = g(z^{[l]}_{j}) = g(\vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j})$$
+```math
+a^{[l]}_{j} = g(z^{[l]}_{j}) = g(\vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j})
+```
 
 **Calculation of the Output of a Layer in Practice**:<br>
 In practice, to increase the efficiency of the computation, we use matrix multiplication for the **entire layer** instead of calculating the output of each neuron separately.
@@ -319,10 +321,10 @@ $$
 $$
 
 Where:
-- $ \mathbf{W}^{[l]} $ is the **weight matrix** of shape $ (n^{[l]}, n^{[l-1]}) $. $n^{[l]}$ is the number of neurons in layer $l$ and $n^{[l-1]}$ is the number of neurons in the previous layer $l-1$.
-- $ \vec{\mathbf{a}}^{[l-1]} $ is the **activation vector** from the previous layer of shape $ (n^{[l-1]}, 1) $.
-- $ \vec{\mathbf{b}}^{[l]} $ is the **bias vector** of shape $ (n^{[l]}, 1) $, where each neuron has its own bias term.
-- $ \vec{\mathbf{z}}^{[l]} $ is the **linear transformation output** (pre-activation values) of shape $ (n^{[l]}, 1) $.
+- $\mathbf{W}^{[l]}$ is the **weight matrix** of shape $(n^{[l]}, n^{[l-1]})$. $n^{[l]}$ is the number of neurons in layer $l$ and $n^{[l-1]}$ is the number of neurons in the previous layer $l-1$.
+- $\vec{\mathbf{a}}^{[l-1]}$ is the **activation vector** from the previous layer of shape $(n^{[l-1]}, 1)$.
+- $\vec{\mathbf{b}}^{[l]}$ is the **bias vector** of shape $(n^{[l]}, 1)$, where each neuron has its own bias term.
+- $\vec{\mathbf{z}}^{[l]}$ is the **linear transformation output** (pre-activation values) of shape $(n^{[l]}, 1)$.
 
 
 Weight matrix for layer $l$:
@@ -389,9 +391,8 @@ $$
 \mathbf{W}^{[l]} \vec{\mathbf{a}}^{[l-1]} + \vec{\mathbf{b}}^{[l]}
 $$
 
-$$
-=
-\begin{bmatrix}
+```math
+=\begin{bmatrix}
 w^{[l]}_{1,1} & w^{[l]}_{1,2} & w^{[l]}_{1,3} & w^{[l]}_{1,4} \\
 w^{[l]}_{2,1} & w^{[l]}_{2,2} & w^{[l]}_{2,3} & w^{[l]}_{2,4} \\
 w^{[l]}_{3,1} & w^{[l]}_{3,2} & w^{[l]}_{3,3} & w^{[l]}_{3,4}
@@ -408,7 +409,7 @@ b^{[l]}_1 \\
 b^{[l]}_2 \\
 b^{[l]}_3
 \end{bmatrix}
-$$
+```
 
 Resulting in:
 
@@ -463,11 +464,16 @@ Depending on the problem we are solving and the output layer activation function
 
 Let's say in the above example we are solving a binary classification problem, and we designed the output layer to have only one neuron with Sigmoid function as the activation function. The output of the neural network is the output of this neuron:
 
-$$\vec{\mathbf{a}}^{[3]} = \begin{bmatrix} a^{[3]}_1 \\
-\end{bmatrix}$$
+```math
+\vec{\mathbf{a}}^{[3]} = \begin{bmatrix} a^{[3]}_1 \\
+\end{bmatrix}
+```
+
 Which
 
-$$a^{[3]}_1 = \sigma(z^{[3]}_1) = \sigma(\vec{\mathbf{w}}^{[3]}_{1} \cdot \vec{\mathbf{a}}^{[2]} + b^{[3]}_{1})$$
+```math
+a^{[3]}_1 = \sigma(z^{[3]}_1) = \sigma(\vec{\mathbf{w}}^{[3]}_{1} \cdot \vec{\mathbf{a}}^{[2]} + b^{[3]}_{1})
+```
 
 
 We interpret it as the conditional probability that the class label $y$ is **1** given the input $\vec{\mathbf{x}}$:
@@ -537,7 +543,9 @@ In the most simplest form, a neural network can have only one layer with one neu
 **Neuron with No Activation Function**:<br>
 As we discussed, each neuron has two steps of calculation, the linear step (Linear Transformation) and the activation step. If we drop the second step (activation step), the output of the neuron is the Linear Transformation of the neuron.
 
-$$a^{[l]}_{j} = z^{[l]}_{j} = \vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j}$$
+```math
+a^{[l]}_{j} = z^{[l]}_{j} = \vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j}
+```
 
 Knowing that we have only one neuron and one layer, we can drop the superscript $l$ and subscript $j$, and write $\vec{\mathbf{x}}$ instead of $\vec{\mathbf{a}}^{[l-1]}$:
 
