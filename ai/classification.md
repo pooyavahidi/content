@@ -348,3 +348,7 @@ So, the Gradient Descent algorithm for linear regression with regularization can
 Recall that we don't regularize the bias term $b$, so the gradient descent update rule for the bias term $b$ remains the same.
 
 For more details see [Gradient Descent with Regularization](generalization.md#gradient-descent-with-regularization).
+
+
+## Resources
+- [MLU - Logistic Regression](https://mlu-explain.github.io/logistic-regression/)

@@ -139,17 +139,24 @@ Each row of the matrix $X$ represents a training example. For example, $x_2^{(3)
 We can write each training example (row) as a vector $\vec{\mathbf{x}}^{(i)}$ which is a vectore of all features of the $i^{th}$ training example:
 
 $$
-\vec{\mathbf{x}}^{(i)} = \begin{bmatrix} x_{1}^{(i)} \\
-x_{2}^{(i)} \\
-\vdots \\
-x_{n}^{(i)}
-\end{bmatrix}
+\vec{\mathbf{x}}^{(i)} = \begin{bmatrix} x_{1}^{(i)} & x_{2}^{(i)} & \dots & x_{n}^{(i)} \end{bmatrix}
 $$
 
 We can also write the weights $w$ as a vector $\vec{\mathbf{w}}$:
 
+
+$$\vec{\mathbf{w}} = \begin{bmatrix} w_{1} & w_{2} & \dots & w_{n} \end{bmatrix}$$
+
+
+
+Now let's write the model in a vectorized form, which is the _dot product_ of two vectors of input features $\vec{\mathbf{x}}$ and weights $\vec{\mathbf{w}}$.
+
+To compute the dot product of two row vectors, one of them should be converted to a column vector. So, we take the _transpose_ of the weight vector $\vec{\mathbf{w}}$ to get a column vector $\vec{\mathbf{w}}^\top$. Then the dot product of $\vec{\mathbf{w}}^\top$ and $\vec{\mathbf{x}}^{(i)}$ gives a scalar value which is our goal in linear regression. More on this here at [vector and matrix operations](glossary.md#vector-and-matrix-operations)
+
+So, the transpose of $\vec{\mathbf{w}}$ is:
+
 $$
-\vec{\mathbf{w}} = \begin{bmatrix} w_{1} \\
+\vec{\mathbf{w}}^\top = \begin{bmatrix} w_{1} \\
 w_{2} \\
 \vdots \\
 w_{n}
@@ -157,14 +164,10 @@ w_{n}
 $$
 
 
-Now let's write the model in a vectorized form, which is the _dot product_ of two vectors of input features $\vec{\mathbf{x}}$ and weights $\vec{\mathbf{w}}$.
 
-To compute the dot product of two vectors, one of them should be converted to a row vector. So, we take the _transpose_ of the weight vector $\vec{\mathbf{w}}$ to get a row vector $\vec{\mathbf{w}}^\top$. Then the dot product of $\vec{\mathbf{w}}^\top$ and $\vec{\mathbf{x}}^{(i)}$ gives a scalar value which is our goal in linear regression. More on this here at [vector and matrix operations](glossary.md#vector-and-matrix-operations)
+The dot product of $\vec{\mathbf{w}}^\top$ and $\vec{\mathbf{x}}^{(i)}$ is a scalar value calculated as:
 
-So, the transpose of $\vec{\mathbf{w}}$ is:
-
-$$\vec{\mathbf{w}}^\top = \begin{bmatrix} w_{1} & w_{2} & \dots & w_{n} \end{bmatrix}$$
-
+$$\vec{\mathbf{w}}^\top \cdot \vec{\mathbf{x}}^{(i)} = w_{1}x_{1}^{(i)} + w_{2}x_{2}^{(i)} + ... + w_{n}x_{n}^{(i)}$$
 
 So, the model function can be written as:
 
@@ -172,8 +175,8 @@ $$f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) = \vec{\mathbf{w}}^\top \cdot \
 
 
 where:
-- $\vec{\mathbf{x}}^{(i)}$ is a _column vector_ of input features of $i^{th}$ training example, which is $\vec{\mathbf{x}}^{(i)} = [x_{1}^{(i)}, x_{2}^{(i)}, ..., x_{n}^{(i)}]$
-- $\vec{\mathbf{w}}^\top$ is a _row vector_, which is the transpose of the weight vector $\vec{\mathbf{w}} = [w_{1}, w_{2}, ..., w_{n}]$
+- $\vec{\mathbf{x}}^{(i)}$ is a _row vector_ of input features of $i^{th}$ training example, which is $\vec{\mathbf{x}}^{(i)} = [x_{1}^{(i)}, x_{2}^{(i)}, ..., x_{n}^{(i)}]$
+- $\vec{\mathbf{w}}^\top$ is a _column vector_, which is the transpose of the weight vector $\vec{\mathbf{w}} = [w_{1}, w_{2}, ..., w_{n}]$
 - $b$ is a scalar value (bias)
 
 
