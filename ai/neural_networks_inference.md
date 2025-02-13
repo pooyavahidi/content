@@ -149,7 +149,16 @@ Where:
 
 > By convention, deep learning frameworks like TensorFlow and PyTorch, a batch of examples is represented as a matrix (2D tensor) where each **row** is a single example in the batch and each column is a feature of the example. This convention goes throughout the calculations of linear transformation matrix $Z$ and activation matrix $A$.
 >
-> In some text, you may see $Z^{[l]} = {A^{[l-1]}}^\top W^{[l]} + \vec{\mathbf{b}}^{[l]}$ where the input matrix is transposed. This is mathematically equivalent to the above, but with the difference that input examples are represented as **columns** instead of rows. However, it's more common to represent examples as rows in deep learning frameworks.
+> In some text (like in the book of Deep Learning by Ian Goodfellow et al.), you see:
+>
+> $$z = {W}^\top h + b$$
+> Where $h$ is the hidden features of the layer which is defined by $h = f(x;\theta)$
+>
+> If we represent the above using the notation we used so far:
+>
+> $$Z^{[l]} = {{W^{[l]}}^\top}A^{[l-1]} + \vec{\mathbf{b}}^{[l]}$$
+>
+> This is mathematically equivalent to the above calculations, but with the difference that input examples, weights and biases are all stacked as **columns**, which then linear transformation and activation are also follow the same convention. This is just a different way of representing the data and calculations.
 
 
 **Example:**<br>
@@ -232,7 +241,7 @@ Where:
 This matrix multiplication is why deep learning becomes very scalable in particular with GPUs. GPUs are optimized for matrix multiplication and can perform these operations very efficiently. This is why deep learning framework such as TensorFlow and PyTorch use 2D tensors to represent parameters and activations.
 
 
-See this in code example [here]().
+See this in code example [here](https://github.com/pooyavahidi/examples/blob/main/ai/nn_forward_pass_impl.ipynb).
 
 
 ## Activation Values are Scalar Numbers
@@ -252,6 +261,8 @@ For example using imaginary numbers, the input and output of each layer for a si
 Each layer can have a different activation function.
 - The hidden layers can have the same activation function or different activation functions depending on the problem and performance.
 - The **output layer** is determined by the type of the problem we are solving. The output of this layer should provide the model's prediction, so we choose the activation function of this layer based on what we are predicting. For example, if we are solving a binary classification problem, we can use the Sigmoid Function as the activation function of the output layer, and if we are solving a multi-class classification problem, we can use the **Softmax** Function as the activation function of the output layer.
+
+See more on Activation Functions [here](neural_networks_activation_functions.md).
 
 **Logit**:<br>
 For the classification problems, where the output layer has an activation function like **Softmax** or **Sigmoid**, the Linear Transformation of the output layer is also called **Logit**. The logit is the output of the output layer before applying the activation function.
@@ -407,27 +418,6 @@ $$f_{{\mathbf{W}}, {\mathbf{B}}} (\vec{\mathbf{x}}) = \frac{1}{1 + e^{-(\vec{\ma
 The above is the equivalent of a logistic regression model. So, we can say that a neural network with one neuron in one layer with the Sigmoid activation function is equivalent to a logistic regression model.
 
 See this in action [here](https://github.com/pooyavahidi/examples/blob/main/ai/nn_neurons_and_layers.ipynb).
-
-## Activation Functions Types
-Activation functions are the internal functions of neurons that calculate the output of the neuron. Activation functions are non-linear functions. The non-linearity of the activation functions is a key factor in the success of neural networks which make them different from linear models like linear regression and make them capable of learning complex patterns from the data.
-
-**Common Activation Functions**:<br>
-- Sigmoid Function
-- Tanh Function
-- ReLU (Rectified Linear Unit) Function
-- Softmax Function
-
-**Sigmoid Function**:<br>
-
-$$g(z) =\sigma(z) = \frac{1}{1 + e^{-z}}$$
-
-The Sigmoid function is mainly used in the output layer rather than hidden layers. It's used in the output layer of binary classification problems. More on that [here](classification.md#sigmoid-function).
-
-**ReLU (Rectified Linear Unit) Function**:<br>
-
-$$g(z) = \max(0, z)$$
-
-Currently ReLU function is one the most commonly used activation function in neural networks for hidden layers. It's simple and computationally efficient.
 
 ## Implementation of Forward Pass
 
