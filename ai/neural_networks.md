@@ -46,6 +46,8 @@ Some of the most common activation functions are:
 - Tanh Function
 - Softmax Function
 
+More on activation functions [here](neural_networks_activation_functions.md).
+
 **Layers:**<br>
 Neural Network is a collection of layers of neurons. Each layer is a collection of neurons that are connected to the neurons in the previous layer. The first layer is called the **Input Layer** and the last layer is called the **Output Layer**. The layers between the input and output layers are called **Hidden Layers**.
 
@@ -90,6 +92,7 @@ During training, model tries to learn the best weights for the connections betwe
 
 > The term **Perceptron** is original name for one neuron (one computational unit) which was introduced in 1950s. The term **Perceptron** is still used in some contexts to refer to a single neuron (a single activation unit). The term **Multi-Layer Perceptron (MLP)** is used to refer to a neural network with multiple layers of neurons.
 
+More on the neural networks layers [here](neural_networks_layers.md).
 
 ### Inside the Neurons of a Layer
 Let dive a bit deeper into the internal structure of a neurons in a layer.
@@ -109,7 +112,7 @@ Where:
 
 1. **Linear Transformation:** Compute $\vec{\mathbf{w}} \cdot \vec{\mathbf{x}} + b$ to output the $z$. This is also called _pre-activation_.
 
-2. **Activation Step:** Apply the activation function on the output of linear transformation of the neuron. Activation function usually is a non-linear function.
+2. **Activation Step (non-linearity):** Apply the activation function on the output of linear transformation of the neuron. Activation function is responsible for adding [non-linearity](neural_networks_activation_functions.md#activation-functions-adds-non-linearity) to the model.
 
 
 **Linear Transformation**:<br>
@@ -206,7 +209,7 @@ However, not only possible for a neural network to have some layers have differe
 ### Each Layer Learns From the Previous Layer
 This is the key reason why neural networks are so capable and can learn complex patterns from the data. Because they can learn **new** features from the input features, and then learn **new** features from those learned features, and so on. The deeper (more layers) the neural network, the more new learned features it can have, so the more complex patterns it can learn.
 
-**Learned features** in hidden layers are the features that neural network learns on its own from the learned features of the previous layer. The first hidden layer learns features from the input features. The second hidden layer learns from the **learned features** of the first hidden layer, and so on. So, each layer learns higher level features and more complex patterns from the learned features of the previous layer.
+**Learned features** (also called _hidden features_) are the features that neural network learns on its own. They are not provided by the training dataset. The first hidden layer learns features from the input features. The second hidden layer learns from the **learned features** of the first hidden layer, and so on. So, each layer learns higher level features and more complex patterns from the learned features of the previous layer.
 
 
 This is the key difference comparing to othe ML algorithms which the model is limited to the features that we provide to it. As we discussed in [feautre engineering](feature_engineering.md), we can engineer new features from the existing features, but this is a manual process and in many cases we can't engineer all possible relevant features. Also, we could see that engineering new features can cause problems like [curse of dimensionality](feature_engineering.md#dimensionality-reduction) and [overfitting](generalization.md#overfitting). But in neural networks, the model can learn new features automatically and much more efficiently than manual feature engineering.
@@ -257,3 +260,7 @@ Further reading here: [Understanding Neural Networks Through Deep Visualization]
 ## Inference (Forward Pass)
 
 See [Neural Networks Inference (Forward Pass)](neural_networks_inference.md)
+
+
+## Training
+See [Neural Networks Training](neural_networks_training.md)
