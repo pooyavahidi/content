@@ -20,15 +20,10 @@ This is a type of classification where the target variable has only two classes.
 - 1 or 0
 
 
-**Multi-class Classification**<br>
+**Multiclass Classification**<br>
 This is a type of classification where the target variable has more than two classes.
 
-| Question | Target Variable |
-| --- | --- |
-| What type of tumor is this? | Malignant, Benign, Normal |
-| What type of animal is this? | Cat, Dog, Bird |
-| What type of vehicle is this? | Car, Truck, Bus, Motorcycle, Bicycle |
-
+More on [Multiclass Classification](multiclass_classification.md).
 
 ## Logistic Regression
 
