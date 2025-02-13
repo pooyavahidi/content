@@ -419,23 +419,39 @@ For example,  if we have total number of 10,000 examples and batch size of 100, 
 1. **Batch Processing:** The dataset of 10,000 examples is divided into smaller batches of 100 examples each.
 
 2. **Backpropagation and Parameter Updates:** For each batch, the model performs a forward pass, where it makes predictions based on the current state of its parameters. Then, it computes the loss (difference between the predicted values and the actual values). Following this, a backpropagation step is performed, where the gradient of the loss function with respect to each parameter is calculated. Finally, the model updates its parameters based on these gradients. This entire process—from forward pass to parameter update—is done **once** per batch.
----
-> In this example, each epoc consists of 100 iterations, and each iteration consists of one full forward pass, backpropagation, and parameters update step. So, here we run backpropagation and update the parameters 100 times in each epoch.
 
+For example, let's say we have:
+- **Total Examples:** 10,000
+- **Batch Size:** 32
+- **epochs:** 100
+
+So:
+- **Number of Batches:** 10,000 / 32 = 313
+- **Number of Iterations:** 313 iterations. One per batch.
 
 ```sh
-for each epoch:
-    for each batch:
-        - forward pass using the batch
-        - compute loss of the batch
+for each epoch: # repeat 100 times
+    batches = split dataset into batches
+    for batch in batches: # repeat 313 times
+        # Run all steps for each batch of 32 examples
+        - forward pass with 32 examples
+        - compute cost (m = 32)
         - backward pass (backpropagation)
         - update parameters
 ```
-**Iteration** = All the steps (forward pass, backward pass, and parameter update) performed on a single batch.
+So, the above will run:
 
- **for each batch** =   **for each iteration**.
+**Notes:**
+- **Iteration** = All the steps (forward pass, backward pass, and parameter update) performed on a single batch, called an iteration. You can replace words of "for each batch" with "for each iteration" without changing the meaning.
+- Each epoch has multiple iterations for the number of batches. In above, each epoch has 313 iterations which in each iteration we update the parameters based on the gradients calculated from 32 examples.
+- Epochs = The number of times the model sees the entire dataset. In above, the model sees the entire dataset 100 times.
+- For the `epoch = 100` and `batch_size = 32`, We calculate the gradients and update the parameters 313 x 100 = 31,300 times in total. In other words, we take 31,300 gradient steps to train the model.
+- Number of parameter updates per epoch = Number of batches per epoch = 313
+- In each batch, the whole examples in the batch (32 examples) are given to the model to calculate the gradients and update the parameters. So, the model sees the entire batch at once. Model uses matrix operations to calculate the gradients and update the parameters for the entire batch at once. More on that [here](neural_networks_inference.md#forward-pass-calculation-in-practice)
 
- So, in each epoch, we have multiple iterations for the number of batches (depending on the batch size).
+**Special Case of Batch Size = 1**
+A batch of 1, means in each epoch, the model go through all batches (e.g. 1000 examples in batch size of 1, means 1000 batches) and update the parameters after each example. So, in each epoch, the model updates its parameters 1000 times. This is equivalent to traditional **Stochastic Gradient Descent (SGD)**.
+
 
 This granular approach of updating weights allows for a more nuanced adjustment of the model's parameters, potentially leading to better learning dynamics compared to updating weights after looking at the entire dataset at once.
 
