@@ -20,41 +20,41 @@ where:
 >
 >$$\ell\bigl(\hat{y}, y\bigr)$$
 
-For the model $f_{\mathbf{W}, \vec{\mathbf{b}}}$, which outputs predictions $\hat{y} = f_{\mathbf{W}, \vec{\mathbf{b}}}(\mathbf{x})$, the loss for a single instance is  written as:
+For the model $f_{W, \vec{\mathbf{b}}}$, which outputs predictions $\hat{y} = f_{W, \vec{\mathbf{b}}}(\mathbf{x})$, the loss for a single instance is  written as:
 $$
-L(\hat{y}, y) = L(f_{\mathbf{W}, \vec{\mathbf{b}}}(\mathbf{x}), y)
+L(\hat{y}, y) = L(f_{W, \vec{\mathbf{b}}}(\mathbf{x}), y)
 $$
 
 where:
 - **$f$**: The machine learning model that maps input features $\mathbf{x}$ to output predictions $\hat{y}$.
 - **$\hat{y}$**: The predicted value output by the model.
-- **$\mathbf{W}$**: The weights of the model, representing the learnable parameters associated with each input feature. $\mathbf{W}$ is a **matrix** whose shape depends on the type of model:
-    - For **linear regression** or **logistic regression**, $\mathbf{W}$ is a vector of shape $(m, 1)$, where $m$ is the number of input features.
-    - For **neural networks**, $\mathbf{W}$ is a matrix of shape $(h, m)$, where $h$ is the number of neurons in the current layer, and $m$ is the number of inputs (or neurons in the previous layer).
+- **$W$**: The weights of the model, representing the learnable parameters associated with each input feature. $W$ is a **matrix** whose shape depends on the type of model:
+    - In **linear regression** or **logistic regression**, $W$ is actually a vector of shape $(m,)$, and denoted as $\vec{\mathbf{w}}$, where $m$ is the number of input features.
+    - In **neural networks**, $W$ is a matrix of shape $(h, m)$, where $h$ is the number of neurons in the current layer, and $m$ is the number of inputs (or neurons in the previous layer).
 - **$\vec{\mathbf{b}}$**: The biases of the model, for each output:
   - $\vec{\mathbf{b}}$ is a **vector**, where its length corresponds to the number of neurons in the current layer.
   - For simpler models like linear regression, the bias is a **scalar** $b$.
   - Sometime for batch processing, we use $B$ as the bias matrix which is a matrix of shape $(h, m)$, where $h$ is the number of neurons in the current layer, and $m$ is the number of instances in the batch.
 
 **Using $\theta$ (theta) notation**:<br>
-For simplicity, it's common to use a single parameter set $\theta$ to represent all the learnable parameters of the model, including the weights $\mathbf{W}$ and biases $\vec{\mathbf{b}}$. In this case, the loss function is written as:
+For simplicity, it's common to use a single parameter set $\theta$ to represent all the learnable parameters of the model, including the weights $W$ and biases $B$. In this case, the loss function is written as:
 
 $$
 L\bigl(\hat{y}, y\bigr) \;=\; L(f_\theta(\mathbf{x}),\, y)
 $$
 
 where:
-- $\theta$ encapsulates $\mathbf{W}$ and $\vec{\mathbf{b}}$ (all the learnable parameters of the model).
+- $\theta$ encapsulates $W$ and $B$ (all the learnable parameters of the model).
 
 
-## Loss vs Cost Functions
+## Loss and Cost Functions
 
 While the terms **loss** and **cost** are often used interchangeably, they have distinct meanings:
 
 - **Loss Function**: Measures error for a **single instance**, denoted as $L(\hat{y}, y)$.
 - **Cost Function**: Aggregates the loss over the entire dataset, giving an overall measure of model performance. Typically, the cost function is the **average loss** across $m$ instances:
 $$
-J(\mathbf{W}, \vec{\mathbf{b}}) = \frac{1}{m} \sum_{i=1}^{m} L(f_{\mathbf{W}, \vec{\mathbf{b}}}(\mathbf{x}^{(i)}), y^{(i)})
+J(W, B) = \frac{1}{m} \sum_{i=1}^{m} L(f_{W,B}(\vec{\mathbf{x}}^{(i)}), y^{(i)})
 $$
 
 **Using $\theta$ (theta) notation**:<br>
@@ -67,7 +67,7 @@ $$
 
 > Both Loss $L$ and Cost $J$ are scalar values (non-negative real numbers) that quantify the error between the model's predictions and the true values.
 
-Loss functions vary across models and problems, chosen based on the use-case, data, and objectives. The cost function is simply the average of these losses over the training set (or batch).
+Choice of Loss function is tightly depend on the problem we are trying to solve. It's chosen based on the use-case, data, and objectives. The cost function is simply the average of these losses over the training set (or batch).
 
 **Cost Function for batches**<br>
 In practice, during the process of training, this averaging of losses is typically performed over a **subset** of the total training examples, known as a batch (or mini-batch). This batch-based averaging approach forms the basis of the commonly used [**mini-batch Stochastic Gradient Descent (SGD)**](gradient_descent.md#mini-batch-sgd) and its variants, where the model's parameters are updated incrementally after computing the cost function for each batch.
@@ -82,7 +82,7 @@ So, even though we run forward/backward pass for a batch, we update the paramete
 
 >In simple terms, **Loss** is the error between the prediction of the model and actual ground truth label $y$ for one example from the training dataset. While **Cost** is the average of loss across all examples (or the batch) in the training dataset.
 >
->The goal of training a machine learning model is to find $\mathbf{W}$ and $\vec{\mathbf{b}}$ (weights and biases) that minimize the cost function $J(\mathbf{W}, \vec{\mathbf{b}})$ using optimization algorithms such as gradient descent.
+>The goal of training a machine learning model is to find $W$ and $B$ (weights and biases) that minimize the cost function $J(W,B)$ using optimization algorithms such as gradient descent.
 
 
 
