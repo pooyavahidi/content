@@ -455,7 +455,44 @@ A batch of 1, means in each epoch, the model go through all batches (e.g. 1000 e
 
 This granular approach of updating weights allows for a more nuanced adjustment of the model's parameters, potentially leading to better learning dynamics compared to updating weights after looking at the entire dataset at once.
 
+## Adaptive Learning Rate Methods
+As we discused, in gradient descent, the learning rate is a hyperparameters which is defined before the training process. This learning rate controls the step size of the descent (how much change we make to the parameters in each iteration). Choosing the right learning rate is crucial for the convergence and also training speed.
 
+$$
+\begin{align*} \text{repeat}&\text{ until convergence: } \lbrace \newline
+& w_j = w_j -  \alpha \frac{\partial J(\vec{\mathbf{w}},b)}{\partial w_j} \; & \text{for j = 0..n-1}\newline
+&b\ \ = b -  \alpha \frac{\partial J(\vec{\mathbf{w}},b)}{\partial b}  \newline \rbrace
+\end{align*}
+$$
+
+Where:
+- $\alpha$ is the learning rate.
+- $n$ is the number of parameters (weights).
+
+When the learning rate is too small, the model explore the loss surface very thoroughly, but also very slowly. On the other hand, when the learning rate is too large, the model may overshoot the minimum and never converge.
+
+So, based on how the gradient descent is progressing, sometimes we want to increase or decrease the learning rate, to maximize the convergence speed and also to avoid overshooting the minimum.
+
+To address this challenge, _Adaptive Learning Rate Methods_ have been developed. These methods adjust the learning rate during training based on the behavior of the optimization process. One of the most popular adaptive learning rate methods is **Adam** (Adaptive Moment Estimation).
+
+### Adam (Adaptive Moment Estimation)
+In Adam algorithm, we have **separate** learning rate for each parameter ($w$ and $b$).
+
+Intuitively, when a parameter goes towards the same direction, Adam increases the learning rate for that parameter (to move faster), and when it goes back-and-forth (oscillating), then Adam decreases the learning rate for that parameter (to slow down).
+
+In Adam, we have separate learning rate for each parameter.
+
+$$
+\begin{align*} \text{repeat}&\text{ until convergence: } \lbrace \newline
+& w_1 = w_1 -  \textcolor{red}{\alpha_1} \frac{\partial J(\vec{\mathbf{w}},b)}{\partial w_1}\newline
+& w_2 = w_2 -  \textcolor{red}{\alpha_2} \frac{\partial J(\vec{\mathbf{w}},b)}{\partial w_2}\newline
+& \vdots \newline
+& w_n = w_n -  \textcolor{red}{\alpha_n} \frac{\partial J(\vec{\mathbf{w}},b)}{\partial w_n}\newline
+&b\ \ = b -  \textcolor{red}{\alpha_{n+1}} \frac{\partial J(\vec{\mathbf{w}},b)}{\partial b}  \newline \rbrace
+\end{align*}
+$$
+
+Due to fast convergence and removing the need to guess and manually fine-tune the learning rate, Adam has become one of the most popular and commonly used optimization algorithms in deep learning in comparison to traditional gradient descent. Although we should note, that the Adam still uses all the core principles of gradient descent but with some improvements on top of it to make it more efficient.
 
 ## Practical Problems
 ### Escaping Local Minimas and Saddle Points
@@ -479,7 +516,7 @@ The problem of converging to different minima or stalling at saddle points is in
 To mitigate the effects of local minima and saddle points, strategies focus on improving the optimizer's ability to **explore** the landscape effectively:
 
 - **Reduce Batch Size:** Introduces stochasticity, helping the optimizer escape shallow minima or saddle points. It allows the optimizer to explore more of the loss surface, potentially finding better minima.
-- **Reduce the Learning Rate:** A smaller learning rate helps avoid overshooting good minima, while a schedule or warm restarts can aid in navigating the landscape. A reduced learning rate provides fine-grained updates, aiding in precise convergence once near a minimum.
+- **Reduce the Learning Rate:** A smaller learning rate helps avoid overshooting good minima, while a schedule or warm restarts can aid in navigating the landscape. A reduced learning rate provides fine-grained updates, aiding in precise convergence once near a minimum. Although this approach may not be necessary whe we use adaptive learning rate methods like Adam.
 
 - **Use Optimizer Variants:** Advanced optimizers like Adam or RMSprop adjust learning rates adaptively, which can help traverse complex landscapes.
 
