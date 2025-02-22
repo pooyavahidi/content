@@ -1,30 +1,32 @@
 # Derivatives
+Derivative in simple terms, is the **rate of change** of a function. The derivative tells how quickly a function's output changes when its input is changed slightly.
 
-To understand derivatives, it's important to first understand the concept of **slope**.
+
+## Average Rate of Change
+To understand derivatives, it's important to first understand the concept of **slope**. The slope of a line is a measure of how much the line _rises_ or _falls_ vertically for each unit of horizontal movement. In other words, what is effect on function $y$ when we make a change on $x$.
+
+Let's say we have function $f$ of $x$:
+$$y = f(x)$$
+
+Then, the slope between two points $(x_1, y_1)$ and $(x_2, y_2)$ on the curve is given by:
+
+$$\text{Slope} = \frac{\text{Height}}{\text{Width}} = \frac{\text{Rise}}{\text{Run}} = \frac{y_2 - y_1}{x_2 - x_1}$$
 
 
-## Slope
-The slope of a line is a measure of how much the line rises or falls vertically for each unit of horizontal movement.
-
-$$\text{Slope} = \frac{\text{rise}}{\text{run}} = \frac{\Delta y}{\Delta x}$$
-
-where:
-- $\Delta y$ is the change in the vertical direction
-- $\Delta x$ is the change in the horizontal direction.
 
 This is also known as the **rise over run** formula.
 
 If we denote the slope of a line as $m$, then the slope of the line passing through two points $(x_1, y_1)$ and $(x_2, y_2)$ is given by:
 
-$$m = \frac{{\text{{change in }} y}}{{\text{{change in }} x}} = \frac{{\Delta y}}{{\Delta x}} = \frac{{y_2 - y_1}}{{x_2 - x_1}}$$
+$$m = \frac{{\text{{change in }} y}}{{\text{{change in }} x}} = \frac{{y_2 - y_1}}{{x_2 - x_1}} = \frac{{\Delta y}}{{\Delta x}}$$
 
-The equation for a tangent line to a function between two points $(x_1, y_1)$ and $(x_2, y_2)$ is given by:
+The equation for a slope to a function between two points $(x_1, y_1)$ and $(x_2, y_2)$ is given by:
 
 $$y_2 - y_1 = m(x_2 - x_1)$$
 
 where:
-- $(x_1, y_1)$ is a point on the line
-- $(x_2, y_2)$ is another point on the line
+- $(x_1, y_1)$ is the first point on the curve.
+- $(x_2, y_2)$ is the second point on the curve.
 - $m$ is the slope of the line.
 
 
@@ -46,8 +48,8 @@ where:
 - $m$ is the slope of the line connecting the two points
 - $(x_1, y_1)$ is a point on the line.
 
-## Derivative and Tangent Line
-As we discussed, the slope between two points gives us the average rate of change of a function over an interval. However, what if we want to measure the rate of change at a specific point on the function? We need to find the slope of the curve when these two points are very close to each other. So, the derivative emerges when those two points, $x_1$ and $x_2$, get infinitely close to each other, effectively collapsing into a single point. This process requires taking the **limit** as $x_2 \to x_1$ or in other words, $\Delta x \to 0$.
+## Rate of Change at a Specific Point
+As we discussed, the slope between two points gives us the average rate of change of a function over an interval. However, to find the exact rate of change of a function at a specific point, we need to consider the slope of the curve when those two points, $x_1$ and $x_2$, get infinitely close to each other, effectively collapsing into a single point. We denote this using the **limit** as $x_2 \to x_1$ or in other words, $\Delta x \to 0$.
 
 So, the derivative of a function $f(x)$ at a point $x$ is defined as:
 
@@ -56,17 +58,6 @@ $$\frac{df(x)}{dx} = \lim_{\Delta x \to 0} \frac{f(x+\Delta x)-f(x)}{\Delta x}$$
 Let's assume the difference between $x_2$ and $x_1$ is called $\epsilon$ (epsilon), which means $\Delta x = \epsilon$. Then the derivative is the limit as $\epsilon$ approaches zero:
 
 $$\frac{df(x)}{dx}=\lim_{\epsilon\to 0} \frac{f(x+\epsilon)-f(x)}{\epsilon}$$
-
-
-
-
-
-> Derivative of a function measures the rate of change of the function at a particular point. In other words, derivative of $f(x)$ is finding what would be the impact on function $f(x)$, when we make a very tiny change on $x$.
-> $$\frac{df(x)}{dx}=\frac{\text{Changes of }f(x)}{\text{In respect to very tiny changes of }x}$$
-><br>
-> The derivative of a function $f(x)$ is denoted $\frac{df}{dx}$ or using prime notation $f'(x)$.  The symbol $d$ in $\frac{df}{dx}$ is called "differential" and represents a small change in the function $f(x)$ due to a small change in $x$.
-
-<br>
 
 **Tangent Line:**<br>
 As we discussed, slope is a measure of average rate of change over an interval (between two points on a function). However as we discussed, for measuring the rate of change at a specific point, we need to assume the interval between two points is infinitesimally small.
@@ -77,6 +68,25 @@ Tangent Line is the slope of the function when the interval between two points i
 The following plot shows the function $J(w) = w^2$ and the tangent line at $w=3$:
 
 ![](images/derivatives_tangent_line.png)
+
+
+
+
+
+So, derivative of a function measures the rate of change of the function at a particular point. In other words, derivative of $f(x)$ is finding what would be the impact on function $f(x)$, when we make a very tiny change on $x$.
+
+$$\frac{df(x)}{dx}=\frac{\text{Changes of }f(x)}{\text{In respect to very tiny changes of }x}$$
+
+The derivative of a function $f(x)$ is simply denoted as:
+
+$$\frac{df}{dx}$$
+
+Or using prime notation:
+
+$$f'(x)$$
+
+The symbol $d$ in $\frac{df}{dx}$ refers to the word _differential_ which represents the change in the function $f(x)$ due to a very small change in $x$.
+
 
 
 
@@ -104,19 +114,21 @@ Finally, as $\epsilon$ approaches zero, the second term in the parenthesis disap
 
 $$\frac{df(x)}{dx}=2x$$
 
-So the derivative of $f(x) = x^2$ is $2x$, as expected.
+So the derivative of $f(x) = x^2$ is $2x$.
 
 ## Partial and Total Derivatives
 
 There are two types of derivatives that are commonly used in calculus: the **total derivative** and the **partial derivative**:
 
-1. **Total Derivative (or simply Derivative) ($\frac{d}{dw}$):** When the function depends on a single variable, we often use $\frac{d}{dw}$ to denote the derivative. For example, if $J(w)$ is a function of $w$, the derivative of $J(w)$ with respect to $w$ is written as:
+**Total Derivative (or Derivative) ($\frac{d}{dw}$):**<br>
+When the function depends on a **single variable**, we often use $\frac{d}{dw}$ to denote the derivative. For example, if $J(w)$ is a function of $w$, the derivative of $J(w)$ with respect to $w$ is written as:
 
 $$\frac{dJ(w)}{dw}$$
 
-2. **Partial Derivative ($\frac{\partial}{\partial w_i}$):** When the function depends on more than one variable, we use the partial derivative notation. For instance, if $J$ is a function of multiple variables, say $w_1, w_2, \ldots, w_n$, and we want to find out how $J$ changes with respect to $w_i$ while keeping other variables constant, we use the notation:
+**Partial Derivative ($\frac{\partial}{\partial w_i}$):**<br>
+When the function depends on **more than one variable**, we use the partial derivative notation. Because we want to find out the rate of change of the function when only one variable changes, while keeping others constant.  For example, if $J$ is a function of multiple variables, say $w_1, w_2, \ldots, w_n$, and we want to find out how $J$ changes with respect to $w_3$ while keeping other variables constant, we use the notation:
 
-$$\frac{\partial}{\partial w_i} J(w_1, w_2, \ldots, w_n)$$
+$$\frac{\partial}{\partial w_3} J(w_1, w_2, \ldots, w_n)$$
 
 The symbol $\partial$ (called "del" or "partial") is used to denote partial derivatives, as opposed to the $d$ for ordinary derivatives. This distinction is necessary to indicate that only one variable is considered for the change, while others are held constant.
 
