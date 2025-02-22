@@ -1,7 +1,14 @@
 # Neural Networks Activation Functions
 Activation functions are the internal functions of neurons that calculate the output of the neuron. Activation functions are non-linear functions. The non-linearity of the activation functions is a key factor in the success of neural networks which make them different from linear models like linear regression and make them capable of learning complex patterns from the data.
 
-Let's discuss some of the common activation functions.
+Most common activation functions are:
+- ReLU (Rectified Linear Unit)
+- Sigmoid
+- Softmax
+- Linear Activation Function
+- Tanh
+
+Let's discuss some of these common activation functions.
 
 ## Sigmoid Function
 
@@ -9,11 +16,12 @@ $$g(z) =\sigma(z) = \frac{1}{1 + e^{-z}}$$
 
 The Sigmoid function is mainly used in the output layer rather than hidden layers. It's used in the output layer of binary classification problems. More on that [here](classification.md#sigmoid-function).
 
+
 ## ReLU (Rectified Linear Unit) Function
 
 $$g(z) = \max(0, z)$$
 
-Currently ReLU function is one the most commonly used activation function in neural networks for hidden layers. It's simple and computationally efficient.
+ReLU function is one the most commonly used activation function in neural networks for hidden layers. It's simple and computationally efficient.
 
 **Faster than Sigmoid**: Computation of gradient is faster in ReLU than Sigmoid function due to the fact that ReLU only get's flat in one side (when $z < 0$) and the gradient is 0 in that side. However, Sidmoig tends to get flat in both sides which makes the gradients very small and gradient descent very slow.
 
@@ -26,6 +34,10 @@ As we discussed in [Neural Network with One Neuron](neural_networks_inference.md
 This is also called **No Activation Function**: We can argue that this is not an activation function as we output the linear transformation of the input as is. However, it's sometimes categorized as an Activation Function and can be used as the output layer, especially in regression problems.
 
 > Choosing No Activation Function (Linear Activation Function) only may be used for neurons of the output layer of regression problems. For hidden layers, avoid using Linear Activation Function as it will make the whole neural network equivalent to a linear model. More on that below.
+
+## Sigmoid, ReLU and Linear Activation Functions Comparison
+![](images/activation_functions.png)
+
 
 ## Activation Functions Adds Non-Linearity
 We can think of neural networks as a series of linear transformations layer by layer. If we don't have any element of _non-linearity_, the whole neural network will be a linear transformation of the input. In that case, no matter how many layers and neurons we add, the neural network will be equivalent to a linear model like linear regression.
