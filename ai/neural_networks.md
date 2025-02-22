@@ -72,27 +72,22 @@ The connection between neurons in different layers is called **edges**. Each edg
 
 Depending on the type of the layer, the connections between neurons can be different. There are three main types of layers in a neural network:
 
-- Fully Connected Layers (Dense Layers):
+- [**Fully Connected Layers (Dense Layers)**](neural_networks_layers.md#fully-connected-layer-dense):
   - Every neuron in this layer is connected to every neuron in the previous layer.
 - Convolutional Layers (CNNs):
   - Every neuron in this layer is connected to a subset of neurons in the previous layer.
 - Recurrent Layers (RNNs):
   - Every neuron in this layer is connected to every neuron in the previous layer and also to itself.
 
-A neural network can (and often does) consist of both fully connected layers and other types of layers. These layers are combined depending on the task, type of data, and the architecture of the model. However, a neural network can also consist of only fully connected layers.
-
-**Fully Connected Layers (Dense Layers)**:<br>
-A fully connected layer (also called a **dense layer**) is a layer where every input neuron is connected to every output neuron by a weight. This means that:
-
-Every feature in the input affects every neuron in the output (controlled by the weights of that connection). Each neuron first perform the **linear transformation** (weighted sum of it's inputs) and then apply an **activation function** to the result.
-
-Fully Connected means there are no skipped connections—every input influences every output. This is different from convolutional layers, where connections are local (each neuron only looks at a small region of the input).
-
 During training, model tries to learn the best weights for the connections between neurons. The weight of a connection determines the impact of the neuron (feature or learned feature) on the output of the current neuron. The larger the weight, the larger the impact of the feature on the output of the neuron.
 
-> The term **Perceptron** is original name for one neuron (one computational unit) which was introduced in 1950s. The term **Perceptron** is still used in some contexts to refer to a single neuron (a single activation unit). The term **Multi-Layer Perceptron (MLP)** is used to refer to a neural network with multiple layers of neurons.
+A neural network can (and often does) consist of both fully connected layers and other types of layers. These layers are combined depending on the task, type of data, and the architecture of the model. However, a neural network can also consist of only fully connected layers.
 
 More on the neural networks layers [here](neural_networks_layers.md).
+
+**Fully Connected Layers (Dense Layers)**:<br>
+> The term **Perceptron** is original name for one neuron (one computational unit) which was introduced in 1950s. The term **Perceptron** is still used in some contexts to refer to a single neuron (a single activation unit). The term **Multi-Layer Perceptron (MLP)** is used to refer to a neural network with multiple layers of neurons.
+
 
 ### Inside the Neurons of a Layer
 Let dive a bit deeper into the internal structure of a neurons in a layer.
@@ -168,9 +163,10 @@ $$a^{[layer]}_{neuron} = g(z^{[layer]}_{neuron})$$
 
 So, the activation of the first neuron in the first layer is:
 
-$$a^{[1]}_1 = g(z^{[1]}_1)$$
+$$a^{[1]}_1 = g(z^{[1]}_1) = g(\vec{\mathbf{w}}_1^{[1]} \cdot \vec{\mathbf{x}} + b^{[1]}_1)$$
 
-where:
+
+Where:
 - $[1]$ is the index of the layer, i.e. layer 1.
 - subscript $1$ is the index of the neuron in the layer, i.e. neuron 1.
 
@@ -263,4 +259,14 @@ See [Neural Networks Inference (Forward Pass)](neural_networks_inference.md)
 
 
 ## Training
-See [Neural Networks Training](neural_networks_training.md)
+# Neural Networks Training
+Similar to training a [linear regression model](regression.md), training a neural network involves finding the optimal weights and biases that minimize the error between the predicted output and the actual output. The steps of training a neural network are very similar to those of training a linear regression model:
+
+**1. Define the model**: Specify the neural network model $f_{W,B}(X)=?$ by defining the input, output and internal architecture of the network:
+   - The [number and types of layers](neural_networks_layers.md) and the number of neurons in each layer.
+   - The [activation functions](neural_networks_activation_functions.md) in each layer, and particularly the activation function of the output layer based on the type of the problem (regression, binary classification, or multi-class classification, etc).
+   - The [loss function](loss_and_cost_functions.md) according to output layer.
+
+[**2. Gradient Descent**](gradient_descent.md): This is the optimization algorithm to minimize the error between the predicted output and the actual output by updating the weights and biases step by step. See the steps of the gradient descent algorithm in the [gradient descent algorithm](gradient_descent.md#gradient-descent-algorithm).
+
+The key components of gradient descent is calculating the _partial derivatives_ of the loss function with respect to the weights and biases of the network. In neural network this alogrithm is called [**backpropagation**](neural_networks_backpropagation.md).
