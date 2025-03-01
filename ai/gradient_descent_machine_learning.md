@@ -494,6 +494,8 @@ $$
 
 Due to fast convergence and removing the need to guess and manually fine-tune the learning rate, Adam has become one of the most popular and commonly used optimization algorithms in deep learning in comparison to traditional gradient descent. Although we should note, that the Adam still uses all the core principles of gradient descent but with some improvements on top of it to make it more efficient.
 
+Adam originally introduced in the paper [Adam: A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980) in 2014.
+
 ## Practical Problems
 ### Escaping Local Minimas and Saddle Points
 A common challenge arises when training models on complex, high-dimensional datasets: the loss function may converge to different, yet stable, values during repeated training runs with identical parameters. This typically indicates the presence of multiple **local minima** or **saddle points** in the optimization landscape of non-convex loss surfaces.

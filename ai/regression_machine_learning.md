@@ -1,4 +1,4 @@
-# Regression
+# Regression in Machine Learning
 
 Regression is a type of supervised learning algorithm that predicts a number (continuous value) based on input data. Regression models are trained on labeled data, pair of $Input(X) \rightarrow Output(Y)$ to make predictions on new, unseen data.
 
