@@ -224,6 +224,8 @@ The chain rule is crucial in many areas of calculus, including the computation o
 - This [tutorial](https://www.khanacademy.org/math/ap-calculus-ab/ab-differentiation-2-new/ab-3-1a/v/chain-rule-introduction) is a good tutorial on the chain rule.
 - This [video](https://youtu.be/YG15m2VwSjA) is also another good intro to the chain rule.
 
+### Computational Graphs
+In practice, in particular in the field of Deep Learning, where during the training of the neural network we need to compute the gradients (derivatives) of the loss function with respect to all the parameters of the network, we are dealing with significant number of compositions of functions (neurons and layers) which we need to differentiate, which heavily relies on the chain rule. To efficiently compute these derivatives (specially when we have a large number of parameters and batches of data), we need to find a way to compute these chain rule derivatives efficiently.  Computational Graph is the most common way to do it as scale. More on [Computational Graph](../ai/computational_graph.md).
 
 
 ### Examples
@@ -234,48 +236,52 @@ The chain rule is crucial in many areas of calculus, including the computation o
 
 Now let's go through another example with a bit more complex function composition. We are given function $f$ of $x$ as follows:
 
-$$f(x) = ((x + 1)^3)^2$$
+$$f(x) = ((x + 5)^3+1)^2$$
 
 The goal is to break this into smaller functions, so we can apply the chain rule effectively. We start with the **innermost operation** and work our way out:
-   $$h(x) = x + 1$$
-   $$g(w) = w^3 \quad \text{where} \quad w = h(x) = x + 1$$
-   $$f(v) = v^2 \quad \text{where} \quad v = g(w) = (x + 1)^3$$
 
-Now, to find the derivative of the original function, let’s rewrite the composition:
+Let's define function $h=z+5$:
 
-$$f(x) = \left((x + 1)^3\right)^2 = f(g(h(x)))$$
+$$h(z)=z+5 \quad \text{then} \quad h(x) = x + 5$$
+Let's define function $g=z^3$:
 
-The derivative of this composition using the chain rule would be:
+$$g(z) = z^3+1 \quad \text{then} \quad g(h(x)) = (h(x))^3$$
+
+Let's define function $f=z^2$:
+$$f(z) = z^2 \quad \text{then} \quad f(g(h(x))) = (g(h(x)))^2$$
+
+Let’s rewrite the original function $f(x)$ as a composition of functions:
+
+$$f(x) = \left((x + 5)^3+1\right)^2 = f(g(h(x)))$$
+
+The derivative of this function is:
 
 $$\frac{df}{dx} = \frac{d}{dx}[f(g(h(x)))]$$
 
-Which we can rewrite as:
+Which using the chain rule, we can rewrite as:
 
 $$\frac{df}{dx} = \frac{df}{dg} \cdot \frac{dg}{dh} \cdot \frac{dh}{dx}$$
 
-Or using $w$ and $v$ as intermediate variables, we can write this as:
-
-$$\frac{df}{dx} = \frac{df}{dv} \cdot \frac{dv}{dw} \cdot \frac{dw}{dx}$$
 
 Step-by-step differentiation:
 
-1. Differentiate $f(v) = v^2$ with respect to $v$:
-   $$\frac{df}{dv} = 2v$$
+1. Differentiate $f(g) = g^2$ with respect to $g$:
+   $$\frac{df}{dg} = 2g$$
 
-2. Differentiate $g(w) = w^3$ with respect to $w$:
-   $$\frac{dv}{dw} = 3w^2$$
+2. Differentiate $g(h) = h^3$ with respect to $h$:
+   $$\frac{dg}{dh} = 3h^2$$
 
 3. Differentiate $h(x) = x + 1$ with respect to $x$:
-   $$\frac{dw}{dx} = 1$$
+   $$\frac{dh}{dx} = 1$$
 
 So:
+$$\frac{df}{dx} = \frac{df}{dg} \cdot \frac{dg}{dh} \cdot \frac{dh}{dx} = 2g \cdot 3h^2 \cdot 1$$
 
-$$\frac{d}{dx}[f(g(h(x)))] = 2v \cdot 3w^2 \cdot 1$$
 
-Finally, to get the derivative of $f(x)$ with respect to $x$, we need to substitute back the intermediate variables $v$ and $w$:
-If we substitute everything back, $v = (x + 1)^3$ and $w = x + 1$, we get:
+Finally, we substitute back $g$ and $h$ with their definitions of $h(x)$ and $g(h(x))$:
 
-$$\frac{df}{dx} = 2(x + 1)^3 \cdot 3(x + 1)^2 = 6(x + 1)^5$$
+$$\frac{df}{dx} = 2((x + 5)^3+1) \cdot 3(x + 5)^2 \cdot 1$$
+
 
 #### Derivative of Exponential Function
 See [Derivative of Exponential Function](euler_number.md#derivative-of-exponentials).
@@ -376,25 +382,27 @@ Let's first rewrite the function slightly to make differentiation easier:
 
 $$\sigma(x) = (1+e^{-x})^{-1}$$
 
-Now, let's use the chain rule to differentiate. Let's inner function $u = 1 + e^{-x}$, so:
+Now, let's use the chain rule to differentiate.
 
-
+Inner function:
 $$u(x) = 1 + e^{-x}$$
-$$\sigma(u) = u^{-1}$$
+
+Outer function:
+$$h(u) = \frac{1}{u} = u^{-1}$$
 
 
 So, the sigmoid function can be written as a composition of functions:
-$$\sigma(x) = \sigma(u(x))$$
+$$\sigma(x) = h(u(x))$$
 
 
 Using the chain rule, the derivative of $\sigma(x)$ with respect to $x$ is:
 
-$$\frac{d\sigma}{dx} = \frac{d\sigma}{du} \cdot \frac{du}{dx}$$
+$$\frac{d\sigma}{dx} = \frac{dh}{du} \cdot \frac{du}{dx}$$
 
-Differentiate the outer function $\sigma(u)$ with respect to $u$:
+Differentiate the outer function $h(u)$ with respect to $u$:
 
 
-$$\frac{d\sigma}{du} = \frac{d}{du} u^{-1} = -u^{-2}$$
+$$\frac{dh}{du} = \frac{d}{du} u^{-1} = -u^{-2}$$
 
 
 Differentiate the inner function $u(x)$ with respect to $x$. Derivative of $e^{-x}$ is $-e^{-x}$ as we saw earlier in Derivative of $e^{ax}$.
@@ -563,7 +571,7 @@ $$
 \frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})
 $$
 
-### Rate of Change
+### Rate of Change in Composite Functions
 
 When we're taking the derivative of a function, we're trying to understand how fast the function is changing at a particular point. If we have a complex function formed by composing several simpler functions, we're interested in how fast that whole composition is changing.
 

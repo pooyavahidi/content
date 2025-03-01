@@ -1,5 +1,5 @@
-# Neural Networks Inference (Forward Pass)
-Forward pass (also called **Forward Propagation**) is the process of passing the input features $\vec{\mathbf{x}}$ through the first layer, then calculate the output of the first layer $\vec{\mathbf{a}}^{[1]}$, then pass this output to the second layer and calculate the output of the second layer $\vec{\mathbf{a}}^{[2]}$, and so on until we reach the output layer.
+# Neural Networks Inference (Forward Propagation)
+Forward Propagation (also called **Forward Pass**) is the process of passing the input features $\vec{\mathbf{x}}$ through the first layer, then calculate the output of the first layer $\vec{\mathbf{a}}^{[1]}$, then pass this output to the second layer and calculate the output of the second layer $\vec{\mathbf{a}}^{[2]}$, and so on until we reach the output layer.
 
 As the name suggests, in the forward pass, we _pass_ the input features _forward_ through the network layer by layer to reach the output layer. In other words, we _propagate_ the activations of neurons from the input layer to the output layer.
 
@@ -57,7 +57,7 @@ So, the activation value of neuron $j$ in layer $l$ is calculated as:
 a^{[l]}_{j} = g(z^{[l]}_{j}) = g(\vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j})
 ```
 
-## Forward Pass Calculation in Practice
+## Forward Propagation in Practice
 In practice, to increase the efficiency of the computation, we use [matrix multiplication](../math/vectors_and_matrices.md#matrix-multiplication) for the **entire layer** instead of calculating the output of each neuron separately.
 
 Most deep learning frameworks like TensorFlow and PyTorch use this matrix multiplication for the entire layer, where data is organized with batch examples in rows $(m, n)$ where $m$ is the number of examples in the batch and $n$ is the number of features.
@@ -419,7 +419,7 @@ The above is the equivalent of a logistic regression model. So, we can say that 
 
 See this in action [here](https://github.com/pooyavahidi/examples/blob/main/ai/nn_neurons_and_layers.ipynb).
 
-## Implementation of Forward Pass
+## Implementation of Forward Propagation
 
 In the following we use `pytorch` to implement the neural network shown in the above example and how forward pass works.
 
@@ -460,7 +460,7 @@ class NeuralNetwork(nn.Module):
 
         return a3
 ```
-We can see how the output of each layer is passed as the input to the next layer, hence the **forward pass**.
+We can see how the output of each layer is passed (or propagated) as the input to the next layer, hence the word **propagation** or **pass**. Also, as the output moving from the first layer to the last layer (left to right direction), we call it **forward**.
 
 
 In a more simpler way we can write the above code as:
