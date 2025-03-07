@@ -1,4 +1,4 @@
-# Loss and Cost Functions
+# Loss and Cost Functions in Machine Learning
 
 In machine learning, a **loss function** quantifies how well our model's predictions match the actual or true values from the data. Think of it as a measure of **error**:
 - If the model's predictions are very good, the loss (error) is near zero.
