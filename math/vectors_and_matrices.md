@@ -1,4 +1,13 @@
-# Vectors and Matrices
+---
+date: "2025-03-11"
+draft: false
+title: "Vectors and Matrices"
+description: "Guide to vectors, matrices and tensors covering vector operations (addition, subtraction, scalar multiplication, dot product); matrix element-wise operations and broadcasting; transpose properties; matrix multiplication concepts; vector-matrix relationships; dot products as matrix multiplication; and tensors as multidimensional generalizations. Reference for linear algebra fundamentals with mathematical notation, worked examples, and practical implementation insights for data science and computational mathematics applications."
+
+tags:
+    - "Math"
+    - "Linear Algebra"
+---
 
 ## Vector Operations
 Operations on two vectors are performed **element-wise**. For example, addition of two vectors $\vec{\mathbf{a}}$ and $\vec{\mathbf{b}}$ is done by adding corresponding elements of the two vectors.
@@ -44,8 +53,8 @@ $$\vec{\mathbf{a}}^\top = \begin{bmatrix} a_1 & a_2 & \dots & a_n \end{bmatrix}$
 
 
 
-## Matrix Operations
-Operations on two matrices are performed **element-wise**. For example, addition of two matrices $\mathbf{A}$ and $\mathbf{B}$ is done by adding corresponding elements of the two matrices.
+## Matrix Element-wise Operations
+Element-wise operations are defined for matrices in the same shape. The operation performs on corresponding elements of the two matrices.
 
 Given the two matrices:
 $$A=\begin{bmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \dots & a_{mn} \end{bmatrix} \text{ , } B=\begin{bmatrix} b_{11} & b_{12} & \dots & b_{1n} \\ b_{21} & b_{22} & \dots & b_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ b_{m1} & b_{m2} & \dots & b_{mn} \end{bmatrix}$$
@@ -58,10 +67,100 @@ $$C = A + B = \begin{bmatrix} a_{11}+b_{11} & a_{12}+b_{12} & \dots & a_{1n}+b_{
 ### Subtraction of matrices
 $$C = A - B = \begin{bmatrix} a_{11}-b_{11} & a_{12}-b_{12} & \dots & a_{1n}-b_{1n} \\ a_{21}-b_{21} & a_{22}-b_{22} & \dots & a_{2n}-b_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1}-b_{m1} & a_{m2}-b_{m2} & \dots & a_{mn}-b_{mn} \end{bmatrix}$$
 
-### Multiplication by a scalar
+### Element-wise Multiplication of matrices
+The element-wise multiplication of two matrices is called the **Hadamard product**. The result is a new matrix with the same shape as the input matrices. In this operation, each element of the first matrix is multiplied by the corresponding element of the second matrix.
+
+$$C = A \odot B = \begin{bmatrix} a_{11}b_{11} & a_{12}b_{12} & \dots & a_{1n}b_{1n} \\ a_{21}b_{21} & a_{22}b_{22} & \dots & a_{2n}b_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1}b_{m1} & a_{m2}b_{m2} & \dots & a_{mn}b_{mn} \end{bmatrix}$$
+
+> Sometimes the Hadamard product is denoted as $A \circ B$.
+
+### Division of matrices
+The division of two matrices is also performed element-wise. The division of two matrices $A$ and $B$ is defined as:
+
+$$C = A \oslash B = \begin{bmatrix} \frac{a_{11}}{b_{11}} & \frac{a_{12}}{b_{12}} & \dots & \frac{a_{1n}}{b_{1n}} \\ \frac{a_{21}}{b_{21}} & \frac{a_{22}}{b_{22}} & \dots & \frac{a_{2n}}{b_{2n}} \\ \vdots & \vdots & \ddots & \vdots \\ \frac{a_{m1}}{b_{m1}} & \frac{a_{m2}}{b_{m2}} & \dots & \frac{a_{mn}}{b_{mn}} \end{bmatrix}$$
+
+For example:
+$$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \text{ , } B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}$$
+
+Then the division of $A$ by $B$ is:
+
+$$\frac{A}{B} = A \oslash B = \begin{bmatrix} \frac{1}{5} & \frac{2}{6} \\ \\ \frac{3}{7} & \frac{4}{8} \end{bmatrix} = \begin{bmatrix} 0.2 & 0.333 \\ 0.429 & 0.5 \end{bmatrix}$$
+
+## Broadcasting (Operations on Matrices and Vectors)
+Broadcasting is a technique used in computational libraries (e.g. NumPy) to perform element-wise operations on arrays of different shapes. In this technique, the smaller array is **broadcasted** to match the shape of the larger array so that the operation can be performed.
+
+In the case of matrices, broadcasting is used to perform element-wise operations on matrices of different shapes. The smaller matrix is broadcasted to match the shape of the larger matrix so that the operation can be performed.
+
+Broadcasting is done by replicating the elements of the smaller matrix along the missing dimensions to match the shape of the larger matrix.
+
+For example, given matrices $A$ and $B$:
+
+$$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \text{ , } B = \begin{bmatrix} 5 & 6 \end{bmatrix}$$
+
+To add matrix $B$ to matrix $A$, the smaller matrix $B$ is broadcasted to match the shape of matrix $A$:
+
+$$B = \begin{bmatrix} 5 & 6 \\ 5 & 6 \end{bmatrix}$$
+
+Then the element-wise addition is performed:
+$$A + B = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} + \begin{bmatrix} 5 & 6 \\ 5 & 6 \end{bmatrix}$$
+
+$$A + B = \begin{bmatrix} 1+5 & 2+6 \\ 3+5 & 4+6 \end{bmatrix} = \begin{bmatrix} 6 & 8 \\ 8 & 10 \end{bmatrix}$$
+
+
+After the broadcasting, any types of element-wise operations can be performed on the matrices.
+
+### Multiplication of Matrices by a Scalar
+We can see a scalar value as a special case of a vector with $1 \times 1$ shape. Then we can use the same broadcasting technique.
+
+
+
 $$\alpha \in \mathbb{R} \quad \Rightarrow \quad \alpha A = \begin{bmatrix} \alpha a_{11} & \alpha a_{12} & \dots & \alpha a_{1n} \\ \alpha a_{21} & \alpha a_{22} & \dots & \alpha a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ \alpha a_{m1} & \alpha a_{m2} & \dots & \alpha a_{mn} \end{bmatrix}$$
 
-### Transpose of a Matrix
+Multiplying a matrix by a scalar is done by multiplying each element of the matrix by the scalar.
+
+The computation of this using broadcasting is as follows:
+
+$$B = \begin{bmatrix} \alpha \end{bmatrix}$$
+
+$$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$$
+
+Then using broadcasting we broadcast the scalar to match the shape of the matrix:
+
+$$B = \begin{bmatrix} \alpha & \alpha \\ \alpha & \alpha \end{bmatrix}$$
+
+Then the element-wise multiplication is performed as before:
+
+$$\alpha A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \odot \begin{bmatrix} \alpha & \alpha \\ \alpha & \alpha \end{bmatrix} = \begin{bmatrix} \alpha \cdot 1 & \alpha \cdot 2 \\ \alpha \cdot 3 & \alpha \cdot 4 \end{bmatrix}$$
+
+
+### Addition of Matrices with Vectors
+Using the same technique, we can add a vector to a matrix.
+
+Given a matrix $A$ and a vector $\vec{\mathbf{b}}$:
+
+$$A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix} \text{ , } \vec{\mathbf{b}} = \begin{bmatrix} 5 & 7 & 1\end{bmatrix}$$
+
+To add the vector to the matrix, we first broadcast the vector to match the shape of the matrix:
+
+$$B = \begin{bmatrix} 5 & 7 & 1 \\ 5 & 7 & 1 \\ 5 & 7 & 1 \end{bmatrix}$$
+
+Then the element-wise addition is performed:
+
+$$A + B = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix} + \begin{bmatrix} 5 & 7 & 1 \\ 5 & 7 & 1 \\ 5 & 7 & 1 \end{bmatrix}$$
+
+$$A + B = \begin{bmatrix} 1+5 & 2+7 & 3+1 \\ 4+5 & 5+7 & 6+1 \\ 7+5 & 8+7 & 9+1 \end{bmatrix} = \begin{bmatrix} 6 & 9 & 4 \\ 9 & 12 & 7 \\ 12 & 15 & 10 \end{bmatrix}$$
+
+
+> **Note**: For broadcasting the smaller vector should be a row or column vector with the same number of elements as the matrix row or column. Except for the case of a scalar, which can be broadcasted to any shape.
+>
+> Therefore, if we have matrix with the same of $m \times n$, only vectors with the shape of $1 \times n$ or $m \times 1$ can be broadcasted to the shape of the matrix and perform element-wise operations.
+>
+> For example the following vector can't be broadcasted to the shape of matrix $A$:
+> $$\vec{\mathbf{b}} = \begin{bmatrix} 5 & 7 \end{bmatrix}$$
+
+Using broadcasting, we can perform all types of operations on matrices and vectors.
+
+## Transpose of a Matrix
 The transpose of a matrix is obtained by swapping its rows and columns. The transpose of a matrix $A$ is denoted as $A^\top$.
 
 $$A=\begin{bmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \dots & a_{mn} \end{bmatrix} \quad \Rightarrow \quad A^\top = \begin{bmatrix} a_{11} & a_{21} & \dots & a_{m1} \\ a_{12} & a_{22} & \dots & a_{m2} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \dots & a_{mn} \end{bmatrix}$$
@@ -70,8 +169,12 @@ Example:<br>
 
 $$A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \quad \Rightarrow \quad A^\top = \begin{bmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{bmatrix}$$
 
-### Matrix Multiplication
-Matrix multiplication two matrices $A$ and $B$ is defined as dot product of **rows** of first matrix and **columns** of the second matrix. So, the requirement is that the number of columns of the first matrix must be equal to the number of rows of the second matrix. Because the dot product of two vectors is only defined when the two vectors have the same size.
+## Matrix Multiplication (Dot Product)
+Matrix multiplication two matrices $A$ and $B$ is defined as dot product of **rows** of first matrix and **columns** of the second matrix.
+
+This is different from element-wise multiplication which is performed on corresponding elements of the two matrices.
+
+The requirement is that the number of columns of the first matrix must be equal to the number of rows of the second matrix. Because the dot product of two vectors is only defined when the two vectors have the same size.
 
 If $A$ is of size $m \times n$ and $B$ is of size $n \times p$:
 
@@ -151,9 +254,11 @@ $$\vec{\mathbf{a}} = \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix}$$
 **Matrix-Vector Multiplication**:<br>
 This is a special case of matrix multiplication where one of the matrices has only one column or row, i.e. a vector.
 
-$$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \text{ , } \vec{\mathbf{b}} = \begin{bmatrix} 5 \\ 6 \end{bmatrix}$$
+$$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix} \text{ , } \vec{\mathbf{b}} = \begin{bmatrix} 7 \\ 8 \end{bmatrix}$$
 
-$$\vec{\mathbf{c}} = A \cdot \vec{\mathbf{b}} = \begin{bmatrix} 1 \cdot 5 + 2 \cdot 6 \\ 3 \cdot 5 + 4 \cdot 6 \end{bmatrix} = \begin{bmatrix} 17 \\ 39 \end{bmatrix}$$
+$$\vec{\mathbf{c}} = A \cdot \vec{\mathbf{b}} = \begin{bmatrix} 1 \cdot 7 + 2 \cdot 8 \\ 3 \cdot 7 + 4 \cdot 8 \\ 5 \cdot 7 + 6 \cdot 8 \end{bmatrix} = \begin{bmatrix} 23 \\ 53 \\ 83 \end{bmatrix}$$
+
+> Note: In this case, there is no broadcasting happens, because the matrix and vector meet the requirements and are in shape of $m \times n$ and $n \times 1$ respectively (first matrix columns = second matrix rows).
 
 
 **Dot Product of Vectors as Matrix Multiplication**:<br>
@@ -173,14 +278,14 @@ $$\begin{bmatrix} a_1 & a_2 & \dots & a_n \end{bmatrix} \cdot \begin{bmatrix} b_
 
 ## Tensor
 
-A **tensor** is a generalized multi-dimensional array that extends the concepts of **scalars (0D), vectors (1D), and matrices (2D)** to **higher dimensions (3D, 4D, etc.)**. Formally, a tensor is an element of a **tensor space**, which follows specific transformation rules under coordinate changes.
+A **tensor** is a generalized multi-dimensional array that extends the concepts of **scalars (0D), vectors (1D), and matrices (2D)** to **higher dimensions (3D, 4D, etc.)**.
 
 In simple terms, a tensor is a **generalized** way to represent data of any number of dimensions, from 0D (scalar) to n-dimensional space.
 
-- A **scalar** (single number) is a **0D tensor**.
-- A **vector** (1D array) is a **1D tensor**.
-- A **matrix** (2D array) is a **2D tensor**.
-- A **higher-order tensor** (3D, 4D, etc.) represents **multi-dimensional data** e.g. high-dimensional features space.
+- **0D** tensor is a **scalar** (single number).
+- **1D** tensor is a **vector** (array of numbers).
+- **2D** tensor is a **matrix** (2D array).
+- **Higher-order** tensor is a multi-dimensional array (3D, 4D, etc.) representing high-dimensional data such as high dimensional feature space (e.g. images, videos, etc.).
 
 A tensor is just a flexible way to handle data of **any dimension (shape)** in mathematics (specially in linear algebra, differential geometry), physics and programming.
 
