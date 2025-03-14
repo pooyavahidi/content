@@ -8,3 +8,7 @@ The name of the Backpropagation which is also called _back prop_ or _backward pa
 Computation graph is break down of the neural network (forward propagation and back propagation) into smaller building blocks, which then can be calculated step by step. This graph is a directed acyclic graph (DAG), and output of each node is calculated based on the output of the previous nodes. So, it can reuse the output of the previous nodes to calculate the output of the next nodes, which makes the computation more efficient.
 
 In case of backpropagation, the computation graph is like breaking down the chain rule of the derivative into each composite function, and then calculate from the most outer function (cost function) to the most inner function (the parameters of the neural network).
+
+
+## Resources
+- [Google ML Course - Backpropagation](https://developers.google.com/machine-learning/crash-course/backprop-scroll)

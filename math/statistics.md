@@ -1,4 +1,12 @@
-# Statistics
+---
+date: "2023-11-10"
+draft: false
+title: "Statistics"
+description: "Guide to some basic statistical concepts including mean, variance, and standard deviation. Reference for statistics and mathematics."
+tags:
+    - "Math"
+    - "Statistics"
+---
 
 ## Mean, Variance and Standard Deviation
 

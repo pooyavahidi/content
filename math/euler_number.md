@@ -1,4 +1,14 @@
-# Euler Number
+---
+date: "2024-12-10"
+draft: false
+title: "Euler Number"
+description: "Exploration of Euler's number (e), including its origin from compound interest limits, mathematical significance as the base of natural logarithms, unique derivative properties, applications in continuous compounding formulas, relationship to exponential functions, and fundamental role in calculus, finance, and natural growth phenomena."
+
+tags:
+    - "Math"
+    - "Calculus"
+---
+
 
 The Euler number shown as $e$ is a fundamental mathematical constant that is the base of the natural logarithm. It is approximately equal to $2.71828$. The Euler number is named after the Swiss mathematician Leonhard Euler.
 

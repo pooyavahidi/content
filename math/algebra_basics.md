@@ -1,4 +1,13 @@
-# Algebra Basics
+---
+date: "2023-11-10"
+draft: false
+title: "Algebra Basics"
+description: "Guide to fundamental algebra concepts including commutative, associative, and distributive properties; identity and inverse elements; exponent rules for zero, negative, and fractional powers; logarithm fundamentals including product, quotient, power, and change of base rules; natural logarithms; and exponential relationships between different bases. Reference for algebra and mathematics."
+tags:
+    - "Math"
+    - "Algebra"
+---
+
 Here are some fundamental algebraic rules and properties related to arithmetic operations:
 
 
