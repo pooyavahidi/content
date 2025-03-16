@@ -2,8 +2,7 @@
 date: "2025-03-11"
 draft: false
 title: "Vectors and Matrices"
-description: "Guide to vectors, matrices and tensors covering vector operations (addition, subtraction, scalar multiplication, dot product); matrix element-wise operations and broadcasting; transpose properties; matrix multiplication concepts; vector-matrix relationships; dot products as matrix multiplication; and tensors as multidimensional generalizations. Reference for linear algebra fundamentals with mathematical notation, worked examples, and practical implementation insights for data science and computational mathematics applications."
-
+description: "An intuitive guide to vectors and matrices covering operations, dot products, broadcasting, transposes, and matrix multiplication with clear examples."
 tags:
     - "Math"
     - "Linear Algebra"

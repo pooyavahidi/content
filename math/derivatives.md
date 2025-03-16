@@ -1,4 +1,13 @@
-# Derivatives
+---
+date: "2025-02-08"
+draft: false
+title: "Derivatives"
+description: "An intuitive guide to derivatives, covering rate of change, tangent lines, chain rule, and key calculus concepts with step-by-step examples."
+tags:
+    - "Math"
+    - "Calculus"
+---
+
 Derivative in simple terms, is the **rate of change** of a function. The derivative tells how quickly a function's output changes when its input is changed slightly.
 
 

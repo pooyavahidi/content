@@ -2,8 +2,7 @@
 date: "2024-12-10"
 draft: false
 title: "Euler Number"
-description: "Exploration of Euler's number (e), including its origin from compound interest limits, mathematical significance as the base of natural logarithms, unique derivative properties, applications in continuous compounding formulas, relationship to exponential functions, and fundamental role in calculus, finance, and natural growth phenomena."
-
+description: "A deep dive into Euler's number $e$, its origins in compound interest, continuous growth, and its unique derivative properties in calculus."
 tags:
     - "Math"
     - "Calculus"
