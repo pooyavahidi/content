@@ -14,7 +14,7 @@ We can also denote input layer features $\vec{\mathbf{x}}$ as $\vec{\mathbf{a}}^
 
 The following shows the details of the input and output of each layer and how they are calculated and connected to each other.
 
-![](images/nn_forward_pass.png)
+![](images/nn_forward_propagation.svg)
 
 ## Weights and Biases of Neurons
 Each neuron has a weight for each input feature and a bias term. So, if the input vector for a layer has $n$ features, each neuron in that layer has $n$ weights and 1 bias term. We denote them as $\vec{\mathbf{w}}^{[layer]}_{neuron}$ and $b^{[layer]}_{neuron}$. The weight vector is a vector of weights for each input feature to the neuron. For example, $\vec{\mathbf{w}}^{[2]}_{1}$ and $b^{[2]}_{1}$ are the weight vector and bias term for the first neuron in the second layer.
