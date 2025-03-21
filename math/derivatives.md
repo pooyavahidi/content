@@ -185,27 +185,33 @@ So, in our example, let's calculate each term:
 
 
 1. Differentiate the outer function $h$ with respect to $u$:
+
     $$\frac{d}{du}(u^2) = 2u$$
 
 2. Differentiate the inner function $u$ with respect to $x$:
+
     $$\frac{d}{dx}(3x + 1) = 3$$
 
 3. Apply the chain rule by multiplying:
+
     $$\frac{df}{dx} = 2u \cdot 3$$
 
 4. Substitute back $u = 3x + 1$:
+
     $$\frac{df}{dx} = 2(3x + 1) \cdot 3 = 6(3x + 1)$$
 
 
 > Note: The chain rule is multiplication of derivatives of outer function with respect to inner function and inner function with respect to the variable.
+>
 > $$\frac{df}{dx} = \frac{dh}{du} \cdot \frac{du}{dx}$$
 >
 > However, the  widely used notation which has become the standard in teaching and text books is:
+>
 > $$\frac{df}{dx} = \frac{df}{du} \cdot \frac{du}{dx}$$
 >
 > This notation is widely used in calculus and mathematical literature. However, it's important to understand that this is actually an abuse of notation that's become conventional because it's convenient, compact and suggests the idea of "canceling" the derivative terms (like fractions).
 
-**Prime Notation:**
+**Prime Notation**
 
 The chain rule can also be written in a different notation that uses prime notation, $f'(x)$, for derivatives. Here, $f'(x)$ represents the derivative of function $f$ at the point $x$.
 
