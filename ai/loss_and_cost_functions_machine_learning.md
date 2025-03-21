@@ -20,66 +20,77 @@ where:
 >
 >$$\ell\bigl(\hat{y}, y\bigr)$$
 
-For the model $f_{W, \vec{\mathbf{b}}}$, which outputs predictions $\hat{y} = f_{W, \vec{\mathbf{b}}}(\mathbf{x})$, the loss for a single instance is  written as:
+For the model $f_{w, b}$ which outputs predictions $\hat{y} = f_{w, b}(x)$, the loss for a single instance is  written as:
 $$
-L(\hat{y}, y) = L(f_{W, \vec{\mathbf{b}}}(\mathbf{x}), y)
+L(\hat{y}, y) = L\bigl(f_{w, b}(x), y\bigr)
 $$
 
 where:
-- **$f$**: The machine learning model that maps input features $\mathbf{x}$ to output predictions $\hat{y}$.
-- **$\hat{y}$**: The predicted value output by the model.
-- **$W$**: The weights of the model, representing the learnable parameters associated with each input feature. $W$ is a **matrix** whose shape depends on the type of model:
-    - In **linear regression** or **logistic regression**, $W$ is actually a vector of shape $(m,)$, and denoted as $\vec{\mathbf{w}}$, where $m$ is the number of input features.
-    - In **neural networks**, $W$ is a matrix of shape $(h, m)$, where $h$ is the number of neurons in the current layer, and $m$ is the number of inputs (or neurons in the previous layer).
-- **$\vec{\mathbf{b}}$**: The biases of the model, for each output:
-  - $\vec{\mathbf{b}}$ is a **vector**, where its length corresponds to the number of neurons in the current layer.
-  - For simpler models like linear regression, the bias is a **scalar** $b$.
-  - Sometime for batch processing, we use $B$ as the bias matrix which is a matrix of shape $(h, m)$, where $h$ is the number of neurons in the current layer, and $m$ is the number of instances in the batch.
+- $f$: The machine learning model that maps input features $x$ to output predictions $\hat{y}$. $x$ depending on the model and dataset could be a scalar, vector, or a matrix.
+- $\hat{y}$: The predicted value output by the model. Depending on the problem, $\hat{y}$ could be a scalar, vector, or a matrix.
+- $y$: The true value for that instance. Depending on the problem, $y$ could be a scalar, vector, or a matrix.
+- $w$: The weights of the model, representing the learnable parameters associated with each input feature. $w$ could be a scalar, vector, or a matrix depending on the model and features of the dataset.
+is a **matrix** whose shape depends on the type of model:
+    - In **linear regression** or **logistic regression**, $w$ is actually a vector of shape $(n,)$, and denoted as $\vec{\mathbf{w}}$, where $n$ is the number of input features.
+    - In **neural networks**, $w$ is a matrix of shape $(h, n)$, where $h$ is the number of neurons in the current layer, and $n$ is the number of inputs (or neurons in the previous layer). In this case, $w$ is denoted as $W$.
+- $b$: The biases of the model. Like weights, biases could be a scalar, vector, or a matrix depending on the model and dataset.
+  - It could be a scalar for simpler model like linear regression which we denote as $b$.
+  - It could be referred as a vector $\vec{\mathbf{b}}$, when we are referring to the biases of a layer in a neural network.
+  - Or it could be a matrix $B$ representing the biases of all the neurons in all the layers of a neural network.
+
+We can also write the loss function as a function which takes the input features $x$, the true target $y$, and the model's parameters $w$ and $b$, and produce a scalar value which is the error between the model's prediction and the true target.
+
+$$L(x,y; W, B) = error$$
+
+Where:
+- $x$: The input features. Depending on the model and dataset, $x$ could be a scalar, vector, or a matrix.
 
 **Using $\theta$ (theta) notation**:<br>
-For simplicity, it's common to use a single parameter set $\theta$ to represent all the learnable parameters of the model, including the weights $W$ and biases $B$. In this case, the loss function is written as:
+For simplicity, it's common to show all the learnable parameters of the model (including weights and biases) as a single parameter set $\theta$.
 
 $$
-L\bigl(\hat{y}, y\bigr) \;=\; L(f_\theta(\mathbf{x}),\, y)
+L(x, y; \theta) = L\bigl(f_{\theta}(x), y \bigr)
 $$
 
 where:
-- $\theta$ encapsulates $W$ and $B$ (all the learnable parameters of the model).
+- $\theta$ encapsulates all the learnable parameters of the model, including weights $w$ and $b$.
 
-**Loss Function is a Function of Model Parameters**:<br>
-The model $f_{W, \vec{\mathbf{b}}}$ is a function that maps input features $\mathbf{x}$ to output predictions $\hat{y}$, given the parameters $W$ and $\vec{\mathbf{b}}$.
+**Loss function is a function of model's parameters**:<br>
+The model $f$ is a function that maps input features $x$ to output predictions $\hat{y}$, given the parameters $\theta$.
 
-$$\hat{y} = f_{W, \vec{\mathbf{b}}}(\mathbf{x})$$
+$$\hat{y} = f_{\theta}(x)$$
 
-However, the Loss function $L$ is a function that maps the model parameters $W$ and $\vec{\mathbf{b}}$ to a single scalar value that quantifies the error between the model's predictions and the true values.
-
-$$L = L(\hat{y}, y)$$
-
-Once the model compute the $\hat{y}$, and having the true value $y$, the loss function is effectively become a function of model's learnable parameters $W$ and $\vec{\mathbf{b}}$. That's why we can denote it as $L(W, \vec{\mathbf{b}})$.
-
-$$L(W, \vec{\mathbf{b}}) = L(f_{W, \vec{\mathbf{b}}}(x), y)$$
+The loss function is a function that maps the model's predicted output $\hat{y}$ (which itself depends on parameters $\theta$ and input $x$) and the true target $y$, and maps those inputs to a scalar error (a single real number).
 
 
+$$ L(\hat{y}, y)= L(f_{\theta}(x), y)$$
+
+Since both input value $x$ and the true target $y$ are fixed, the loss function is effectively a function of the model's learnable parameters $\theta$. In other words, the learnable parameters $\theta$ are the variables that change the output of the loss function. So, we usually denote the loss function as:
+
+$$ L(\theta)$$
 
 ## Loss and Cost Functions
 
 While the terms **loss** and **cost** are often used interchangeably, they have distinct meanings:
 
-- **Loss Function**: Measures error for a **single instance**, denoted as $L(\hat{y}, y)$.
+- **Loss Function**: Measures error for a **single instance** (or example) in the dataset. It quantifies how well the model's prediction matches the true value for that particular example in the training dataset.
 - **Cost Function**: Aggregates the loss over the entire dataset, giving an overall measure of model performance. Typically, the cost function is the **average loss** across $m$ instances:
-$$
-J(W, B) = \frac{1}{m} \sum_{i=1}^{m} L(f_{W,B}(\vec{\mathbf{x}}^{(i)}), y^{(i)})
-$$
-
-**Using $\theta$ (theta) notation**:<br>
-In here again, for simplicity, we use a single parameter set $\theta$ to represent all the learnable parameters of the model. The cost function is written as:
 
 $$
-J(\theta) = \frac{1}{m} \sum_{i=1}^{m} L(f_\theta(\mathbf{x}^{(i)}), y^{(i)})
+J(\theta) = \frac{1}{m} \sum_{i=1}^{m} L(f_{\theta}(x^{(i)}), y^{(i)})
 $$
 
+Where:
+- $J(\theta)$ is the cost function. Since this is just a average of the loss function, it's also a function of the model's parameters $\theta$.
+- $i$ is the index of the training example.
+- $m$ is the total number of training examples.
 
-> Both Loss $L$ and Cost $J$ are scalar values (non-negative real numbers) that quantify the error between the model's predictions and the true values.
+So the loss function for $i$-th example is:
+
+$$L(f_{\theta}(x^{(i)}), y^{(i)})$$
+
+
+> Note: Both Loss $L$ and Cost $J$ are scalar values (non-negative real numbers) that quantify the error between the model's predictions and the true values.
 
 Choice of Loss function is tightly depend on the problem we are trying to solve. It's chosen based on the use-case, data, and objectives. The cost function is simply the average of these losses over the training set (or batch).
 
@@ -96,7 +107,7 @@ So, even though we run forward/backward pass for a batch, we update the paramete
 
 >In simple terms, **Loss** is the error between the prediction of the model and actual ground truth label $y$ for one example from the training dataset. While **Cost** is the average of loss across all examples (or the batch) in the training dataset.
 >
->The goal of training a machine learning model is to find $W$ and $B$ (weights and biases) that minimize the cost function $J(W,B)$ using optimization algorithms such as gradient descent.
+>The goal of training a machine learning model is to find most optimized values for the model's parameters ($w$ and $b$) that minimize the cost function $J(\theta)$. This is achieved by using optimization algorithms such as gradient descent and its variants.
 
 
 
@@ -136,8 +147,12 @@ A function that measures how well the model's prediction $\hat{y}$ for a single 
 
 $$L(\hat{y}^{(i)}, y^{(i)})$$
 
+Or
+
+
 And we have $\hat{y}^{(i)} = f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})$, so we can write the loss function as:
-$$L(f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}), y^{(i)})$$
+
+$$L(f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}), y^{(i)}; \vec{\mathbf{w}}, b)$$
 
 For example, the _squared error_  and _absolute error_ are common [loss functions](https://developers.google.com/machine-learning/crash-course/linear-regression/loss#types_of_loss) used in regression models. Here, we will use the squared error loss function.
 
@@ -185,12 +200,12 @@ Negative Log-Likelihood (NLL) is a broader topic in the field of statistics. It 
 For a single example, negative log-likelihood (NLL) is defined as:
 
 $$
-L_{\text{NLL}} = -\log(P(y|x))
+L_{\text{NLL}} = -\log(P(y|x;\theta))
 $$
 
 where:
 - $L$ is the loss for a single example.
-- $P(y|x)$ is the predicted probability of the correct label (class) $y$ given the input $x$.
+- $P(y|x;\theta)$ is the predicted probability of the correct label (class) $y$ given the input $x$ and model parameters $\theta$.
 
 ![](images/nll_loss.png)
 
@@ -199,18 +214,18 @@ where:
 The NLL for all examples in a dataset is the average of the NLL for each example:
 
 $$
-J_{\text{NLL}} = -\frac{1}{m} \sum_{i=1}^m \log(P(y^{(i)}|x^{(i)}))
+J_{\text{NLL}} = -\frac{1}{m} \sum_{i=1}^m \log\bigl(P(y^{(i)}|x^{(i)};\theta)\bigr)
 $$
 where:
 - $J$ is the average loss over all examples.
 - $m$ is the number of examples.
-- $P(y^{(i)}|x^{(i)})$ is the predicted probability of the correct label $y^{(i)}$ given the input $x^{(i)}$.
+- $P(y^{(i)}|x^{(i)}; \theta)$ is the predicted probability of the correct label $y^{(i)}$ given the input $x^{(i)}$ and model parameters $\theta$.
 
 In multiclass classification problems in machine learning where the model outputs a probability distribution over two or more classes by using a sigmoid or softmax activation function, this NLL concept is used to define the Cross-Entropy Loss function.
 
 
 $$
-J_{\text{CE}} = -\frac{1}{m} \sum_{i=1}^m \log(P(y^{(i)}|x^{(i)}))
+J_{\text{CE}} = -\frac{1}{m} \sum_{i=1}^m \log\bigl(P(y^{(i)}|x^{(i)};\theta)\bigr)
 $$
 
 Consequently, for multiclass classification, Cross-Entropy Loss is equivalent to the negative log-likelihood of the correct class label. Minimizing this loss directly increases the predicted probability of the true labels, making the model parameters more likely to match the observed data.
@@ -233,12 +248,12 @@ where:
 - $\hat{y}^{(i)}$ is the predicted probability for the $i^{th}$ instance.
 - $y^{(i)}$ is the true label for the $i^{th}$ instance.
 
-We know $\hat{y}^{(i)} = f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})$, so we can write the loss function as:
+We know $\hat{y}^{(i)} = f_{\theta}(x^{(i)})$, so we can write the loss function as:
 
 $$
-L(f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}), y^{(i)}) = \begin{cases}
-    - \log(f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})) & \text{if $y^{(i)}=1$}\\
-    - \log(1 - f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})) & \text{if $y^{(i)}=0$}
+L(f_{\theta}(x^{(i)}), y^{(i)}) = \begin{cases}
+    - \log(f_{\theta}(x^{(i)})) & \text{if $y^{(i)}=1$}\\
+    - \log(1 - f_{\theta}(x^{(i)})) & \text{if $y^{(i)}=0$}
   \end{cases}
 $$
 
@@ -261,22 +276,18 @@ When $y_{(i)}=0$: The goal is to penalize the model more when the predicted prob
 We can write the loss function $L$ in a more simpler way:
 
 $$
-L(f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}), y^{(i)}) = -y^{(i)} \log(f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})) - (1 - y^{(i)}) \log(1 - f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}))
+L(f_{\theta}(x^{(i)}), y^{(i)}) = -y^{(i)} \log(f_{\theta}(x^{(i)})) - (1 - y^{(i)}) \log(1 - f_{\theta}(x^{(i)}))
 $$
 
-The above notation is embedding the if-else condition in a single equation. Since we know that $y^{(i)}$ is either 0 or 1, the term $-y^{(i)} \log(f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}))$ will be zero when $y^{(i)}=0$ and the term $-(1 - y^{(i)}) \log(1 - f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}))$ will be zero when $y^{(i)}=1$.
+The above notation is embedding the if-else condition in a single equation. Since we know that $y^{(i)}$ is either 0 or 1, the term $-y^{(i)} \log(f_{\theta}(x^{(i)}))$ will be zero when $y^{(i)}=0$ and the term $-(1 - y^{(i)}) \log(1 - f_{\theta}(x^{(i)}))$ will be zero when $y^{(i)}=1$.
 
 
-Now, knowing that $\hat{y}^{(i)} = f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})$, we can write the loss function as:
+Now, knowing that $\hat{y}^{(i)} = f_{\theta}(x^{(i)})$, we can write the loss function as:
+
 $$
 L(\hat{y}^{(i)}, y^{(i)}) = -y^{(i)} \log(\hat{y}^{(i)}) - (1 - y^{(i)}) \log(1 - \hat{y}^{(i)})
 $$
 
-And if factor out $-1$ and write it in a more general form:
-
-$$
-L(\hat{y}, y) = -[y \log(\hat{y}) + (1 - y) \log(1 - \hat{y})]
-$$
 
 In binary classification tasks, the final layer of the neural network typically consists of a single output node with a sigmoid activation function, which gives us the probability $a$ that an instance belongs to class 1 (consequently, the probability that it belongs to class 0 is $1-a$).
 
@@ -286,24 +297,29 @@ $$
 L(a, y) = -y \log(a) - (1 - y) \log(1 - a)
 $$
 
+Where:
+- $a$ is the predicted probability (output of the last layer).
+
 This implies that if the true class is 1 ($y=1$), the loss becomes $-\log(a)$, and if the true class is 0 ($y=0$), the loss transforms to $-\log(1-a)$.
 
 **Cost Function for Binary Cross-Entropy:**<br>
 The cost function $J$ measures the average loss (error between the model's predictions and the true labels) for the entire training set of size $m$:
 
+$$J(\theta) = \frac{1}{m} \sum_{i=1}^{m} L(f_{\theta}(x^{(i)}), y^{(i)})$$
+
+If we substitute the loss function $L$ into the cost function $J$, we get:
+
 $$
-J(W, \vec{\mathbf{b}}) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})) + (1 - y^{(i)}) \log(1 - f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)})) \right]
+J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(f_{\theta}(x^{(i)})) + (1 - y^{(i)}) \log(1 - f_{\theta}(x^{(i)})) \right]
 $$
 
 where:
 - $m$ is the number of training examples.
-- $W$ represents the matrix of weights for the model.
-- $\vec{\mathbf{b}}$ is vector of the biases.
-- $f_{W, \vec{\mathbf{b}}}\vec{\mathbf{x}}^{(i)}=\hat{y}^{(i)}$ is the predicted probability for the $i^{th}$ instance.
+- $f_{\theta}(x^{(i)})=\hat{y}^{(i)}$ is the output of the model for the $i^{th}$ example. This is the predicted probability that the $i^{th}$ with given input $x^{(i)}$ and model parameters $\theta$. The probability value indicates the likelihood of the instance belonging to class 1.
 
 We can then write it in a simpler form:
 $$
-J(W, \vec{\mathbf{b}}) = -\frac{1}{m} \sum_{i=1}^{m} [y^{(i)} \log(\hat{y}^{(i)}) + (1 - y^{(i)}) \log(1 - \hat{y}^{(i)})]
+J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} [y^{(i)} \log(\hat{y}^{(i)}) + (1 - y^{(i)}) \log(1 - \hat{y}^{(i)})]
 $$
 
 ### Categorical Cross-Entropy Loss
@@ -381,7 +397,8 @@ $$
 where:
 - $N$ is the number of classes.
 - $y$ is the true class label for the instance.
-- $\mathbf{\vec{a}}$ is the predicted probability vector for the instance. $\vec{\mathbf{a}} = [a_1, a_2, ..., a_{N}]$, where $a_i$ is the predicted probability of class $j_{th}$.
+- $\mathbf{\vec{a}}$ is the output of the softmax function which is predicted probability vector for a single example. $\vec{\mathbf{a}} = [a_1^{(i)}, a_2^{(i)}, ..., a_{N}^{(i)}]$, where $a_i^{(i)}$ is the predicted probability of class $j_{th}$ for the $i_{th}$ example in the
+dataset (batch).
 
 At anytime, only one of them true (the example can belong to one class at a time only). So, it means the rest of the lines above are zero. If the true class is $j$
 
@@ -413,7 +430,7 @@ L(\mathbf{\vec{a}},y) = - \sum_{j=1}^{N}  1\left\{y == j\right\} \log \frac{e^{z
 $$
 
 Where:
-- $N$ is the number of outputs (classes).
+- $N$ is the total number of classes.
 - $j$ is the index of the output element in the vector $\mathbf{\vec{a}}$.
 
 
@@ -432,7 +449,7 @@ Where:
 The cost function $J$ is the average loss over all examples in the training set:
 
 $$
-J(W, \vec{\mathbf{b}}) = -\frac{1}{m} \left[ \sum_{i=1}^{m} \sum_{j=1}^{N} 1\{y^{(i)} == j\} \log \frac{e^{z_j^{(i)}}}{\sum_{k=1}^N e^{z_k^{(i)}} } \right]
+J(\theta) = -\frac{1}{m} \left[ \sum_{i=1}^{m} \sum_{j=1}^{N} 1\{y^{(i)} == j\} \log \frac{e^{z_j^{(i)}}}{\sum_{k=1}^N e^{z_k^{(i)}} } \right]
 $$
 
 Where:
