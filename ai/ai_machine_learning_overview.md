@@ -77,6 +77,7 @@ Example tasks:
 Self-supervised learning is a specific form of unsupervised learning where the model generates its own supervisory signals from the data itself. This is a common approach in modern neural networks, particularly in natural language processing (NLP) and computer vision.
 
 Example tasks:
+- LLMs (Large Language Models) are typically trained on large-scale corpora of text. For each position in the text sequence, the model predicts the next token (e.g., a word, subword, or character). During training, the "label" for each predicted token is simply the actual next token from the input sequence itself. Thus, the model is effectively trained using labels derived directly from its input data, eliminating the need for manually predefined or externally provided labels.
 - Word embeddings (e.g., models like Word2Vec or BERT) where relationships between words are learned from large corpora.
 - Learning image representations by predicting missing parts of images or predicting future frames in a video.
 
