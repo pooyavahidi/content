@@ -58,11 +58,18 @@ a^{[l]}_{j} = g(z^{[l]}_{j}) = g(\vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a
 ```
 
 ## Forward Propagation in Practice
-In practice, to increase the efficiency of the computation, we use [matrix multiplication](../math/vectors_and_matrices.md#matrix-multiplication) for the **entire layer** instead of calculating the output of each neuron separately.
+In practice, to increase the efficiency of the computation, we use [matrix multiplication](../math/vectors_and_matrices.md#matrix-multiplication) in our of all calculation for the **all layer** instead of calculating the output of each neuron separately.
+
+![](images/nn_forward_propagation_matrix_multiplication.svg)
 
 Most deep learning frameworks like TensorFlow and PyTorch use this matrix multiplication for the entire layer, where data is organized with batch examples in rows $(m, n)$ where $m$ is the number of examples in the batch and $n$ is the number of features.
 
-So, for $m$ examples in the batch:
+### Input
+$X$ is the input matrix of shape $(m, n)$ where $m$ is the number of examples in the batch and $n$ is the number of features. We also call this $A^{[0]}$ which is the output of the input layer (layer 0).
+
+### Linear Transformation
+
+For $m$ examples in the batch:
 
 $$
 Z^{[l]} = A^{[l-1]}{W^{[l]}}^\top  + \vec{\mathbf{b}}^{[l]}
@@ -74,7 +81,65 @@ Where:
 - $W^{[l]}$ is the weight matrix of the layer $l$ with shape of $(n^{[l]}, n^{[l-1]})$ where $n^{[l]}$ is the number of neurons in the layer $l$ and $n^{[l-1]}$ is the number of neurons in the previous layer $l-1$. However, to perform matrix multiplication (activation vector for each example multiple by the corresponding weight vector), the weight matrix is transposed to have the shape of $(n^{[l-1]}, n^{[l]})$.
 - $\vec{\mathbf{b}}^{[l]}$ is the bias vector of the layer $l$ with shape of $(n^{[l]})$ where $n^{[l]}$ is the number of neurons in the layer $l$. The bias vector is broadcasted to each row of the output matrix. In other words, it will be converted to a matrix of shape $(1, n^{[l]})$ and then added to each row of the output matrix.
 
-Activation matrix, where each row is the activation vector of a single example in the batch:
+**Weight matrix for layer $l$**:<br>
+Each column of the weight matrix is the weight vector of a neuron in the layer $l$. Each row of the weight matrix is the weight for the input feature (output of the previous layer) to the neuron. That's why we have $n^{[l-1]}$ rows, one for each output of the previous layer (input feature to this layer).
+
+$$
+W^{[l]} = \begin{bmatrix}
+\uparrow & & \uparrow \\
+\vec{\mathbf{w}}^{[l]}_{1} & \cdots & \vec{\mathbf{w}}^{[l]}_{n^{[l]}} \\
+\downarrow & & \downarrow
+\end{bmatrix}
+$$
+
+Which in more details, the weight matrix is:
+
+$$
+W^{[l]} =
+\begin{bmatrix}
+w^{[l]}_{1,1} & w^{[l]}_{1,2} & \cdots & w^{[l]}_{1,n^{[l-1]}} \\
+w^{[l]}_{2,1} & w^{[l]}_{2,2} & \cdots & w^{[l]}_{2,n^{[l-1]}} \\
+\vdots & \vdots & \ddots & \vdots \\
+w^{[l]}_{n^{[l]},1} & w^{[l]}_{n^{[l]},2} & \cdots & w^{[l]}_{n^{[l]},n^{[l-1]}}
+\end{bmatrix}
+$$
+
+Where:
+- $w^{[l]}_{j,i}$ is the weight for the input feature $i$ to the neuron $j$ in the layer $l$. In a fully connected layer, each neuron in layer $l$ has a weight for output of each neuron in the previous layer $l-1$. So, $n^{[l]}$ is the number of neurons in the layer $l$ and $n^{[l-1]}$ is the number of neurons in the previous layer $l-1$.
+
+**Transpose of $W^{[l]}$**:<br>
+The shape of $W^{[l]}$ is $(n^{[l]}, n^{[l-1]})$. However to produce matrix $Z$ where each row corresponding to the linear transformation of a neuron for each example in the batch, we need to calculaate the dot produce of rows of $A^{[l-1]}$ with the weight vector of first neuron, second neuron, and so on. So, we need the weight vector of the neuron to be stacked as a column. So, we transpose the weight matrix to have the shape of $(n^{[l-1]}, n^{[l]})$.
+
+[Transpose](/math/vectors_and_matrices.md#transpose-of-a-matrix) of $W^{[l]}$ is denoted as ${W^{[l]}}^\top$ which the weights of the neurons are stacked as columns, meaning that each column represents the weight vector of a neuron.
+
+> By convention, deep learning frameworks like TensorFlow and PyTorch, a batch of examples is represented as a matrix (2D tensor) where each **row** is a single example in the batch and each column is a feature of the example. This convention goes throughout the calculations of linear transformation matrix $Z$ and activation matrix $A$.
+>
+> In some text (like in the book of Deep Learning by Ian Goodfellow et al.), you see:
+>
+> $$z = {W}^\top h + b$$
+> Where $h$ is the hidden features of the layer which is defined by $h = f(x;\theta)$
+>
+> If we represent the above using the notation we used so far:
+>
+> $$Z^{[l]} = {{W^{[l]}}^\top}A^{[l-1]} + \vec{\mathbf{b}}^{[l]}$$
+>
+> This is mathematically equivalent to the above calculations, but with the difference that input examples, weights and biases are all stacked as **columns**, which then linear transformation and activation are also follow the same convention. This is just a different way of representing the data and calculations.
+
+
+
+### Activation
+To calculate the output of the layer $l$, we need to apply the activation function $g$ to the linear transformation of the layer $l$. Similar to previous steps, the activation function is an element-wise matrix operation where the activation function $g$ is applied to each element of the output matrix $Z^{[l]}$.
+
+$$A^{[l]} = g(Z^{[l]})$$
+
+
+Where:
+- $A^{[l]}$ is the output matrix of the layer $l$ with shape of $(m, n^{[l]})$ where $m$ is the number of examples in the batch and $n^{[l]}$ is the number of neurons in the layer $l$.
+- $Z^{[l]}$ is the output matrix of the linear transformation of the neurons in the layer $l$ with shape of $(m, n^{[l]})$ where $m$ is the number of examples in the batch and $n^{[l]}$ is the number of neurons in the layer $l$.
+
+
+Each row is the activation vector associated with one example in the batch.
+
 
 $$A^{[l-1]}=\begin{bmatrix}
 {\vec{\mathbf{a}}^{[l-1]}}^{(1)} \\
@@ -108,60 +173,9 @@ $$X = A^{[0]} = \begin{bmatrix}
 \end{bmatrix}$$
 
 
-Weight matrix for layer $l$:<br>
-Each column of the weight matrix is the weight vector of a neuron in the layer $l$. Each row of the weight matrix is the weight for the input feature (output of the previous layer) to the neuron. That's why we have $n^{[l-1]}$ rows, one for each output of the previous layer (input feature to this layer).
-
-$$
-W^{[l]} = \begin{bmatrix}
-\uparrow & & \uparrow \\
-\vec{\mathbf{w}}^{[l]}_{1} & \cdots & \vec{\mathbf{w}}^{[l]}_{n^{[l]}} \\
-\downarrow & & \downarrow
-\end{bmatrix}
-$$
-
-Which in more details, the weight matrix is:
-
-$$
-W^{[l]} =
-\begin{bmatrix}
-w^{[l]}_{1,1} & w^{[l]}_{1,2} & \cdots & w^{[l]}_{1,n^{[l-1]}} \\
-w^{[l]}_{2,1} & w^{[l]}_{2,2} & \cdots & w^{[l]}_{2,n^{[l-1]}} \\
-\vdots & \vdots & \ddots & \vdots \\
-w^{[l]}_{n^{[l]},1} & w^{[l]}_{n^{[l]},2} & \cdots & w^{[l]}_{n^{[l]},n^{[l-1]}}
-\end{bmatrix}
-$$
-
-Where:
-- $w^{[l]}_{j,i}$ is the weight for the input feature $i$ to the neuron $j$ in the layer $l$. In a fully connected layer, each neuron in layer $l$ has a weight for output of each neuron in the previous layer $l-1$. So, $n^{[l]}$ is the number of neurons in the layer $l$ and $n^{[l-1]}$ is the number of neurons in the previous layer $l-1$.
-
-**Transpose of $W^{[l]}$**:<br>
-The shape of $W^{[l]}$ is $(n^{[l]}, n^{[l-1]})$. However to produce matrix $Z$ where each row corresponding to the linear transformation of a neuron for each example in the batch, we need to calculaate the dot produce of rows of $A^{[l-1]}$ with the weight vector of first neuron, second neuron, and so on. So, we need the weight vector of the neuron to be stacked as a column. So, we transpose the weight matrix to have the shape of $(n^{[l-1]}, n^{[l]})$.
-
-[Transpose](/math/vectors_and_matrices.md#transpose-of-a-matrix) of $W^{[l]}$ is denoted as ${W^{[l]}}^\top$ which the weights of the neurons are stacked as columns, meaning that each column represents the weight vector of a neuron.
-
-The output of the layer $l$ is calculated as:
-$$A^{[l]} = g(Z^{[l]})$$
 
 
-Where:
-- $A^{[l]}$ is the output matrix of the layer $l$ with shape of $(m, n^{[l]})$ where $m$ is the number of examples in the batch and $n^{[l]}$ is the number of neurons in the layer $l$.
-- $Z^{[l]}$ is the output matrix of the linear transformation of the neurons in the layer $l$ with shape of $(m, n^{[l]})$ where $m$ is the number of examples in the batch and $n^{[l]}$ is the number of neurons in the layer $l$.
-
-> By convention, deep learning frameworks like TensorFlow and PyTorch, a batch of examples is represented as a matrix (2D tensor) where each **row** is a single example in the batch and each column is a feature of the example. This convention goes throughout the calculations of linear transformation matrix $Z$ and activation matrix $A$.
->
-> In some text (like in the book of Deep Learning by Ian Goodfellow et al.), you see:
->
-> $$z = {W}^\top h + b$$
-> Where $h$ is the hidden features of the layer which is defined by $h = f(x;\theta)$
->
-> If we represent the above using the notation we used so far:
->
-> $$Z^{[l]} = {{W^{[l]}}^\top}A^{[l-1]} + \vec{\mathbf{b}}^{[l]}$$
->
-> This is mathematically equivalent to the above calculations, but with the difference that input examples, weights and biases are all stacked as **columns**, which then linear transformation and activation are also follow the same convention. This is just a different way of representing the data and calculations.
-
-
-**Example:**<br>
+### Example
 If we have:
 - Layer $l$ with $2$ neurons. Layer $l$ is a fully connected layer (dense).
 - Layer $l-1$ has $3$ neurons.
@@ -241,7 +255,7 @@ Where:
 This matrix multiplication is why deep learning becomes very scalable in particular with GPUs. GPUs are optimized for matrix multiplication and can perform these operations very efficiently. This is why deep learning framework such as TensorFlow and PyTorch use 2D tensors to represent parameters and activations.
 
 
-See this in code example [here](https://github.com/pooyavahidi/examples/blob/main/ai/nn_forward_pass_impl.ipynb).
+See the [implementation of this example](https://github.com/pooyavahidi/examples/blob/main/ai/nn_forward_propagation.ipynb).
 
 
 ## Activation Values are Scalar Numbers
