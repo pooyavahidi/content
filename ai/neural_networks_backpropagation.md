@@ -15,6 +15,23 @@ Without the computational graph, we have to calculate the derivative of the loss
 
 > Note: In the backpropogation, we compute the gradient of the **loss** function with respect to each parameter, and then we average the gradients to find the **mean gradient** for that parameter over all samples. We'll use that mean gradient in the gradient descent algorithm to update the parameters at each iteration (step).
 
+Let's go through this algorithm step by step using an example of a simple neural network like the one below:
 
-## Resources
+![](images/nn_backpropagation.svg)
+
+## Forward Propagation
+We move forward (Left to Right) from the input node to the output node.
+
+![](images/nn_computational_graph.svg)
+
+## Loss Function
+We continue to move forward (Left to Right) from the output node to the loss node.
+
+## Backpropagation Algorithm
+Now we move backwards (Right to Left), from the loss node to the input node.
+
+![](images/nn_computational_graph.svg)
+
+
+## Other Resources
 - [Google ML Course - Backpropagation](https://developers.google.com/machine-learning/crash-course/backprop-scroll)
