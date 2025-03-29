@@ -1,12 +1,10 @@
 ---
 date: "2025-03-01"
 draft: false
-title: "Computational Graph in Deep Learning"
-description:
+title: "Computational Graph in Machine Learning"
+description: A quick introduction to computational graphs in computing forward/backward propagation, gradients, and autograd."
 tags:
     - AI
-    - Machine Learning
-    - Deep Learning
     - Neural Networks
 ---
 

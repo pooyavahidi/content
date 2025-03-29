@@ -1,4 +1,11 @@
-# Feature Engineering
+---
+date: "2024-06-18"
+draft: false
+title: "Feature Engineering in Machine Learning"
+description: "An intuitive guide to feature engineering, covering feature types, selection, scaling, encoding, and techniques to improve model performance."
+tags:
+    - "AI"
+---
 
 Feature engineering is the process of transforming and selecting data representations to best capture information relevant for model training and performance. It can include creating new features, transforming existing features, and selecting the most relevant features for the model.
 

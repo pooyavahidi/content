@@ -1,4 +1,12 @@
-# Generalization
+---
+date: "2024-06-18"
+draft: false
+title: "Generalization in Machine Learning"
+description: "Learn how generalization, underfitting, overfitting, and regularization impact machine learning model performance."
+tags:
+    - "AI"
+---
+
 Generalization is the ability of a machine learning model to perform well on unseen data by capturing the underlying patterns in the training data rather than memorizing it.
 
 When a model **generalizes well**, it can make accurate predictions on new, unseen data that it hasn't seen before.

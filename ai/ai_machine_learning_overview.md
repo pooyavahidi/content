@@ -1,4 +1,12 @@
-# AI and Machine Learning Overview
+---
+date: "2024-04-03"
+draft: false
+title: "AI and Machine Learning Overview"
+description: "An overview to AI and Machine Learning key concepts, neural networks, and the ML development workflow."
+tags:
+    - "AI"
+---
+
 **Machine Learning (ML):** A way of achieving AI, where the machine learns from data to make predictions or decisions without being explicitly programmed.
 
 Machine learning is a subfield of artificial intelligence (AI).

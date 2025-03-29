@@ -1,4 +1,12 @@
-# Glossary
+---
+date: "2024-03-22"
+draft: false
+title: "AI and Machine Learning Glossary"
+description: "Glossary of terms used in AI and Machine Learning."
+tags:
+    - "AI"
+---
+
 
 ## Scalar, Vector, Matrix, Tensor
 ### Scalar Value **$x$**
