@@ -2,7 +2,7 @@
 date: "2024-06-18"
 draft: false
 title: "Generalization in Machine Learning"
-description: "Learn how generalization, underfitting, overfitting, and regularization impact machine learning model performance."
+description: "An overview of generalization, underfitting, overfitting, and regularization in machine learning and their effects on model performance."
 tags:
     - "AI"
 ---

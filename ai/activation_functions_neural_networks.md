@@ -1,4 +1,12 @@
-# Neural Networks Activation Functions
+---
+date: "2025-01-18"
+draft: false
+title: "Activation Functions in Neural Networks"
+description: "An overview of activation functions (ReLU, Softmax, Sigmoid, Linear, etc) in neural networks and their use cases."
+tags:
+    - "AI"
+    - "Neural Networks"
+---
 Activation functions are the internal functions of neurons that calculate the output of the neuron. Activation functions are non-linear functions. The non-linearity of the activation functions is a key factor in the success of neural networks which make them different from linear models like linear regression and make them capable of learning complex patterns from the data.
 
 Most common activation functions are:
@@ -120,7 +128,7 @@ So, now to find the overall function made of these linear pieces, we add them up
 
 $y= \text{ReLU}(x) + \text{ReLU}(2x - 4) + \text{ReLU}(-0.8x + 3) + \text{ReLU}(-2x + 10) + \text{ReLU}(-1.5x + 9)$
 
-See more details and the code sample of the above [here]().
+See more details and the code sample of the above [here](https://github.com/pooyavahidi/examples/blob/main/ai/activation_functions_non_linearity.ipynb).
 
 At transition points (shown by dotted green lines), a new linear function is added which add a new piece to the overall function and produce a new slope. The new function which is added at the transition point, does not contribute to the output prior to that point (defined by the bias). The linear piece stay turned off until it reaches the transition point. From the point onward, it will contribute to the output.
 

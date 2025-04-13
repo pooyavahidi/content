@@ -1,4 +1,12 @@
-# Neural Network Backpropagation
+---
+date: "2025-02-16"
+draft: false
+title: "Backpropagation in Neural Networks"
+description: "A deep dive into the backpropagation algorithm, computational graph, and how it works in neural networks."
+tags:
+    - "AI"
+    - "Neural Networks"
+---
 Backpropagation is an algorithm to calculate the [derivative (gradient)](../math/derivatives.md) of the cost function with respect to the parameters of the neural network.
 
 The name of the Backpropagation which is also called _back prop_ or _backward pass_, coming from the fact that after the [forward pass](neural_networks_inference.md) which calculates the output of the network based on the current parameters, then backprop calculates the derivative (gradient) of the cost function with respect to the parameters in the reverse order of the forward pass, meaning from the output layer back to the first layer. Hence, the name back propagation.

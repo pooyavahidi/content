@@ -1,4 +1,11 @@
-# Regression in Machine Learning
+---
+date: "2024-05-11"
+draft: false
+title: "Regression in Machine Learning"
+description: "An overview of regression in machine learning, including linear regression, polynomial regression, and regularization techniques."
+tags:
+    - "AI"
+---
 
 Regression is a type of supervised learning algorithm that predicts a number (continuous value) based on input data. Regression models are trained on labeled data, pair of $Input(X) \rightarrow Output(Y)$ to make predictions on new, unseen data.
 

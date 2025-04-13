@@ -1,4 +1,11 @@
-# Loss and Cost Functions in Machine Learning
+---
+date: "2024-10-23"
+draft: false
+title: "Loss and Cost Functions in Machine Learning"
+description: "An overview on loss and cost functions, Mean Squared Error, Cross-Entropy and Negative Log-Likelihood"
+tags:
+    - "AI"
+---
 
 In machine learning, a **loss function** quantifies how well our model's predictions match the actual or true values from the data. Think of it as a measure of **error**:
 - If the model's predictions are very good, the loss (error) is near zero.
@@ -349,7 +356,7 @@ where:
 - $L^{(i)}$ is the loss for example $i_{th}$.
 - $N$ is the number of classes.
 - $y_j^{(i)}$ is the true label (1 for the correct class, 0 for all others) for example $i_{th}$ and class $j$.
-- $\hat{y}_j^{(i)}$ is the predicted probability for example $i_{th}$ and class $j$.
+- $\hat{y}_j^{(i)}$ is the predicted probability for example $i_{th}$ and class $j$ which is the output of the softmax function.
 
 
 
@@ -363,7 +370,6 @@ $$
 
 where:
 - $m$ is the number of examples in the batch.
-
 
 ### Sparse Categorical Cross-Entropy Loss
 Sparse Categorical Cross-Entropy Loss is another version of Cross-Entropy Loss used specifically for multi-class classification tasks. However, unlike the standard Cross-Entropy Loss, it is applied when the true class labels are represented as integers instead of one-hot encoded vectors.
@@ -400,6 +406,8 @@ where:
 - $\mathbf{\vec{a}}$ is the output of the softmax function which is predicted probability vector for a single example. $\vec{\mathbf{a}} = [a_1^{(i)}, a_2^{(i)}, ..., a_{N}^{(i)}]$, where $a_i^{(i)}$ is the predicted probability of class $j_{th}$ for the $i_{th}$ example in the
 dataset (batch).
 
+> In both Categorical and Sparse Categorical Cross-Entropy Loss, the output layer of the model has $N$ neurons, each representing a class. Then when the softmax function (output layer activation function) is applied, it converts the raw logits (linear transformation of the output layer) into a probability distribution over the classes $\mathbf{\vec{a}}$. Then we apply either Categorical Cross-Entropy Loss or Sparse Categorical Cross-Entropy Loss to compute the loss.
+
 At anytime, only one of them true (the example can belong to one class at a time only). So, it means the rest of the lines above are zero. If the true class is $j$
 
 
@@ -422,16 +430,36 @@ $$\mathbf{1}\{y == n\} =\begin{cases}
 0, & \text{otherwise}.
 \end{cases}$$
 
-Now the loss is:
+We can write the loss function as:
+
+$$
+L(\mathbf{\vec{a}},y) = - \sum_{j=1}^{N}  \mathbf{1}\{y == j\} \log(a_j)$$
+
+Where:
+- $N$ is the total number of classes.
+- $j$ is the index of the output element in the vector $\mathbf{\vec{a}}$.
+
+Since the last layer activation function is softmax, we can replace $a_j$ with the softmax output:
+
+$$
+a_j = \frac{e^{z_j}}{\sum_{k=1}^N e^{z_k}}
+$$
+
+Where:
+- $z_j$ is the linear transformation (logit) of the output layer for class $j$.
+- $N$ is the number of classes.
+
+So, we can write the loss function as:
+
 $$
 \begin{aligned}
 L(\mathbf{\vec{a}},y) = - \sum_{j=1}^{N}  1\left\{y == j\right\} \log \frac{e^{z_j}}{\sum_{k=1}^N e^{z_k} }
 \end{aligned}
 $$
 
-Where:
-- $N$ is the total number of classes.
-- $j$ is the index of the output element in the vector $\mathbf{\vec{a}}$.
+**Numerical Stability**:<br>
+The above representation also useful, because usually in practice for better numerical stability (preventing overflow and underflow), we pass on the logits directly to the Loss function instead of first calculating the softmax output $\mathbf{\vec{a}}$ and then passing it to the loss function. This is because the softmax function can produce very small values for large logits, which can lead to numerical instability when calculating the logarithm.
+
 
 
 > **indicator function:** (denoted here as $\mathbf{1}\{y == n\}$) is a concept that behaves very similarly to the if-else construct in programming. It produces a binary output based on whether a specific condition is met.

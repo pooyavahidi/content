@@ -2,10 +2,10 @@
 date: "2025-03-01"
 draft: false
 title: "Computational Graph in Machine Learning"
-description: A quick introduction to computational graphs in computing forward/backward propagation, gradients, and autograd."
+description: An introduction to computational graphs in computing forward and backward propagation, gradients, and autograd."
 tags:
-    - AI
-    - Neural Networks
+    - "AI"
+    - "Neural Networks"
 ---
 
 Computational Graph is a directed acyclic graph (DAG) that represents the building blocks of a model function in deep learning models. Deep learning models are complex functions that are composed of many smaller functions (linear transformations, and activation functions) and parameters.
@@ -79,11 +79,11 @@ In the field of machine learning, we have models with many parameters (weights a
 
 Let's see this in a simple example of a linear regression model with two parameters $w$ and $b$.
 
-The model function for [Linear Regression]() with only one feature $x$ is:
+The model function for [Linear Regression](regression_machine_learning.md) with only one feature $x$ is:
 
 $$f_{w,b}(x) = wx + b$$
 
-The [Cost Function]() for Linear Regression is the Mean Squared Error (MSE):
+The [Cost Function](loss_and_cost_functions_machine_learning.md) for Linear Regression is the Mean Squared Error (MSE):
 
 $$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} (f_{w,b}(x_i) - y_i)^2$$
 

@@ -1,4 +1,21 @@
-# Multiclass Classification
+---
+date: "2025-02-16"
+draft: false
+title: "Classification in Neural Networks"
+description: "An overview of classification in neural networks, including binary and multiclass classification, softmax function, and multi-label classification."
+tags:
+    - "AI"
+    - "Neural Networks"
+---
+We discussed the [classification in Machine Learning](classification_machine_learning.md) and what types of problems they solve. Here, we continue the discussion and see how we can solve the classification problems using neural networks.
+
+We can divide the classification problems into two main categories:
+- Binary Classification
+- Multiclass Classification
+
+Binary classification is a classification task that the target variable $y$ can take only two values, 0 or 1. That's why an algorithm like logistic regression which uses the sigmoid function is an appropriate choice for binary classification. This has been discussed in details here [Logistic Regression](classification_machine_learning.md#logistic-regression).
+
+
 Multiclass classification is a classification task that the target variable can take on more than two values. In other words, the target variable $y$ can take on $N$ different classes, where $N > 2$.
 
 Some of the examples of multiclass classification problems include:
@@ -11,10 +28,7 @@ Some of the examples of multiclass classification problems include:
 | What type of vehicle is this? | Car, Truck, Bus, Motorcycle, Bicycle | $N=5$ |
 | Next word (English) prediction in NLP | [Vocabulary of words/tokens](https://arxiv.org/abs/2406.16508) | $N=50,000+$ |
 
-
-In binary classification, the target variable $y$ can take only two values, 0 or 1. That's why an algorithm like logistic regression which uses the sigmoid function is an appropriate choice for binary classification.
-
-However, for multiclass classification, where $y$ can take on multiple values, we need a different algorithm such as **Softmax Regression** which is the generalization of logistic regression algorithm.
+> Multiclass classification is a generalization of binary classification. In other words, if we have a binary classification problem, we can use the same algorithm as multiclass classification with $N=2$. This is why we can see that for both of these problems, we use the same type of loss function (cross-entropy loss).
 
 ## Binary Classification
 Let's start with the binary classification and then move on to the multiclass classification.

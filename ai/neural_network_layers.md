@@ -1,4 +1,12 @@
-# Neural Networks Layers
+---
+date: "2025-02-07"
+draft: true
+title: "Neural Network Layers"
+description: "A brief overview of the most common types of layers in neural networks. Covering Dense (Fully Connected), Convolutional, and Recurrent layers."
+tags:
+    - "AI"
+    - "Neural Networks"
+---
 As part of any neural network, the layers are the key building blocks of its architecture. The different types with different properties are used in different tasks to achieve the desired results. The most common layers are:
 
 ## Fully Connected Layer (Dense)
@@ -8,7 +16,7 @@ Every feature in the input affects every neuron in the output (controlled by the
 
 Fully Connected means there are no skipped connections—every input influences every output. This is different from convolutional layers, where connections are local (each neuron only looks at a small region of the input).
 
-![](images/nn_fully_connected_layer.png)
+![](images/nn_forward_propagation.svg)
 
 As we can see every neuron in this layer is a function of the output of all the neurons from the _previous_ layer.
 

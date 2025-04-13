@@ -1,4 +1,12 @@
-# Neural Networks
+---
+date: "2024-12-13"
+draft: false
+title: "Neural Networks Overview"
+description: "An overview of neural networks, their structure, learning and inference"
+tags:
+    - "AI"
+    - "Neural Networks"
+---
 Neural Networks are a class of machine learning algorithms that are inspired by the structure of the human brain. This idea started in 1940s to build algorithms that could mimic the human brain.
 
 While Neural Networks have been around for a long time, they resurge in poplularity in 2000s due to the increase in computational power and the availability of large datasets, under new branding as **Deep Learning**
@@ -259,7 +267,6 @@ See [Neural Networks Inference (Forward Pass)](neural_networks_inference.md)
 
 
 ## Training
-# Neural Networks Training
 Similar to training a [linear regression model](regression.md), training a neural network involves finding the optimal weights and biases that minimize the error between the predicted output and the actual output. The steps of training a neural network are very similar to those of training a linear regression model:
 
 **1. Define the model**: Specify the neural network model $f_{W,B}(X)=?$ by defining the input, output and internal architecture of the network:

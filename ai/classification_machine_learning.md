@@ -5,7 +5,6 @@ title: "Classification in Machine Learning"
 description: "A beginner-friendly guide to logistic regression, classification types, sigmoid function, decision boundaries, and regularization."
 tags:
     - "AI"
-    - "Classification"
 ---
 
 Classification is a type of supervised learning where the target variable is group of categories or classes.

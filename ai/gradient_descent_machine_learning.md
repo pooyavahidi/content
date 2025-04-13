@@ -1,4 +1,11 @@
-# Gradient Descent
+---
+date: "2024-10-23"
+draft: false
+title: "Gradient Descent in Machine Learning"
+description: "An overview to gradient descent, covering loss surfaces, parameters update, iterations, epochs, learning rates, SGD, and mini-batch gradient descent."
+tags:
+    - "AI"
+---
 Gradient descent is an iterative optimization algorithm that finds a local minimum of a differentiable function by repeatedly stepping in the direction of the steepest descent, which is given by the negative of the function's first derivative (gradient).
 
 Gradient Descent is a _first order_ optimization algorithm, meaning it uses the first derivative (gradient) of the function to update the parameters. This makes it computationally simpler than _second order_ methods like Newton's method, which uses the second derivative (Hessian matrix).

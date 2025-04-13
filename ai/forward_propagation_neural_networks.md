@@ -1,5 +1,13 @@
-# Neural Networks Forward Propagation (Inference)
-Forward Propagation (also called **Forward Pass**) is the process of passing the input features $\vec{\mathbf{x}}$ through the first layer, then calculate the output of the first layer $\vec{\mathbf{a}}^{[1]}$, then pass this output to the second layer and calculate the output of the second layer $\vec{\mathbf{a}}^{[2]}$, and so on until we reach the output layer.
+---
+date: "2025-02-16"
+draft: false
+title: "Forward Propagation in Neural Networks"
+description: "A deep dive into the forward propagation (inference) in neural networks."
+tags:
+    - "AI"
+    - "Neural Networks"
+---
+Forward Propagation (also called **Forward Pass** or **Inference**) is the process of passing the input features $\vec{\mathbf{x}}$ through the first layer, then calculate the output of the first layer $\vec{\mathbf{a}}^{[1]}$, then pass this output to the second layer and calculate the output of the second layer $\vec{\mathbf{a}}^{[2]}$, and so on until we reach the output layer.
 
 As the name suggests, in the forward pass, we _pass_ the input features _forward_ through the network layer by layer to reach the output layer. In other words, we _propagate_ the activations of neurons from the input layer to the output layer.
 
