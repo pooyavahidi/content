@@ -1,6 +1,6 @@
 ---
 date: "2024-03-22"
-draft: false
+draft: true
 title: "AI and Machine Learning Glossary"
 description: "Glossary of terms used in AI and Machine Learning."
 tags:
