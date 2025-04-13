@@ -28,14 +28,15 @@ $$\vec{\mathbf{x}} = [x_1, x_2, x_3]$$
 
 We show the our training set (the dataset of $m$ data points), as matrix $X$ of size $m \times n$ where each row is a data point and each column is a feature.
 
-```math
+$$
 X = \begin{bmatrix} x_1^{(1)} & x_2^{(1)} & x_3^{(1)} \\ x_1^{(2)} & x_2^{(2)} & x_3^{(2)} \\ \vdots & \vdots & \vdots \\ x_1^{(m)} & x_2^{(m)} & x_3^{(m)} \end{bmatrix}
-```
+$$
 
 Or using the vector notation:
-```math
+
+$$
 X = \begin{bmatrix} \vec{\mathbf{x}}^{(1)} \\ \vec{\mathbf{x}}^{(2)} \\ \vdots \\ \vec{\mathbf{x}}^{(m)} \end{bmatrix}
-```
+$$
 
 
 
@@ -141,9 +142,9 @@ In our house price prediction example, we can see the range of values for featur
 
 Let's first rewrite our training set in a matrix form.
 
-```math
+$$
 X = \begin{bmatrix} 210 & 4 \\ 190 & 3 \\ 300 & 4 \\ 100 & 2 \\ 200 & 3 \\ 500 & 5 \end{bmatrix}
-```
+$$
 
 So, we have $m=6$ data points and $n=2$ features. We can represent the features as $x_1$ and $x_2$ or as a vector $\vec{\mathbf{x}} = [x_1, x_2]$.
 
@@ -182,9 +183,9 @@ $$x_{1, \text{norm}}^{(1)} = \frac{210 - 100}{500 - 100} \times 2 - 1 = -0.45$$
 
 If we by _rescaling_ all the values of the first feature, we the normalized values of the first feature ($x_1$) for all data points in $X$ (scaled to the range [-1, 1]) are:
 
-```math
+$$
 x_{1, \text{norm}} = \begin{bmatrix} -0.45 \\ -0.55 \\ 0.00 \\ -1.00 \\ -0.50 \\ 1.00 \end{bmatrix}
-```
+$$
 
 
 Similarly, we can apply min-max scaling to the number of bedrooms feature:
@@ -196,15 +197,15 @@ $$x_{2, \text{norm}} = \frac{x_2 - x_{2, \text{min}}}{x_{2, \text{max}} - x_{2, 
 
 $$x_{2, \text{norm}} = \frac{x_2 - 2}{5 - 2} \times 2 - 1$$
 
-```math
+$$
 x_{2, \text{norm}} = \begin{bmatrix} 0.33 \\ -0.33 \\ 0.33 \\ -1.00 \\ -0.33 \\ 1.00 \end{bmatrix}
-```
+$$
 
 The rescaled matrix $X$ with both features normalized to the range $[-1, 1]$ is:
 
-```math
+$$
 X_{\text{norm}} = \begin{bmatrix} -0.45 & 0.33 \\ -0.55 & -0.33 \\ 0 & 0.33 \\ -1 & -1 \\ -0.5 & -0.33 \\ 1 & 1 \end{bmatrix}
-```
+$$
 
 Each column represents the rescaled values for each feature in $X$ within the specified range.
 

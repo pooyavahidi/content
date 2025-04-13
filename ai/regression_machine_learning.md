@@ -391,12 +391,13 @@ $$\frac{\partial J(\vec{\mathbf{w}},b)}{\partial w_j} = \frac{1}{m} \sum\limits_
 
 So we can rewrite the Gradient Descent algorithm for multiple linear regression as:
 
-```math
+$$
 \begin{align*} \text{repeat }&\text{until convergence: } \lbrace \newline
 & w_j = w_j - \alpha \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})x^{(i)}_j \; & \text{for j = 0..n-1}\newline
 & b = b - \alpha \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)}) \newline \rbrace
 \end{align*}
-```
+$$
+
 ## Polynomial Regression
 Polynomial regression is a type of regression model that fits a polynomial function to the data. It is a special case of linear regression where the relationship between the input features and the target value is not a straight line but a polynomial curve.
 
@@ -431,12 +432,13 @@ $$\begin{align*} \text{repeat }&\text{until convergence: } \lbrace \newline
 
 So, the Gradient Descent algorithm for linear regression with regularization can be written as:
 
-```math
+$$
 \begin{align*} \text{repeat }&\text{until convergence: } \lbrace \newline
 & w_j = w_j - \alpha \left[ \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)})x^{(i)}_j + \frac{\lambda}{m} w_j \right] \; & \text{for j = 0..n-1}\newline
 & b = b - \alpha \frac{1}{m} \sum\limits_{i = 1}^{m} (f_{\vec{\mathbf{w}},b}(\vec{\mathbf{x}}^{(i)}) - y^{(i)}) \newline \rbrace
 \end{align*}
-```
+$$
+
 Recall that we don't regularize the bias term $b$, so the gradient descent update rule for the bias term $b$ remains the same.
 
 For more details see [Gradient Descent with Regularization](generalization.md#gradient-descent-with-regularization).

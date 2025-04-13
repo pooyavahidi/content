@@ -61,9 +61,9 @@ Where:
 
 So, the activation value of neuron $j$ in layer $l$ is calculated as:
 
-```math
+$$
 a^{[l]}_{j} = g(z^{[l]}_{j}) = g(\vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j})
-```
+$$
 
 ## Forward Propagation in Practice
 In practice, to increase the efficiency of the computation, we use [matrix multiplication](../math/vectors_and_matrices.md#matrix-multiplication) in our of all calculation for the **all layer** instead of calculating the output of each neuron separately.
@@ -191,7 +191,7 @@ If we have:
 
 The input from layer $l-1$ to layer $l$ is a matrix of shape $(3, 3)$ where each row is the activation vector of a single example in the batch:
 
-$$ A^{[l-1]} = \begin{bmatrix} {a^{[l-1]}_{1}}^{(1)} & {a^{[l-1]}_{2}}^{(1)} & {a^{[l-1]}_{3}}^{(1)} \\
+$$A^{[l-1]} = \begin{bmatrix} {a^{[l-1]}_{1}}^{(1)} & {a^{[l-1]}_{2}}^{(1)} & {a^{[l-1]}_{3}}^{(1)} \\
 {a^{[l-1]}_{1}}^{(2)} & {a^{[l-1]}_{2}}^{(2)} & {a^{[l-1]}_{3}}^{(2)} \\
 {a^{[l-1]}_{1}}^{(3)} & {a^{[l-1]}_{2}}^{(3)} & {a^{[l-1]}_{3}}^{(3)} \end{bmatrix}$$
 
@@ -206,7 +206,7 @@ $$
 
 Where:
 
-```math
+$$
 =\begin{bmatrix}
 {a^{[l-1]}_{1}}^{(1)} & {a^{[l-1]}_{2}}^{(1)} & {a^{[l-1]}_{3}}^{(1)} \\
 {a^{[l-1]}_{1}}^{(2)} & {a^{[l-1]}_{2}}^{(2)} & {a^{[l-1]}_{3}}^{(2)} \\
@@ -221,16 +221,17 @@ w^{[l]}_{1,3} & w^{[l]}_{2,3}
 \begin{bmatrix}
 b^{[l]}_1 & b^{[l]}_2 & b^{[l]}_3 \\
 \end{bmatrix}
-```
+$$
+
 Resulting in:
 
-```math
+$$
 Z^{[l]} = \begin{bmatrix}
 z^{[l]}_{1,1} & z^{[l]}_{2,2} \\
 z^{[l]}_{1,2} & z^{[l]}_{2,2} \\
 z^{[l]}_{1,3} & z^{[l]}_{2,3}
 \end{bmatrix}
-```
+$$
 
 Where:
 - $z^{[l]}_{j,i}$ is the linear transformation of the $i^{th}$ example in the batch for the $j^{th}$ neuron in the layer $l$.
@@ -299,16 +300,16 @@ Depending on the problem we are solving and the output layer activation function
 
 Let's say in the above example we are solving a binary classification problem, and we designed the output layer to have only one neuron with Sigmoid function as the activation function. The output of the neural network is the output of this neuron:
 
-```math
+$$
 \vec{\mathbf{a}}^{[3]} = \begin{bmatrix} a^{[3]}_1 \\
 \end{bmatrix}
-```
+$$
 
 Which
 
-```math
+$$
 a^{[3]}_1 = \sigma(z^{[3]}_1) = \sigma(\vec{\mathbf{w}}^{[3]}_{1} \cdot \vec{\mathbf{a}}^{[2]} + b^{[3]}_{1})
-```
+$$
 
 
 We interpret it as the conditional probability that the class label $y$ is **1** given the input $\vec{\mathbf{x}}$:
@@ -378,9 +379,9 @@ In the most simplest form, a neural network can have only one layer with one neu
 **Neuron with No Activation Function**:<br>
 As we discussed, each neuron has two steps of calculation, the linear step (Linear Transformation) and the activation step. If we drop the second step (activation step), the output of the neuron is the Linear Transformation of the neuron.
 
-```math
+$$
 a^{[l]}_{j} = z^{[l]}_{j} = \vec{\mathbf{w}}^{[l]}_{j} \cdot \vec{\mathbf{a}}^{[l-1]} + b^{[l]}_{j}
-```
+$$
 
 Knowing that we have only one neuron and one layer, we can drop the superscript $l$ and subscript $j$, and write $\vec{\mathbf{x}}$ instead of $\vec{\mathbf{a}}^{[l-1]}$:
 
