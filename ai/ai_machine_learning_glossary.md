@@ -1,6 +1,6 @@
 ---
 date: "2024-03-22"
-draft: true
+draft: false
 title: "AI and Machine Learning Glossary"
 description: "Glossary of terms used in AI and Machine Learning."
 tags:
@@ -9,14 +9,14 @@ tags:
 
 
 ## Scalar, Vector, Matrix, Tensor
-### Scalar Value **$x$**
+### Scalar Value $x$
 - **Represents:** A single **feature value** or element of a vector.
 - **Example:** $x_j$ is the $j^{th}$ feature of a data point.
 - **Usage example:** A single input feature in linear regression or neural networks.
 $$f_{w,b}(x) = w_{1}x_{1} + w_{2}x_{2} + \dots + w_{n}x_{n} + b$$
 
 
-### Vector **$\mathbf{x}$**
+### Vector $\mathbf{x}$
 - **Represents:** A **data point** or **feature vector** consisting of multiple feature values.
 - **Example:** $\mathbf{x}^{(i)}$ is the feature vector for the $i^{th}$ data point.
 - **Usage example:** In regression or classification tasks, each input data point is a vector of n features:

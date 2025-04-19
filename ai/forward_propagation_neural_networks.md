@@ -287,10 +287,6 @@ Each layer can have a different activation function.
 
 See more on Activation Functions [here](neural_networks_activation_functions.md).
 
-**Logit**:<br>
-For the classification problems, where the output layer has an activation function like **Softmax** or **Sigmoid**, the Linear Transformation of the output layer is also called **Logit**. The logit is the output of the output layer before applying the activation function.
-
-
 **Derive the Prediction of $\hat{y}$ from the Output of the Neural Network**:<br>
 
 The output of the neural network is the output of the output layer. The output layer is the last layer of the neural network.
@@ -442,6 +438,22 @@ The above is the equivalent of a logistic regression model. So, we can say that 
 
 See this in action [here](https://github.com/pooyavahidi/examples/blob/main/ai/nn_neurons_and_layers.ipynb).
 
+## Output Layer Logits and Activation Function Placement
+As we discussed, the output layer activation function is determined by the type of the problem we are solving. The output of this layer is the prediction of the target variable $\hat{y}$.
+
+**Logits**:<br>
+The _linear transformation_ $z$ of the output layer which is the output of the output layer before applying the activation function is called **Logits**.
+
+
+In practice for classification problems (e.g. Sigmoid or Softmax activation functions), for numerical stability, the output of the model is not the output of the activation function, but the output of the linear transformation (logit) of the output layer.
+
+Then for the final prediction $\hat{y}$, we apply the activation function to the logit $z$ separately.
+
+Similarly, if we are calculating the loss function, we pass on the logits $z$ directrly to the loss function, and the loss function will apply the activation function to the logits $z$ internally.
+
+See this in action in below example, [here](https://github.com/pooyavahidi/examples/blob/main/ai/nn_training_inference.ipynb).
+
+
 ## Implementation of Forward Propagation
 
 In the following we use `pytorch` to implement the neural network shown in the above example and how forward pass works.
@@ -477,36 +489,12 @@ class NeuralNetwork(nn.Module):
         a2 = F.relu(z2)
 
         # z3 = final linear transformation (logits)
-        z3 = self.layer_3(a2)
-        # a3 = activation of z3 (final activation)
-        a3 = F.sigmoid(z3)
+        logits = self.layer_3(a2)
+        return logits
 
-        return a3
 ```
 We can see how the output of each layer is passed (or propagated) as the input to the next layer, hence the word **propagation** or **pass**. Also, as the output moving from the first layer to the last layer (left to right direction), we call it **forward**.
 
-
-In a more simpler way we can write the above code as:
-
-```python
-class NeuralNetwork(nn.Module):
-    def __init__(self):
-        super().__init__()
-
-        self.fc_stack= nn.Sequential(
-            nn.Linear(in_features=4, out_features=3),
-            nn.ReLU(),
-            nn.Linear(in_features=3, out_features=2),
-            nn.ReLU(),
-            nn.Linear(in_features=2, out_features=1),
-            nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        output = self.fc_stack(x)
-        return output
-```
-Using `Sequential` we can simply stack the layers on top of each other and then the input of $X$ which is a [2D tensor](../math/vectors_and_matrices.md#tensor) is passed to `Sequential` which it pass it to the first layer and then takes care of passing the output of each layer to the next layer until the final output is produced.
 
 **Prediction**:<br>
 In this example, to derive $\hat{y}$ from the output of the neural network, we can simply check the value of $a3$ and if it's greater than or equal to the threshold (in this example 0.5):
@@ -515,8 +503,12 @@ In this example, to derive $\hat{y}$ from the output of the neural network, we c
 # Create an instance of the model
 model = NeuralNetwork()
 
-# Get model's prediction by passing the input feature x.
-a3 = model(x)
+# Get model's output for the input features.
+# We know the output is the logits (linear transformation) of the output layer.
+logits = model(x)
+
+# Apply the activation function to the logits to get the output of the model.
+a3 = torch.sigmoid(logits)
 
 # Derive the classifcation prediction from the output.
 if a3 >= 0.5:
