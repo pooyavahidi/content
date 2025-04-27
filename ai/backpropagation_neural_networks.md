@@ -443,8 +443,7 @@ We have the following target values for our samples:
 $$\vec{\mathbf{y}} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$$
 
 $A^{[3]}$ is the output of the model (layer 3) which is the predicted probability of the model. Each row of $A^{[3]}$ is the predicted probability of the corresponding sample. For example, $a_{1}^{[3]}$ is the predicted probability of the first sample, and $a_{2}^{[3]}$ is the predicted probability of the second sample.
-[0.0911],
-        [0.7446]
+
 $$A=\begin{bmatrix}
     a_{1}^{[3]} \\
     a_{2}^{[3]}
@@ -452,7 +451,6 @@ $$A=\begin{bmatrix}
     0.0911 \\
     0.7446
 \end{bmatrix}$$
-$$
 
 
 $y$ for the first sample is 0, and for the second sample is 1. So, the loss function is a matrix with 2 rows and 1 column. The first row is the loss for the first sample, and the second row is the loss for the second sample.
@@ -467,7 +465,6 @@ $$L=\begin{bmatrix}
     0.0955 \\
     0.2949
 \end{bmatrix}$$
-$$
 
 
 The cost function is the average of the loss function over all the samples in the batch.
@@ -1504,6 +1501,7 @@ The Jacobian matrix is:
 
 $$
 \frac{\partial \, \text{vec}(Z^{[1]})}{\partial \, \text{vec}({W^{[1]}})} = \begin{bmatrix} \frac{\partial {z_{11}^{[1]}}^{(1)}}{\partial w_{11}^{[1]}} & \frac{\partial {z_{11}^{[1]}}^{(1)}}{\partial w_{12}^{[1]}} & \dots & \frac{\partial {z_{11}^{[1]}}^{(1)}}{\partial w_{32}^{[1]}} \\ \frac{\partial {z_{12}^{[1]}}^{(1)}}{\partial w_{11}^{[1]}} & \frac{\partial {z_{12}^{[1]}}^{(1)}}{\partial w_{12}^{[1]}} & \dots & \frac{\partial {z_{12}^{[1]}}^{(1)}}{\partial w_{32}^{[1]}} \\ \vdots & \vdots & & \vdots \\ \frac{\partial {z_{23}^{[1]}}^{(2)}}{\partial w_{11}^{[1]}} & \frac{\partial {z_{23}^{[1]}}^{(2)}}{\partial w_{12}^{[1]}} & \dots & \frac{\partial {z_{23}^{[1]}}^{(2)}}{\partial w_{32}^{[1]}} \end{bmatrix}
+$$
 
 If we calculate the partial derivatives of each element of the Jacobian matrix we have:
 
