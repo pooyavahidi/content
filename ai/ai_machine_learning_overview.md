@@ -173,7 +173,7 @@ Feature engineering is the process of selecting the right features (feature redu
 
 In feature engineering to verify our hypothesis, we use the visualization techniques (discussed above) to make the right decisions.
 
-See further details here at [Feature Engineering](ai/feature_engineering.md).
+See further details here at [Feature Engineering](feature_engineering_machine_learning.md).
 
 ### Modeling
 
