@@ -297,7 +297,7 @@ In this example we create a very simple model using 3 fully connected layers (al
 
 **Placement of Activation Function for the Output Layer:**<br>
 
-As we discussed [here](), the output layer's activation function is applied separately to the logits of the output layer. In here, we have a multi-class classification problem, so we will use the softmax activation function.
+As we discussed [here](https://pooya.io/ai/forward-propagation-neural-networks/#output-layer-logits-and-activation-function-placement), the output layer's activation function is applied separately to the logits of the output layer. In here, we have a multi-class classification problem, so we will use the softmax activation function.
 
 
 
@@ -540,42 +540,42 @@ for t in range(epochs):
 
     Epoch 1/3
     -------------------------------
-    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 2.305882
-    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 2.302585
-    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 2.303279
-    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 2.297706
-    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 2.291176
-    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 2.288369
-    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 2.280975
-    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 2.280583
-    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 2.273993
-    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 2.276367
+    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 2.303745
+    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 2.298823
+    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 2.300962
+    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 2.277889
+    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 2.285777
+    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 2.286932
+    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 2.279493
+    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 2.274683
+    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 2.266902
+    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 2.260534
 
     Epoch 2/3
     -------------------------------
-    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 2.265065
-    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 2.258713
-    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 2.266994
-    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 2.244951
-    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 2.247293
-    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 2.245147
-    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 2.227187
-    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 2.241314
-    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 2.220316
-    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 2.218191
+    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 2.258941
+    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 2.250776
+    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 2.261983
+    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 2.223863
+    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 2.239783
+    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 2.239365
+    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 2.221487
+    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 2.231184
+    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 2.209245
+    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 2.198760
 
     Epoch 3/3
     -------------------------------
-    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 2.208031
-    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 2.195040
-    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 2.213706
-    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 2.166450
-    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 2.179944
-    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 2.178822
-    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 2.142656
-    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 2.174161
-    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 2.133912
-    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 2.122716
+    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 2.195798
+    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 2.180521
+    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 2.205530
+    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 2.140531
+    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 2.168901
+    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 2.162959
+    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 2.126863
+    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 2.154950
+    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 2.111911
+    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 2.093282
 
 
 
@@ -720,10 +720,10 @@ print(f"First 2 logits:\n{logits[0:2]}")
 
     Logits shape: torch.Size([64, 10])
     First 2 logits:
-    tensor([[ 0.0113,  0.0207, -0.0479,  0.0141, -0.0124, -0.0540, -0.0783,  0.2972,
-              0.0037,  0.1008],
-            [ 0.2333, -0.0395,  0.2304,  0.1966, -0.1983, -0.0123,  0.1519, -0.2106,
-             -0.0443, -0.1814]], grad_fn=<SliceBackward0>)
+    tensor([[-0.0442, -0.0884, -0.0270, -0.0364, -0.0347, -0.1009, -0.1359,  0.2878,
+              0.0304,  0.1313],
+            [ 0.2418, -0.1018,  0.1556,  0.0864, -0.1910,  0.0196,  0.0774, -0.2082,
+              0.0541, -0.1250]], grad_fn=<SliceBackward0>)
 
 
 
@@ -734,7 +734,7 @@ print(f"Sum of batch loss: {batch_loss_sum:.4f}")
 test_loss += batch_loss_sum
 ```
 
-    Sum of batch loss: 136.3858
+    Sum of batch loss: 135.4241
 
 
 This above calculates the losses for the entire batch and **adds** them up together in `test_loss` variable. We broke it down for better understanding.
@@ -877,7 +877,7 @@ comparison_sum = pred_y_comparison.sum().item()
 print(f"Sum of comparison results: {comparison_sum}")
 ```
 
-    Sum of comparison results: 39
+    Sum of comparison results: 42
 
 
 The above number is the total of all the ones and zeros in the matrix (1 for correct prediction and 0 for incorrect prediction). So, the above number is the total number of correct predictions for the entire batch.
@@ -905,48 +905,48 @@ for t in range(epochs):
 
     Epoch 1/3
     -------------------------------
-    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 2.111973
-    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 2.088775
-    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 2.123706
-    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 2.034735
-    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 2.063310
-    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 2.062856
-    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 1.997807
-    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 2.055363
-    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 1.986289
-    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 1.959997
+    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 2.088306
+    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 2.057869
+    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 2.107266
+    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 1.994177
+    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 2.041707
+    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 2.025375
+    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 1.961997
+    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 2.017157
+    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 1.940468
+    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 1.910179
     Test Result:
-     Average loss: 1.9483, Accuracy: 6502/10000 (65%)
+     Average loss: 1.9061, Accuracy: 6872/10000 (69%)
 
     Epoch 2/3
     -------------------------------
-    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 1.949074
-    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 1.910491
-    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 1.964479
-    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 1.822920
-    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 1.860747
-    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 1.858735
-    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 1.765020
-    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 1.859372
-    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 1.750565
-    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 1.708855
+    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 1.903121
+    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 1.846806
+    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 1.933704
+    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 1.755936
+    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 1.818471
+    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 1.790027
+    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 1.701609
+    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 1.795205
+    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 1.674100
+    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 1.635013
     Test Result:
-     Average loss: 1.6904, Accuracy: 7081/10000 (71%)
+     Average loss: 1.6227, Accuracy: 7177/10000 (72%)
 
     Epoch 3/3
     -------------------------------
-    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 1.701535
-    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 1.638890
-    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 1.709484
-    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 1.531565
-    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 1.560065
-    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 1.553642
-    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 1.448997
-    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 1.588845
-    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 1.449760
-    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 1.401611
+    [Batch:    1/938 Processed:    64/60000 (0%)]	Loss: 1.630218
+    [Batch:  100/938 Processed:  6400/60000 (11%)]	Loss: 1.540465
+    [Batch:  200/938 Processed: 12800/60000 (21%)]	Loss: 1.665339
+    [Batch:  300/938 Processed: 19200/60000 (32%)]	Loss: 1.444314
+    [Batch:  400/938 Processed: 25600/60000 (43%)]	Loss: 1.499389
+    [Batch:  500/938 Processed: 32000/60000 (53%)]	Loss: 1.467534
+    [Batch:  600/938 Processed: 38400/60000 (64%)]	Loss: 1.378188
+    [Batch:  700/938 Processed: 44800/60000 (75%)]	Loss: 1.510414
+    [Batch:  800/938 Processed: 51200/60000 (85%)]	Loss: 1.365509
+    [Batch:  900/938 Processed: 57600/60000 (96%)]	Loss: 1.320750
     Test Result:
-     Average loss: 1.3721, Accuracy: 7559/10000 (76%)
+     Average loss: 1.3028, Accuracy: 7525/10000 (75%)
 
 
 
