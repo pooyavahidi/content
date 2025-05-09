@@ -46,8 +46,23 @@ We can see int he above image:
 - The balanced model (center) has low bias and low variance, capturing the underlying patterns in the data without memorizing the training examples. It _generalizes_ well to new unseen data.
 
 
+
+Let's say $J_{train}$ is the training error and $J_{validation}$ is the validation error. We can say:
+| Model Type | $J_{train}$ | $J_{validation}$ | Comparison |
+|-|-|-|-|
+| Underfitting | High | High | $J_{train} \approx J_{validation}$ |
+| Overfitting | Low | High | $J_{train} \ll J_{validation}$ |
+| Balanced | Low | Low | $J_{train} \approx J_{validation}$ |
+
+In the following image, the x-axis represents the models with increasing complexity (from left to right), and the y-axis represents the error of the model.
+- The less complex models have higher bias and higher error as they are too simple to capture the underlying patterns in the data.
+- The high complex models have higher variance as they are too complex and capture noise and random details in the training data.
+- The more complex the model, the better it fits the training data. Hence, the training error decreases as the model complexity increases. However, as model complexity increases, it first reach to a point of balanced bias and variance, where the model generalizes well (model 5 in this example). After that point, the model starts to overfit the training data and validation error increases again.
+
+![](images/model_selection_and_validation_training_error.png)
+
 **Model Evaluation**:<br>
-[Model Evaluation](model_evaluation.md) involves the methods and metrics (e.g., cross-validation, test accuracy, precision-recall) used to assess the generalization performance and ensure that the model is not overfitting or underfitting.
+[Model Evaluation](model_evaluation_machine_learning.md) involves the methods and metrics (e.g., cross-validation, test accuracy, precision-recall) used to assess the generalization performance and ensure that the model is not overfitting or underfitting.
 
 
 ## Underfitting
@@ -69,6 +84,10 @@ A **biased model** in the context of underfitting is like a stubborn student who
 - Low test/validation accuracy.
 - Indicates the model has not captured the complexity of the data.
 
+
+In practice, if $J_{train}$ is the training error and $J_{validation}$ is the validation error, we can say:
+- $J_{train}$ is high (poor fit to training data).
+- $J_{validation}$ is also high (poor fit to validation data).
 
 **Example:**<br>
 Using a simple linear regression model to fit data that has a nonlinear relationship (e.g., a quadratic pattern). A straight line won't be able to capture the curve in the data, resulting in underfitting.
@@ -99,7 +118,12 @@ The word _variance_ refers to the model's sensitivity to the specific data it wa
 - High training accuracy.
 - Low test accuracy or validation accuracy.
 
-**Example:**
+In practice, if $J_{train}$ is the training error and $J_{validation}$ is the validation error, we can say:
+- $J_{train}$ is low (good fit to training data).
+- $J_{validation}$ is high (poor fit to validation data).
+
+
+**Example:**<br>
 Consider fitting a polynomial to a dataset:
 - A simple model (e.g., a straight line) may underfit the data, failing to capture its true complexity.
 - A very complex model (e.g., a high-degree polynomial) may overfit, capturing every tiny fluctuation in the training data which performs very well on the training data but poorly on new unseen data.
