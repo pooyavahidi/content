@@ -27,12 +27,13 @@ After each time evaluation (or even after when model is deployed in production),
 - etc
 
 
-**Model Evaluation Initial Steps**<br>
+**Model Evaluation Steps**<br>
 
 After the data is prerpocessed and we are ready to train a model, then we:
-1. Splitting the Data (for training and testing)
+1. Splitting the Data for Cross-Validation
 2. Choosing the Right Evaluation Metrics
 3. Baseline the Trained Model
+4. Cycle of Training-Evaluation-Improvement
 
 **Model Evaluation Goal**<br>
 After initial steps, we keep iterating through steps of model improvement and tuning with the goal of improving the model performance. The model performance simply means how well the model [generalizes](generalization_machine_learning.md) to unseen data.
@@ -42,54 +43,9 @@ So, in most cases, we are fighting against [underfitting](generalization_machine
 So, in all the steps of model evaluation, have this goal in mind and constantly let the model's bias and variance guide you in the process of model evaluation.
 
 ## Splitting the Data
-Splitting the data is a crucial initial step in machine learning to ensure that the model can generalize well to unseen data. The data is usually divided into two sets (two-way split) or three sets (three-way split):
+Splitting the data is a crucial initial step in machine learning to ensure that the model can generalize well to unseen data.
 
-
-**Two-way Splits (Training/Test):**<br>
-When using only training and test sets:
-
-- 80/20 split: 80% training, 20% testing (common approach)
-- 70/30 split: 70% training, 30% testing (used when more evaluation data is needed)
-- 90/10 split: 90% training, 10% testing (used with larger datasets)
-
-**Three-way Splits (Training/Validation/Test):**<br>
-When including a validation set for hyperparameter tuning:
-
-- 60/20/20 split: 60% training, 20% validation, 20% testing
-- 70/15/15 split: 70% training, 15% validation, 15% testing
-- 80/10/10 split: 80% training, 10% validation, 10% testing
-> **Terminology**<br>
-> Validation set is sometimes called Cross-validation set, Development set, or Dev set.
->
-> The term _hold-out set_ is often used to refer to the dataset that is not used for training. Two-way split has one hold-out set (test set), while three-way split has two hold-out sets (validation and test sets).
-
-**Three-way Split is Superior to Two-way Split**<br>
-
-When using a two-way split, we have training and test sets. Let's say we want to train 10 different models and pick the best one.
-
-Let's say our models are neural networks with different architectures. We define a new parameter called **nn** that simply an integer referencing the model. We have 10 different models with different architectures, and we want to pick the best one.
-- nn=1: 3 hidden layers, 100 neurons each, ReLU and Adam, etc
-- nn=2: 5 hidden layers, 50 neurons each, Tanh and SGD, etc
-- ...
-- nn=10: 2 hidden layers, 200 neurons each, Leaky ReLU and Adam, etc
-
-After training all these models, we run the test set to get the performance of each model. After all training and comparison, we pick nn=5 as the best model.
-
-Now we have a problem! We have trained all models (nn=1 to 10) on the training set and evaluated them on the test set. But we have used the test set to select the best model. This means that we have used the test set to tune our **new** hyperparameter of the model, **nn**. In other words, we can think of this as we trained a new function that maps the parameter **nn** to the output performance (accuracy, precision, etc) of the model. This is not a good practice because we have used the test set to tune the model, and now we don't know how well this model will perform on unseen data.
-
-In this case, we say that result of test set is **overly optimistic**. This means that real performance of the model nn=5 on unseen data is probably lower than what we got from the test set.
-
-The solve this problem, we use a three-way split. We split the data into training, validation, and test sets. We train all the models on the training set and evaluate them on the validation set to pick the best model. Then we evaluate the best model on the test set to estimate the performance on unseen data. This way, we have not used the test set to tune our final model, and because we haven't made any decisions based on the test set, that ensures that the test set is a fair representation of the unseen data and not overly optimistic estimate of the model performance on generalization of the unseen data.
-
-> We ideally want to avoid making decisions based on the test set during the model tuning and selection process. When we come up with the final model, then at the **very end** we estimate the generalization performance using the test set to fairly estimate the performance of the model on unseen data. In other words, by reserving a separate test set, you insulate your final evaluation from all tuning decisions. Hence, the three-way split is superior to the two-way split.
->
-> Note: In model selection, we evaluate those model against the **validation set** not the **test set** to pick the best model.
-
-
-**Benchmark Datasets**<br>
-Benchmark datasets like MNIST often come with predefined splits (MNIST is split approximately 86/14 with 60,000 training and 10,000 test images).
-
-[Cross-validation](ai_machine_learning_cross_validation.md) techniques modify these splits by rotating which portion is used for validation Very large datasets might use smaller test portions (e.g., 95/2.5/2.5) as even small percentages provide enough examples The optimal split depends on dataset size, model complexity, and the specific problem being solved.
+The most common approach is to split the data into two (training and test) or three (training, validation, and test) sets. See the details in [Hold-out Validation](cross_validation_machine_learning.md#hold-out-validation) section.
 
 
 ## Choosing the Right Metrics
@@ -113,13 +69,17 @@ Mean Absolute Percentage Error (MAPE), Symmetric Mean Absolute Percentage Error 
 - In scenarios with highly imbalanced data, precision, recall, and F1 score might be more informative for classification tasks because they provide a clearer picture of how well the model performs on the minority class
 
 - Probabilistic Models: For models that output probabilities (e.g., some classifiers), metrics like log loss or AUC-ROC might provide additional insights into model performance beyond what MAE or RMSE can offer.
+## Bias and Variance
+See [Generalization](generalization_machine_learning.md) section for more details on bias and variance. High Bias (underfitting) and High Variance (overfitting) are two common problems in machine learning. Knowing how to identify and address these issues is crucial for building effective models.
+
+Also, see [Regularization](generalization_machine_learning.md#regularization) techniques and how to choose the right regularization parameters and create a balance between bias and variance.
 
 ## Baseline Model
-Establish a simple baseline model to compare against more complex models. This can help in understanding the minimum performance expected and assess the complexity needed.
+Establish a baseline level of performance for the model to compare against any improvements or other models. This can help in understanding the minimum performance expected and assess the complexity needed.
 
 
 ## Cross Validation
-**Cross-Validation** is a technique used to evaluate the performance of a model by training and testing it on multiple subsets of the data.  For details on Cross-Validation, see [Cross-validation](ai_machine_learning_cross_validation.md)
+**Cross-Validation** is a technique used to evaluate the performance of a model by training and testing it on multiple subsets of the data.  For details on Cross-Validation, see [Cross-validation](cross_validation_machine_learning.md).
 
 ## Model Tuning
 After evaluating the model we may need to tune our model by changing the hyperparameters. There are multiple ways to do this:
