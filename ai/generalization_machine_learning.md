@@ -190,6 +190,8 @@ As we can see, if we make our coefficients too small (near zero), the curve beco
 
 So, we can get this intuition that as we decrease the coefficients of $x$ in the polynomial, the curve becomes smoother and less wiggly (going towards a straight line). If you recall, the straight line was the underfit model. So, the idea of regularization is to find the right balance between the overfitting and underfitting by controlling the coefficients of $x$ in the polynomial.
 
+
+
 > In general, by reducing the value of $w_j$ (coefficients) for feature $x_j$, we reduce the effect of that feature in the model. As the $w_j$ gets smallet, the contribution of the feature $x_j$ in the model becomes less and less.
 
 In regularization, we implement this idea by penalizing the model for having large coefficients (parameters $w_j$) to avoid overfitting (sharp turns in the curve). We want the model to have small (but not too small) coefficients to make the curve smooth which fit the data in a more balanced way.
@@ -213,11 +215,12 @@ where:
 - $w_j$ is the $j^{th}$ parameter (weight) of the model for the feature $x_j$.
 
 **Notes:**
-- Division by $2m$ is a common convention, and it doesn't have any effect on the optimization process. It's just for mathematical convenience.
   - The division by $m$ is generally used to keep the regularization term on the same scale as the cost function (average losses over $m$ examples). It turns out, if we scale both terms in the same way, we can choose a better value for $\lambda$.
-  - The additional factor of $\frac{1}{2}$ is purely for mathematical convenience. It makes the derivative of the regularization term simpler (the 2 and \frac{1}{2} cancel out when we differentiate).
+  - The additional factor of $\frac{1}{2}$ is purely for mathematical convenience. It makes the derivative of the regularization term simpler as $2$ and $\frac{1}{2}$ cancel out each other when we differentiate. It has no effect on the optimization process.
 
-- By convention, we don't apply regularization to the bias term $b$ because it has a very little difference in practice. The more common practice is to penalize only the weights $w_j$.
+  - By convention, we don't apply regularization to the bias term $b$ because it has a very little difference in practice. The more common practice is to penalize only the weights $w_j$.
+
+
 
 **Extended Cost Function with Regularization:**<br>
 Now our new cost function is made up two terms, the first term is the average of loss functions and the seconds term is the regularization term:
@@ -294,9 +297,18 @@ The regularization parameter $\lambda$ controls the strength of regularization. 
 
 So, there is a trade-off in choosing the right value of $\lambda$. If:
 - **$\lambda$ = 0:** No regularization. The model can have any value of parameters.
-- **$\lambda$ is too small:** Low regularization. The parameters are allowed to grow too large, leading to overfitting.
-- **$\lambda$ is too large:** Heavy regularization. The parameters forced to become too small, leading to underfitting.
+- **$\lambda$ is too small:** Low regularization. The parameters are allowed to grow too large, leading to overfitting (high bias).
+- **$\lambda$ is too large:** Heavy regularization. The parameters forced to become too small, leading to underfitting (high variance).
 
+In practice, we use cross-validation to find the best value of $\lambda$ that minimizes the validation error. In other words, we train number of models with different values of $\lambda$ and then evaluate the performance of each model on the validation set. The value of $\lambda$ that used to train the model that performs best on the validation set is chosen as the final value of $\lambda$.
+
+In the following image, we plot the training and validation errors as a function of $\lambda$. Let's assume we use the previous polynomial regression model which is a complex model with high degree polynomial.
+
+![](images/regularization_lambda_bias_variance.png)
+
+- $\lambda$ is too small (left): The $J_{train}$ is low (good fit to training data) but $J_{validation}$ is high (poor fit to validation data). The model is overfitting (high variance).
+- $\lambda$ is too large (right): The $J_{train}$ is high as we penalize the model for having large parameters and made it flat. The $J_{validation}$ is also high as the model is underfitting (high bias).
+- $\lambda$ is just right (middle): The $J_{train}$ is low (good fit to training data) and $J_{validation}$ is also low (good fit to validation data). The model is balanced and generalizes well. This value may not be always exactly in the middle, but it is the value that minimizes the validation error.
 
 #### L1 and L2 Regularizations
 L1 (Lasso) and L2 (Ridge) regularizations are two common types of regularization techniques. L2 regularization is more common and widely used in practice.
