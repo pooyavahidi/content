@@ -26,12 +26,15 @@ The goal of training is to find the parameters that allow the model to _generali
 **Underfitting (High Bias):**<br>
 A model is too simple to capture the underlying patterns in the data, resulting in high training and test error. Model performs poorly on both training and test (unseen) data.
 
+_Simple Models usually have High Bias_
+
 **Overfitting (High Variance):**<br>
 A model is too complex, capturing noise and random details in the training data, leading to low training error but high test error. Model performs well on training data but poorly on test (unseen) data.
 
+_Complex Models usually have High Variance_
 
-**Balancing Underfitting and Overfitting:**<br>
-The goal in machine learning is to find the sweet spot between underfitting and overfitting where the model generalizes well.
+**Bias-Variance Tradeoff:**<br>
+The key goal in machine learning is to find the sweet spot between underfitting and overfitting (tradeoff between bias and variance) where the model generalizes well.
 
 - Underfitting is associated with high bias and low variance.
 - Overfitting is associated with low bias and high variance.
@@ -40,10 +43,18 @@ The following image illustrates these three scenarios using example of house pri
 
 ![generalization_underfitting_overfitting](images/generalization_underfitting_overfitting.png)
 
+
+
 We can see int he above image:
 - The underfit model (left) has high bias and it does not fit well to the training data.
+
 - The overfit model (right) has low bias but high variance, capturing noise and random fluctuations in the training data, which means it does very well on the training data but poorly on new unseen data. The model here is too complex (too many features and high polynomial degree) and memorizes the training data *too well*. It performs very well on the training data becasue it has has captured all the noises and random fluctuations in the training data. But when it sees new unseen data, it performs poorly.
-- The balanced model (center) has low bias and low variance, capturing the underlying patterns in the data without memorizing the training examples. It _generalizes_ well to new unseen data.
+
+- Simple models (left) have high bias and low variance, meaning they are too simple to capture the underlying patterns in the data. They perform poorly on both training and validation (or unseen) data.
+
+- Complex models (right) have low bias and high variance, meaning they are too complex and capture noise and random details in the training data. They perform well on training data but poorly on validation (or unseen) data.
+
+- The balanced model (center) has low bias and low variance, capturing the underlying patterns in the data without memorizing the training examples. This is tradeoff between bias and variance where the model _generalizes_ well to new unseen data.
 
 
 
@@ -65,7 +76,7 @@ In the following image, the x-axis represents the models with increasing complex
 [Model Evaluation](model_evaluation_machine_learning.md) involves the methods and metrics (e.g., cross-validation, test accuracy, precision-recall) used to assess the generalization performance and ensure that the model is not overfitting or underfitting.
 
 
-## Underfitting
+## Underfitting (High Bias)
 Underfitting happens when a machine learning model is too simple to capture the underlying patterns in the data. It’s like a student who only glances at the study material and misses the key concepts, leading to poor performance on both practice tests (training data) and real exams (new data).
 
 Underfitting occurs when a model has high bias and fails to learn the relationships between input features and target outputs in the training data. This results in both high training error and high validation/test error.
@@ -99,7 +110,7 @@ Using a simple linear regression model to fit data that has a nonlinear relation
 3. **Decrease Regularization**: Reduce overly strict regularization constraints (e.g., lower $L_1$ or $L_2$ penalties).
 4. **Train Longer**: Allow the model more time to converge to the optimal solution.
 
-## Overfitting
+## Overfitting (High Variance)
 Overfitting happens when a machine learning model learns not just the general patterns in the training data, but also the noise or random details that don't apply to unseen data. It’s like a student memorizing answers instead of understanding the concepts, which makes them perform well on practice tests (training data) but poorly on the real exam (new data).
 
 
@@ -145,6 +156,27 @@ Collecting more data is a very effective way to address overfitting, which we sh
 
 With the larget training data, the model can learn to generalize better to new unseen data even with a complex model (e.g. high polynomial degree) and numerous features.
 
+
+**Model Capability and Increasing Training Data**<br>
+Even though increasing training data is a very effective way to improve the model's performance, if the model has high bias initially, it most likely will not improve the model's performance even with more data. High bias models are too simple (incapable) to learn the underlying patterns in the data. So, increasing more training data will not improve the model's performance.
+
+High Variance models are in general more capable of learning the underlying patterns in the data. Therefore, they are sensitive to all the noise and random fluctuations in the training data. As we increase the training data, the model will be exposed to more examples and patterns, which will help it to learn the true underlying patterns in the data and generalize better to new unseen data.
+
+Let's plot the learning curves (error vs training set size) for a model with high bias and high variance.
+
+![](images/bias_variance_training_data_size.svg)
+
+In the left side, we have a model which has high bias. Both the training $J_{train}$ and cross validation $J_{cv}$ errors are high, and there is a gap between them and the performance goal. Increasing the training data on a high bias model will not help to reduce that gap, as model is not capable enough to learn pattern in the data regardless of how much more data we add.
+
+In the right side, we have a model which has high variance. This model has a higher capability to learn and we can see that the training error $J_{train}$ is low and the cross validation error $J_{cv}$ get closer to the performance goal as we increase the training data.
+
+> **Tips:**
+> - Before increasing the training data, first check if the model has high bias or not. If the model has high bias, then we should first fix that before increasing the training data.
+>   - **model has high variance**, then increasing the training data is a good way to improve the model's performance.
+>   - **model has high bias**, increasing the training data will not help to improve the model's performance by itself.
+>- If we have a large amount of training data, instead of using all of it for the training, we can just use a small subset of it initially to train the model and then examine the learning curves and other metrics to see if the model is overfitting or underfitting. Then introduce more data to the training set. This could help to guide us in the right direction in trade-off between bias and variance and better generalization.
+>
+> - While increasing the training data, helps to reduce the high variance, we can't do the reverse to fix high bias. In other words, reducing the training data will **not** help to reduce the high bias. It may reduce the training error, but it hasn't helped the capability of the model to learn the underlying patterns and it will generalize poorly to the validation and test data.
 
 ### Feature Selection and Reduce Model Complexity
 There are several ways to simplify a model. One of the most common ways is to reduce the number of features. [**Feature selection**](feature_engineering.md#feature-selection) is an important technique to choose the most relevant features to train the model.
@@ -295,7 +327,7 @@ So, what regularization is doing at each step is mutltiplying the weight $w_j$ b
 #### Choosing the Right Value for $\lambda$
 The regularization parameter $\lambda$ controls the strength of regularization. A higher value of $\lambda$ penalizes the model more for having large parameters. Choosing a very high value of $\lambda$ will force the model to have very small parameters. Recall in the above plot of polynomial function $f(x)$, choosing a very small (near zero) coefficients will make the curve to be a straight line $f(x) = b$ which is the underfit model.
 
-So, there is a trade-off in choosing the right value of $\lambda$. If:
+So, there is a tradeoff in choosing the right value of $\lambda$. If:
 - **$\lambda$ = 0:** No regularization. The model can have any value of parameters.
 - **$\lambda$ is too small:** Low regularization. The parameters are allowed to grow too large, leading to overfitting (high bias).
 - **$\lambda$ is too large:** Heavy regularization. The parameters forced to become too small, leading to underfitting (high variance).
@@ -309,6 +341,37 @@ In the following image, we plot the training and validation errors as a function
 - $\lambda$ is too small (left): The $J_{train}$ is low (good fit to training data) but $J_{validation}$ is high (poor fit to validation data). The model is overfitting (high variance).
 - $\lambda$ is too large (right): The $J_{train}$ is high as we penalize the model for having large parameters and made it flat. The $J_{validation}$ is also high as the model is underfitting (high bias).
 - $\lambda$ is just right (middle): The $J_{train}$ is low (good fit to training data) and $J_{validation}$ is also low (good fit to validation data). The model is balanced and generalizes well. This value may not be always exactly in the middle, but it is the value that minimizes the validation error.
+
+#### Regularization in Neural Networks
+Similar to above, we can add a regularization term to the cost function of a neural network.
+
+$$
+J(\vec{\mathbf{w}}, b) = \frac{1}{m} \sum_{i=1}^{m} L(f_{\vec{\mathbf{w}},b}(\mathbf{x}^{(i)}), y^{(i)}) + \frac{\lambda}{2m} \sum_{l=1}^{Layers} \sum_{j=1}^{n_l} \sum_{k=1}^{n_{l-1}} (w^{(l)}_{jk})^{2}
+$$
+
+where:
+- $Layers$ is the number of layers in the neural network.
+- $n_l$ is the number of neurons in layer $l$.
+- $n_{l-1}$ is the number of neurons in layer $l-1$. This gives the number of weights connecting layer $l$ to layer $l-1$, which is weights of each neuron in layer $l$ (in a fully connected layer).
+- $w^{(l)}_{jk}$ is the weight connecting neuron $j$ in layer $l$ to neuron $k$ in layer $l-1$.
+
+In simple terms, the regularization term is the sum of the squares of all the weights in all the neurons in all the layers of the neural network.
+
+> Similar to linear regression, we don't apply regularization to the bias terms in the neural network.
+
+We can write it using a simpler notation using $\theta$ to represent all the parameters (weights in this case) in the neural network:
+
+$$
+J(\theta)
+= \frac{1}{m}\sum_{i=1}^m L\bigl(f_{\theta}(x^{(i)}),\,y^{(i)}\bigr)
++ \underbrace{\frac{\lambda}{2m}\,\sum_i \theta_i^2}_{\text{Regularization term}}$$
+
+Where:
+- $\theta$ denotes the concatenation of all weight matrices
+   $\{W^{(1)},W^{(2)},\dots,W^{(L)}\}$.
+- $L(f_{\theta}(x^{(i)}),y^{(i)})$ is the loss function of example $i$.
+
+Regularization term is also called **weight decay**. It is a common technique used in deep learning to prevent overfitting by penalizing large weights in the model. The term "weight decay" refers to the idea that the weights are "decaying" or being shrunk slightly on every update step, which helps to prevent them from growing too large and overfitting the model to the training data.
 
 #### L1 and L2 Regularizations
 L1 (Lasso) and L2 (Ridge) regularizations are two common types of regularization techniques. L2 regularization is more common and widely used in practice.
