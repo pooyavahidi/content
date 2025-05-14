@@ -96,16 +96,38 @@ Benchmark datasets like MNIST often come with predefined splits (MNIST is split 
 
 
 ### K-Fold Cross Validation
-In this method we splits the dataset into *K* subsets of equal size. Each subset is used as the test set once while the *K-1* remaining subsets form the training set. For example if we have 4 models, K=4, then we split the dataset into 4 subsets.
 
-- Train Model 1 on subset 1,2,3 and test on subset 4.
-- Train Model 2 on subset 2,3,4 and test on subset 1.
-- Train Model 3 on subset 1,3,4 and test on subset 2.
-- Train Model 4 on subset 1,2,4 and test on subset 3.
+In **k-fold cross-validation**, you split your entire dataset into **k** equally (or nearly equally) sized “folds.” Then you run **k** training-and-evaluation experiments (often called “rounds” or “folds”), each time using:
+
+- **k–1 folds** as the **training set**, and
+- the **remaining 1 fold** as the **validation set**.
+
+By cycling through all k possible choices of validation fold, you get k performance estimates which you then **average** to get a more reliable measure of your model’s generalization performance (and reduce variance due to any one particular train/test split).
 
 ![](images/cross_validation_kfold.svg)
 
-> `k` is typically ranges from 5 to 10, but it can be any number.
+In the above image:
+- Each **row** corresponds to one of the k = 5 “rounds” (labeled Model 1…Model 5).
+- In each round, the **Test** fold is held out for testing, while the **Train** folds are used to train the model.
+- Over the 5 rounds you’ll have 5 evaluation scores; you then **average** them to obtain your final cross-validated performance.
+
+**Available Data**<br>
+- Using **two-way split**: The available data is whole of the dataset including training and test sets.
+- Using **three-way split**: The available data is the training and validation sets only. We seprate the test set before splitting the data into k folds, and then go through the k-fold cross-validation process. This ensures that the test set is **not** used in any of the tuning or selection process, and is only used at the end to evaluate the final model.
+
+**Averaging the results**<br>
+The mean performance metrics across all k iterations. For example, if the 5 models in the image achieved accuracies of 82%, 85%, 80%, 87%, and 84%, the final reported accuracy would be the average: 83.6%. Averaging provides several benefits:
+
+- More reliable estimation: Instead of relying on a single train/validation split (which might be lucky or unlucky), you get k different evaluations.
+
+- Reduced variance: Averaging across multiple validation sets provides a more stable estimate of model performance.
+
+- Efficient use of data: Every data point gets used for both training and validation (though never in the same iteration), making maximum use of limited data.
+
+This technique ensures every data point has been in the validation set exactly once and in the training set k–1 times, giving you a robust estimate of how your model behaves on unseen data.
+
+> In practice you’ll most often see k=5 or k=10 folds cross-validation, with 5-fold in many production or auto-ML pipelines. Although in theory, k can be any positive integer.
+
 
 ### Leave-One-Out Cross Validation
 In this method, we split the dataset into *N* subsets, where *N* is the number of samples in the dataset. Each sample is used as the test set once while the remaining samples form the training set. This method is useful when we have a small dataset.
