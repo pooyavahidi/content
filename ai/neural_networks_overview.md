@@ -274,6 +274,10 @@ Similar to training a [linear regression model](regression.md), training a neura
    - The [activation functions](neural_networks_activation_functions.md) in each layer, and particularly the activation function of the output layer based on the type of the problem (regression, binary classification, or multi-class classification, etc).
    - The [loss function](loss_and_cost_functions.md) according to output layer.
 
+
+>**Tips**:
+> - When designing neural networks, one of the key questions i how large (and deep) the network should be. In practice, having a larger network (more layers and more neurons) is almost always better than having a smaller network if the regularization is used properly. The only constraint is the computational power, cost and time. So, by default, choose a network as large as your resources allow. See [Bias and Variance in Neural Networks](model_evaluation_machine_learning.md#bias-and-variance-in-neural-networks) for more details.
+
 [**2. Gradient Descent**](gradient_descent.md): This is the optimization algorithm to minimize the error between the predicted output and the actual output by updating the weights and biases step by step. See the steps of the gradient descent algorithm in the [gradient descent algorithm](gradient_descent.md#gradient-descent-algorithm).
 
 The key components of gradient descent is calculating the _partial derivatives_ of the loss function with respect to the weights and biases of the network. In neural network this alogrithm is called [**backpropagation**](neural_networks_backpropagation.md).
