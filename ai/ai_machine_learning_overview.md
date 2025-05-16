@@ -9,14 +9,19 @@ tags:
 
 **Machine Learning (ML):** A way of achieving AI, where the machine learns from data to make predictions or decisions without being explicitly programmed.
 
+In programming, we write **rules** to solve a problem. In machine learning, we provide the machine with **data** and let it **learn** the rules from the data.
+
 Machine learning is a subfield of artificial intelligence (AI).
 
 ![Alt text](images/ai1.jpg)
 Source: [Augmenting organizational decision-making with deep learning algorithms: Principles, promises, and challenges](https://www.sciencedirect.com/science/article/pii/S0148296320306512)
 
-To learn more about the machine learning development workflow and process, see [Machine Learning Workflow](aiml_overview_workflow.md).
+## Machine Learning Development Process
+Machine learning development process is an iterative workflow of steps. See more details in the [Machine Learning Development Process](machine_learning_development_process.md).
 
-**Types of Machine Learning:**
+## Types of Machine Learning
+Machine learning can be broadly categorized into several types based on the nature of the data and the learning process. The main types of machine learning are:
+
 - Supervised Learning
 - Unsupervised Learning
 - Semi-Supervised Learning
@@ -24,7 +29,7 @@ To learn more about the machine learning development workflow and process, see [
 - Reinforcement Learning (RL)
 - Transfer Learning
 
-## Supervised Learning
+### Supervised Learning
 Supervised learning is a type of machine learning where the model is trained on a labeled dataset. This means that the input data is paired with the correct output. The model learns (optimizes) to make predictions based on the input data by comparing its predictions with the correct output during the training process.
 
 **Labeled data**: Data that has pairs of both the input data $X$ and the "correct" output $Y$. These $X$ and $Y$ mappings are used to train the model.
@@ -51,48 +56,48 @@ A supervised learning algorithm typically consists of three key components:
 - **Cost Function**: A function that measures how well the model is performing by comparing the predicted versus actual target values.
 - **Optimization Algorithm**: A method to minimize the cost function (the error between the predicted and actual target values) by adjusting the model parameters.
 
-### Example tasks:
+**Example of Tasks:**<br>
 - [Regression](regression.md): Predicting a number (continuous value) such as house prices, stock prices, etc.
 - [Classification](classification.md) : Predicting discrete classes or categories from a limited set of possible values, such as cat or dog, or numeric labels like 0, 1, 2, etc. (e.g., spam vs. non-spam emails, speech recognition, or cat vs. dog in an image).
 
 > Regression models predict a number from infinitely many possible values, while classification models predict a category from a finite set of categories (or classes).
 
-### Main supervised learning algorithms:
+**Main supervised learning algorithms:**<br>
 - [Regression](regression.md): Predict a number.
 - [Classification](classification.md): Predict a category.
 - [K-Nearest Neighbors (KNN)](knn.md)
 - [Decision Forests, Random Forests, and Gradient Boosted Decision Trees](decision_forests.md)
 - Neural Networks (when used with labeled data)
 
-## Unsupervised Learning
+### Unsupervised Learning
 Unsupervised learning is a type of machine learning where the model is trained on an **unlabeled** dataset. This means the model learns to make predictions based on the input data without being explicitly told what the correct output is. The model learns to identify patterns and structures in the data.
 
 Unlike the supervised learnign where the training data comes with both $input(X)$ and $output(Y)$, in unsupervised learning, the data comes with only $input(X)$. The model learns to find structures in the data without being explicitly told what to look for.
 
-### Main unsupervised learning algorithms:
+**Main unsupervised learning algorithms:**<br>
 - [Clustering](clustering.md): Grouping similar data points together, into clusters. e.g. Google News which groups similar news articles together. This happens without any supervision or labeled data. The algorithm learns to group similar data points together based on their features. Another example is customer segmentation in marketing.
 - **Anomaly detection:** Identifying rare items, events, or observations that raise suspicions by differing significantly from the majority of the data. e.g. fraud detection.
 - **Dimensionality reduction:** Compress data using fewer numbers.
 
-## Semi-Supervised Learning
+### Semi-Supervised Learning
 This is a hybrid of supervised and unsupervised learning, where the model is trained on a small amount of labeled data and a large amount of unlabeled data. Semi-supervised learning is useful when labeling data is expensive or time-consuming, but there is a large amount of unlabeled data available.
 
-Example tasks:
+**Example tasks:**<br>
 - Image classification with limited labeled images.
 - Text categorization with few labeled documents and many unlabeled ones.
 
-## Self-supervised Learning
+### Self-supervised Learning
 Self-supervised learning is a specific form of unsupervised learning where the model generates its own supervisory signals from the data itself. This is a common approach in modern neural networks, particularly in natural language processing (NLP) and computer vision.
 
-Example tasks:
+**Example tasks:**<br>
 - LLMs (Large Language Models) are typically trained on large-scale corpora of text. For each position in the text sequence, the model predicts the next token (e.g., a word, subword, or character). During training, the "label" for each predicted token is simply the actual next token from the input sequence itself. Thus, the model is effectively trained using labels derived directly from its input data, eliminating the need for manually predefined or externally provided labels.
 - Word embeddings (e.g., models like Word2Vec or BERT) where relationships between words are learned from large corpora.
 - Learning image representations by predicting missing parts of images or predicting future frames in a video.
 
-## Transfer Learning
+### Transfer Learning
 Though not a traditional type of learning, transfer learning refers to using a pre-trained model on one task and adapting it to a different but related task. This is especially useful when there is not enough labeled data for the new task, but the knowledge gained from a different domain can be reused.
 
-Example tasks:
+**Example tasks:**<br>
 - Using a model trained on ImageNet to classify medical images with a smaller labeled dataset.
 - Fine-tuning a language model like GPT for specific text classification tasks.
 
@@ -126,65 +131,10 @@ Although you don't need to be a math expert to work in the field of AI/ML, a sol
 
 **Probability Theory**: You should be familiar with basic probability distributions (e.g., continuous, Gaussian, Bernoulli) and be able to define concepts for both continuous and discrete random variables, including expectation, independence, probability distribution functions, and cumulative distribution functions.
 
-
-## Machine Learning Workflow
-
-Machine Learning development is an [empirical process](https://www.deeplearning.ai/the-batch/iteration-in-ai-development/). So, when you start, don’t overthink and spend too much time on the design of the system, types of algorithms, model architecture, hyperparameters, and so on. Build the first version quick, get the feedback, analyze the result and improve your system iteratively.
-
-The common steps of a machine learning project:
-1. **Data Engineering**: Define, collect and preprocess data.
-2. **Exploratory Data Analysis (EDA) and Feature Engineering**: Data Analysis, cleansing and visualization of data to understand its structure, relations, patterns, and potential issues. Then in an iterative process, transform and select data representations to best capture information relevant for model training and performance.
-3. **Modeling**: Training, Validation, Evaluation, Tuning and iterate until the model is ready for deployment.
-4. **Operation**: Deployment, Monitor the ongoing predictions, manage models and versions (artifacts organization), feedback loops and continuous learning/retraining, scaling, MLOps, etc.
+See [Math for AI/ML](https://pooya.io/math/) section.
 
 
-![](images/ml_workflow_mlflow.png)
-Source: [mlflow.org](https://mlflow.org/docs/latest/introduction/index.html)
-
-> The is not a linear process, but an **iterative** one. It's like a loop, and you may need to go back and forth between the steps.
->
-> The above diagram shows **Feature Engineering** as a separate step, but in the real world, it's an ongoing activity during the EDA process. You explore, clean, and engineer features iteratively until you are satisfied with the read-to-training dataset.
->
-> Steps 1 to 6 usually repeated in a loop until you get the desired results. However, in many cases you may need to go back to step 0 to collect more data or improve the quality of the data.
-
-
-### Data Engineering
-
-### Exploratory Data Analysis (EDA) and Feature Engineering
-
-#### Visualization Techniques
-Visualzation techniques are key tools for EDA (Cleaning and Feature Engineering). So, this is not a separate step, but it's an ongoing activity during the EDA process.
-
-Visualization is like a guide for you to help you to understand the data (stats, outliers, patterns, etc), and to make decisions about before and after data cleaning and feature engineering.
-
-We use the following visualization techniques:
-
-- **Histograms**: To show the distribution of a single variable.
-- **Scatter Plots**: To show the relationship between two variables (feature vs feature, and feature vs target).
-- **Pairplot**: To show the relationship between multiple variables. Similar to Scatter Plots, but it shows all possible combinations of variables.
-- **Heatmaps**: To show the correlation between variables. To detect multi-collinearity between features. i.e. when two features move together (positive or negative correlation).
-- **Box Plots**: To show the distribution of a single variable. It shows the median, quartiles, and outliers of the variable.
-
-For seeing these visualizations in action, go to [Linear Regression using Scikit-Learn](labs/linear_regression_scikit_learn.ipynb).
-
-
-#### Feature Engineering
-Feature engineering is the process of selecting the right features (feature reduction), creating new features from the existing features, and transforming the existing ones to new ones. It's a crucial step in the machine learning process, as it can significantly impact the performance of the model.
-
-In feature engineering to verify our hypothesis, we use the visualization techniques (discussed above) to make the right decisions.
-
-See further details here at [Feature Engineering](feature_engineering_machine_learning.md).
-
-### Modeling
-
-**Model Evaluation:**
-Cross Validation, Metrics, Confusion Matrix, ROC Curve, etc. For more details, see [Model Evaluation](model_evaluation.md).
-
-
-
-### Operation
-
-## Resources
+## Other Resources
 - [AI/ML Resources](aiml_resources.md)
 - [Machine Learning Workflow and Process](aiml_overview_workflow.md).
 - [Glossary](glossary.md)
