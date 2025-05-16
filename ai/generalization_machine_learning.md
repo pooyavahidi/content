@@ -170,13 +170,22 @@ In the left side, we have a model which has high bias. Both the training $J_{tra
 
 In the right side, we have a model which has high variance. This model has a higher capability to learn and we can see that the training error $J_{train}$ is low and the cross validation error $J_{cv}$ get closer to the performance goal as we increase the training data.
 
-> **Tips:**
-> - Before increasing the training data, first check if the model has high bias or not. If the model has high bias, then we should first fix that before increasing the training data.
->   - **model has high variance**, then increasing the training data is a good way to improve the model's performance.
->   - **model has high bias**, increasing the training data will not help to improve the model's performance by itself.
->- If we have a large amount of training data, instead of using all of it for the training, we can just use a small subset of it initially to train the model and then examine the learning curves and other metrics to see if the model is overfitting or underfitting. Then introduce more data to the training set. This could help to guide us in the right direction in trade-off between bias and variance and better generalization.
->
-> - While increasing the training data, helps to reduce the high variance, we can't do the reverse to fix high bias. In other words, reducing the training data will **not** help to reduce the high bias. It may reduce the training error, but it hasn't helped the capability of the model to learn the underlying patterns and it will generalize poorly to the validation and test data.
+#### Tips and Techniques for Adding More Data
+- Before increasing the training data, first check if the model has high bias or not. If the model has high bias, then we should first fix that before increasing the training data.
+   - **model has high variance**, then increasing the training data is a good way to improve the model's performance.
+
+   - **model has high bias**, increasing the training data will not help to improve the model's performance by itself.
+
+- If we have a large amount of training data, instead of using all of it for the training, we can just use a small subset of it initially to train the model and then examine the learning curves and other metrics to see if the model is overfitting or underfitting. Then introduce more data to the training set. This could help to guide us in the right direction in trade-off between bias and variance and better generalization.
+
+- While increasing the training data, helps to reduce the high variance, we can't do the reverse to fix high bias. In other words, reducing the training data will **not** help to reduce the high bias. It may reduce the training error, but it hasn't helped the capability of the model to learn the underlying patterns and it will generalize poorly to the validation and test data.
+
+- Add more data of types which the step of [Error Analysis](model_evaluation_machine_learning.md#error-analysis) indicated it might be useful. Instead of getting any types of new data, we can focus on the types of data that the model is struggling with.
+
+ - **Data Augmentation**: If we can't collect more data, we can use data augmentation techniques to artificially increase the size of the training dataset.
+   - Modify existing training data: For example, in an image classification task, we can create new images by applying transformations to the existing images. Modifications like rotation, scaling, flipping, and adding noise to the existing images.
+
+   - Generate synthetic data: Generate synthetic new data points to address imbalances in the dataset or the areas which model struggles with. Techniques like SMOTE (Synthetic Minority Over-sampling Technique) or Generative models can be used to create synthetic data points.
 
 ### Feature Selection and Reduce Model Complexity
 There are several ways to simplify a model. One of the most common ways is to reduce the number of features. [**Feature selection**](feature_engineering.md#feature-selection) is an important technique to choose the most relevant features to train the model.
@@ -390,3 +399,95 @@ $$
 
 
 > Regularization is a technique to prevent overfitting. However, it's implemented differently for different algorithms. For example, in neural networks and linear regression it's implemented by penalizing the model for having large parameters. In decision trees, it's implemented by limiting the depth of the tree or the number of leaf nodes.
+
+## Diagnosing Bias and Variance
+
+After we establish a baseline model, trained our new model, and evaluated the model performance on the validation set, we need to check if the model is underfitting (high bias) or overfitting (high variance). This is done by comparing the performances of baseline, model training, and model evaluation.
+
+Diagnosing bias and variance is an ongoing process, meaning that we diagnose the bias and variance after each cycle of training-evaluation-improvement to see where are we in the trade off of bias and variance.
+
+Let's say we have a regression model and we use Mean Squared Error (MSE) as the evaluation metric.
+We have 3 performance metrics:
+- **Baseline Performance Error**: Percentage of errors in the baseline model.
+- **Training Error**: Percentage of model errors on the training set.
+- **Validation Error**: Percentage of model errors on the validation set.
+
+> Baseline performance error as discussed could be a human performance, external model performance, or a simple model performance. So, depending on where did it come from it could be a starting point or the ideal model performance.
+>
+> For example, if the baseline performance is the result of a expert human performance, then the baseline performance is the **ideal** model performance and could be used as our **goal**. However, if the baseline performance is the result of a simple model which we trained initially, then the baseline performance is just a **starting point**.
+
+Let's assume in this example our baseline performance is the **ideal** model performance.
+
+**Underfitting (High Bias)**:<br>
+This happens when the gap between the baseline and training error is high. This means that the model is not capable (too simple) of learning the training data.
+
+$$\text{Baseline Error} \ll \text{Training Error}$$
+
+**Overfitting (High Variance)**:<br>
+This happens when the gap between the **training error** and **validation error** is high. This means that the model is too complex and is learning the noise in the training data, which performs well on the training set but poorly on the validation set (unseen data).
+
+$$\text{Training Error} \ll \text{Validation Error}$$
+
+**Example**:<br>
+Let's say we have the following scenarios:
+
+| Bias-Variance | Baseline Error | Training Error | Validation Error |
+|-|-|-|-|
+| High Variance (Overfitting) | 10% | 11% | 20%
+| High Bias (Underfitting) | 10% | 20% | 25%
+| Good Fit | 10% | 11% | 12%
+
+> Note: The above numbers are just for illustration purposes. The actual thresholds for high bias, high variance, and good fit will depend on the problem and the data and is different case by case. For example, in some cases, even 1% difference in the training and validation error could be considered as overfitting, etc.
+
+In case of underfitting, we usually don't need to even progress to the validation set. We can conclude the high bias from comparison of the baseline and training error without even evaluating the model on the validation set.
+
+### Learning Curves
+Learning curves are a powerful tool for diagnosing bias and variance in machine learning models. They plot the training and validation error as a function of the training set size. By analyzing this curve, we can gain insights into the model's performance and identify potential issues.
+
+See [Increasing Training Set Size and Learning Curves](generalization_machine_learning.md#increase-training-data) for more details.
+
+
+### Bias and Variance in Linear Regression
+
+Let's say we have a regularized linear regression model as follow:
+
+$$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 + \lambda \sum_{j=1}^{n} \theta_j^2$$
+
+Where:
+- $J(\theta)$ is the cost function
+- $h_\theta(x^{(i)})$ is the model prediction (also noted as $y^{(i)}$ or $f_\theta(x^{(i)})$)
+- $y^{(i)}$ is the actual value
+- $m$ is the number of training examples
+- $n$ is the number of features
+- $\lambda$ is the regularization parameter
+- $\theta$ is the model parameters (weights)
+- $x^{(i)}$ is the input feature vector for the $i^{th}$ training example
+
+Let's say this model has unacceptable large errors in prediction, what are the possible actions to fix this? First we need to diagnose the problem if it's high bias (underfitting) or high variance (overfitting). We can do this by comparing the training and validation errors and learning curves explained above. Then to solve the problem, we can take the following actions:
+
+|Problem|Action|
+|-|-|
+|High Bias (Underfitting)| - Increase model complexity (e.g. add polynomial features, use neural networks, etc)<br>- Decrease regularization $\lambda$<br>- Get more features<br> |
+|High Variance (Overfitting)| - Reduce the features<br>- Increase regularization $\lambda$<br>- Get more training data<br> |
+
+
+There are other actions which could be taken to fix the high bias and high variance, but the point of above example, is to show that more often than not, we are dealing with high bias (overfitting) and high variance (underfitting) and our task is to first diagnose the problem and then take the right action to fix it (i.e. balance the bias and variance).
+
+### Bias and Variance in Neural Networks
+[Neural Networks](neural_networks_overview.md) by design are much more capable of learning complex patterns in the data. They are very flexible in terms of the model architecture which allows us to create as complex models as we want. So, because of this ability, in the tradeoff between bias and variance, neural networks are usually more prone to overfitting (high variance) than underfitting (high bias).
+
+This is why large neural networks are **low bias** machines. If we make a neural network large enough, we can almost always fit (balance between bias and variance) the training data well. This is one of the reasons behind the increasing popularity of deep learning.
+
+We can use the following guidance to diagnose bias and variance in neural networks and take the right actions to fix the problem
+
+
+![](images/nn_training_evaluation_flow_bias_variance.svg)
+
+In the above flow:
+- Larger Network: It means either adding more hidden layers (deeper) or adding more neurons in the hidden layers (wider), or both. Also other factors such as types of the layers, activation functions, number of epochs, batch size, and other hyperparameters can be explored to increase the model capability.
+- Both increasing the size of the neural network and increasing the training data have limits. As networks get larger, they are much more demanding in terms of computational resources and time. Also, adding more data may not always be possible.
+
+**Small or Large Neural Networks**<br>
+Intuitively, we may think that the larger neural networks (being more complex) are prone to overfitting (high variance). It turns out that a large neural network usually do as well or better than a small neural network as long as the [regularization](generalization_machine_learning.md#regularization-in-neural-networks) is used properly.
+
+Therefore, it's a good idea to go for a larger networks as much as your computational resources, budget and time allow.
