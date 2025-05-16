@@ -57,119 +57,24 @@ The first step in model evaluation is to split the data for [cross-validation](c
 ## Choosing the Right Evaluation Metrics
 Evaluation metrics are used to measure the performance of a model on validation sets. The choice of metrics depends on the type of problem (regression, classification, clustering, etc.) and the specific problem we are trying to solve. See [Evaluation Metrics](evaluation_metrics_machine_learning.md) for more details.
 
-## Bias and Variance
-See [Generalization](generalization_machine_learning.md) section for more details on bias and variance. High Bias (underfitting) and High Variance (overfitting) are two common problems in machine learning. Knowing how to identify and address these issues is crucial for building effective models.
-
-Also, see [Regularization](generalization_machine_learning.md#regularization) techniques and how to choose the right regularization parameters and create a balance between bias and variance.
-
-## Baseline Model
+## Establishing Baseline Level Performance
 Establishing a baseline is a crucial step in the model evaluation process. A baseline model serves as a reference point to guide the development and improvement towards a better performance. If we don't have a baseline performance, we don't know the metrics that we are getting are good or bad and in what direction we need to improve.
 
 
 In establishing a baseline model, can be established in multiple ways depending on the problem and our available data and resources. For example:
 - **Human Baseline**: Use human performance as a baseline. This is often the best baseline to use, but it's not always available. For example, for image classification, or voice recognition, we can use human performance (and error rate) as a baseline. However, this is not always available.
 
-- **External Models**: Use other existing models or algorithms as a baseline. This could be open-source models, or even competitor models that are available in the market.
+- **External Models or Algorithms**: Use other existing models or algorithms as a baseline. This could be open-source models, or even competitor models that are available in the market.
 
 - **Domain Knowledge**: Use domain knowledge of experts and SMEs to establish a baseline. This could be a good way if you have access to domain experts in the area you are training the model.
 
 - **Simple Models**: If none of the above is available, we can ourselves train a simple model (based on the our guess, prior experience and domain knowledge) and use it as a baseline. This could be as simple as a linear regression model, a decision tree, or even a deep learning model.
 
+## Diagnose and Address Bias and Variance Issues
+See [Generalization](generalization_machine_learning.md) section for more details on bias and variance. High Bias (underfitting) and High Variance (overfitting) are two common problems in machine learning. Knowing how to identify and address these issues is crucial for building effective models.
 
-## Diagnosing Bias and Variance
+See [Regularization](generalization_machine_learning.md#regularization) techniques and how to choose the right regularization parameters and create a balance between bias and variance. Also, see [Diagnosing Bias and Variance](generalization_machine_learning.md#diagnosing-bias-and-variance) for how to identify and address bias and variance issues during model evaluation.
 
-After we establish a baseline model, trained our new model, and evaluated the model performance on the validation set, we need to check if the model is underfitting (high bias) or overfitting (high variance). This is done by comparing the performances of baseline, model training, and model evaluation.
-
-Diagnosing bias and variance is an ongoing process, meaning that we diagnose the bias and variance after each cycle of training-evaluation-improvement to see where are we in the trade off of bias and variance.
-
-Let's say we have a regression model and we use Mean Squared Error (MSE) as the evaluation metric.
-We have 3 performance metrics:
-- **Baseline Performance Error**: Percentage of errors in the baseline model.
-- **Training Error**: Percentage of model errors on the training set.
-- **Validation Error**: Percentage of model errors on the validation set.
-
-> Baseline performance error as discussed could be a human performance, external model performance, or a simple model performance. So, depending on where did it come from it could be a starting point or the ideal model performance.
->
-> For example, if the baseline performance is the result of a expert human performance, then the baseline performance is the **ideal** model performance and could be used as our **goal**. However, if the baseline performance is the result of a simple model which we trained initially, then the baseline performance is just a **starting point**.
-
-Let's assume in this example our baseline performance is the **ideal** model performance.
-
-**Underfitting (High Bias)**:<br>
-This happens when the gap between the baseline and training error is high. This means that the model is not capable (too simple) of learning the training data.
-
-$$\text{Baseline Error} \ll \text{Training Error}$$
-
-**Overfitting (High Variance)**:<br>
-This happens when the gap between the **training error** and **validation error** is high. This means that the model is too complex and is learning the noise in the training data, which performs well on the training set but poorly on the validation set (unseen data).
-
-$$\text{Training Error} \ll \text{Validation Error}$$
-
-**Example**:<br>
-Let's say we have the following scenarios:
-
-| Bias-Variance | Baseline Error | Training Error | Validation Error |
-|-|-|-|-|
-| High Variance (Overfitting) | 10% | 11% | 20%
-| High Bias (Underfitting) | 10% | 20% | 25%
-| Good Fit | 10% | 11% | 12%
-
-> Note: The above numbers are just for illustration purposes. The actual thresholds for high bias, high variance, and good fit will depend on the problem and the data and is different case by case. For example, in some cases, even 1% difference in the training and validation error could be considered as overfitting, etc.
-
-In case of underfitting, we usually don't need to even progress to the validation set. We can conclude the high bias from comparison of the baseline and training error without even evaluating the model on the validation set.
-
-### Learning Curves
-Learning curves are a powerful tool for diagnosing bias and variance in machine learning models. They plot the training and validation error as a function of the training set size. By analyzing this curve, we can gain insights into the model's performance and identify potential issues.
-
-See [Increasing Training Set Size and Learning Curves](generalization_machine_learning.md#increase-training-data) for more details.
-
-
-### Bias and Variance in Linear Regression
-
-Let's say we have a regularized linear regression model as follow:
-
-$$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 + \lambda \sum_{j=1}^{n} \theta_j^2$$
-
-Where:
-- $J(\theta)$ is the cost function
-- $h_\theta(x^{(i)})$ is the model prediction (also noted as $y^{(i)}$ or $f_\theta(x^{(i)})$)
-- $y^{(i)}$ is the actual value
-- $m$ is the number of training examples
-- $n$ is the number of features
-- $\lambda$ is the regularization parameter
-- $\theta$ is the model parameters (weights)
-- $x^{(i)}$ is the input feature vector for the $i^{th}$ training example
-
-Let's say this model has unacceptable large errors in prediction, what are the possible actions to fix this? First we need to diagnose the problem if it's high bias (underfitting) or high variance (overfitting). We can do this by comparing the training and validation errors and learning curves explained above. Then to solve the problem, we can take the following actions:
-
-|Action|Result|
-|-|-|
-|Getting more training data| Fixes high variance|
-|Reducing the features| Fixes high variance|
-|Getting more features| Fixes high bias|
-|Increasing model's complexity (e.g. adding polynomial features)| Fixes high bias|
-|Increasing $\lambda$| Fixes high Variance|
-|Decreasing $\lambda$| Fixes high bias|
-
-There are other actions which could be taken to fix the high bias and high variance, but the point of above example, is to show that more often than not, we are dealing with high bias (overfitting) and high variance (underfitting) and our task is to first diagnose the problem and then take the right action to fix it (i.e. balance the bias and variance).
-
-### Bias and Variance in Neural Networks
-[Neural Networks](neural_networks_overview.md) by design are much more capable of learning complex patterns in the data. They are very flexible in terms of the model architecture which allows us to create as complex models as we want. So, because of this ability, in the tradeoff between bias and variance, neural networks are usually more prone to overfitting (high variance) than underfitting (high bias).
-
-This is why large neural networks are **low bias** machines. If we make a neural network large enough, we can almost always fit (balance between bias and variance) the training data well. This is one of the reasons behind the increasing popularity of deep learning.
-
-We can use the following guidance to diagnose bias and variance in neural networks and take the right actions to fix the problem
-
-
-![](images/nn_training_evaluation_flow_bias_variance.svg)
-
-In the above flow:
-- Larger Network: It means either adding more hidden layers (deeper) or adding more neurons in the hidden layers (wider), or both. Also other factors such as types of the layers, activation functions, number of epochs, batch size, and other hyperparameters can be explored to increase the model capability.
-- Both increasing the size of the neural network and increasing the training data have limits. As networks get larger, they are much more demanding in terms of computational resources and time. Also, adding more data may not always be possible.
-
-**Small or Large Neural Networks**<br>
-Intuitively, we may think that the larger neural networks (being more complex) are prone to overfitting (high variance). It turns out that a large neural network usually do as well or better than a small neural network as long as the [regularization](generalization_machine_learning.md#regularization-in-neural-networks) is used properly.
-
-Therefore, it's a good idea to go for a larger networks as much as your computational resources, budget and time allow.
 
 
 ## Performance Curves
@@ -182,11 +87,24 @@ The most common performance-parameter plots are:
 - **Validation curves** (aka hyperparameter curves) – error vs. hyperparameter value. e.g. [error-regularization curve](generalization_machine_learning.md#regularization)
 
 > These plots are called **diagnostic plots** or **model evaluation curves**.
+## Error Analysis
+Error analysis is the process of analyzing the errors made by the model to understand the reasons or patterns behind the errors. This is usually done manually by examining the wrong predictions made by the model and trying to understand the reasons, patterns and underlying issues behind the errors. This step help us to know how to improve the model.
+
+**Prioritizing Errors**<br>
+Error analysis could show multiple overlapping issues and patterns. Be mindful of prioritizing the issues and patterns based on their impact and frequency. In some cases, solving one could takes a lot of time and effort, while that may have a small impact on the overall model performance.
 
 ## Model Tuning
-After evaluating the model we may need to tune our model by changing the hyperparameters. There are multiple ways to do this:
+Model tuning is the process of adjusting the hyperparameters, properties of the model, and the data setup to improve the model performance.
 
-- Manual tuning (need extensive domain knowledge and experience with the model).
+There are multiple ways to do this:
+
+**Manual tuning**<br>
+This approach is a common way to tune the hyperparameters. This is usually guided by the [Performance Curves](#performance-curves) plots which shows the relationship between the model performance (e.g. error or accuracy) and a hyperparameter value, or training set size, etc.
+
+This approach is usually done by the data scientists and machine learning engineers who have experience with the model and the data. This is a time-consuming process and requires a lot of trial and error, and expertise.
+
+**Automated tuning**<br>
+This approach is a more systematic way to tune the hyperparameters. Instead of manually changing the hyperparameters, plotting the performance curves, and trying to find the best hyperparameters, we can use automated tools to do this for us. However, this approach is usually more expensive and time-consuming than the manual tuning, and it may not always yeild the best results.
 
 - Grid search (try all possible combinations of hyperparameters). This approach trains the model in all possible combinations of the hyperparameters and compare the results. This is computationally expensive and time-consuming.
 
