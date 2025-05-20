@@ -97,9 +97,42 @@ Self-supervised learning is a specific form of unsupervised learning where the m
 ### Transfer Learning
 Though not a traditional type of learning, transfer learning refers to using a pre-trained model on one task and adapting it to a different but related task. This is especially useful when there is not enough labeled data for the new task, but the knowledge gained from a different domain can be reused.
 
+For example, we can use a neural network which is trained on a large dataset (of images of objects) with output layer for classifying let's say 1000 classes. These models are available in the form of **pre-trained** models in the open-source community. Then we can reuse this model by _further training_ on our specific task with a smaller dataset.
+
+
+**Fine-tuning (Further training)**<br>
+This further training process is called **fine-tuning**. This is usually done by keeping all the layers of pre-trianed model except the last one (output layer) and replace it with a new output layer for our specific task (e.g., classifying 10 classes of hand written digit images). Then we can train (e.g. using [gradient descent](gradient_descent_machine_learning.md)) the model on our specific task with a smaller dataset.
+
+It can be done in multiple ways. We can either freeze the weights of the pre-trained model and only train the new output layer, or we can unfreeze some (or all) of the layers of the pre-trained model and train them along with the new output layer.
+- Train the output layer only. This works well when the new task is similar to the original task and our dataset is small.
+- Train the output layer and some (or all) of the layers of the pre-trained model. This works well when we have a larger datasets. This larger dataset is still much smaller than the original dataset used to train the pre-trained model, and this is the benefit of transfer learning.
+
+Sometimes we can go further and replace (change the architecture and reset the parameters of) the last few layers of the pre-trained model with new layers for our specific task. This is called **feature extraction**. In this case, we freeze the weights of the pre-trained model and only train the new layers.
+
+> **Notes:**
+>
+> The pre-trained model data types should be similar to the new task data types (e.g. images, audio, text, etc). For example, if we are using a pre-trained model for image classification, we should use it for image classification tasks, not for text classification tasks.
+>
+> Fine-tuning is specially useful when we have a small dataset for the new task. Let's say if we have a small dataset of 1000 images for our specific task, we can use a pre-trained model which is trained on a large dataset of millions of images. Then we can leverage the knowledge gained from the large dataset in the neural network layers of the pre-trained model and use it for our specific task.
+
+**Neural Networks learns from Low-level to High-level Features**<br>
+Transfer learning can be applied on any type of machine learning model, but it is most commonly used (and most effective) in deep learning models (neural networks). This is because deep learning models have a large number of parameters and layers, which learn complex features from low-level to high-level features layer by layer.
+
+As discussed in [neural networks](neural_networks_overview.md#each-layer-learns-from-the-previous-layer), early layers of a neural network learn **low-level features** (e.g., edges, colors, textures) and as we go further in the network, the layers learn **higher-level features** (e.g., shapes, objects, etc.). So, if we are using a pre-trained model which is trained on a large dataset of objects, we can reuse the many of the layers (up to the last few layers) where the model learned transferable features which can be applied for classification of many things, animals, plants, handwritten digits, etc.
+
+**Pre-training and Further Training**<br>
+Pre-training is the process of training a model (from scratch) on a large dataset to learn general features. Further training (or fine-tuning) is the process of taking a pre-trained model and training it on a smaller, task-specific dataset to adapt it to a specific task.
+
+**Reuse Pre-trained Model Parameters**<br>
+When we say taking the pre-trained model and training it on a smaller dataset, we mean we initialize the model parameters (weights and biases) with the pre-trained model parameters values and then train the model on the new dataset from that point.
+
+
 **Example tasks:**<br>
 - Using a model trained on ImageNet to classify medical images with a smaller labeled dataset.
 - Fine-tuning a language model like GPT for specific text classification tasks.
+
+> Transfer learning is a powerful technique that allows us to leverage the knowledge gained from one task to improve performance on another related task. It is particularly useful when we have limited labeled data for the new task. It also helps to reduce the training time and computational resources required for training a model from scratch. Fine-tuning a pre-trained model (transfer learning) is often a good starting point for many machine learning tasks, especially in deep learning.
+
 
 ## Neural Networks
 **Neural Networks (NNs)** are a type of machine learning where interconnected nodes (or "neurons") are layered to create an **artificial neural network**. This can be shallow (with one hidden layer) or deep (with multiple hidden layers). This [Neural Network Overview](/nn_overview.md) covers the basics.
