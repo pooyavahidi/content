@@ -71,6 +71,7 @@ Some of the most common techniques for feature engineering include:
 - Dimensionality Reduction
 - Creating Polynomial Features
 - Encoding techniques
+- Data Augmentation
 
 ## Feature Selection
 To Identify and select a subset of the most relevant features from the dataset, based on their importance or impact on the model. This process can be integral to model development, aiming to improve model accuracy, reduce overfitting, and enhance model interpretability.
@@ -387,3 +388,16 @@ For example if a feature with the name of "Color" has three categories "Red", "G
 It involves converting ordinal categorical data (categories with a natural order) into numerical values to reflect the inherent order among the categories. This encoding technique respects the relative ordering of the categories, such as "Small," "Medium," and "Large" for garden sizes, by assigning them increasing numerical values based on their order. For example, instead of Small we can use 5, Medium 10, and Large 15, and for Null we can use 0.
 
 Ordinal encoding allows machine learning algorithms to understand the order of the categories and use this information in the modeling process. The `map` function in Pandas is a convenient way to apply this encoding to a dataset.
+
+## Data Augmentation
+If we can't collect more data, we can use data augmentation techniques to artificially increase the size of the training dataset.
+
+**Modified versions of existing training data:**<br>
+In this approach we create _new_ training examples by modifying the existing training data. For example, in an image classification task, we can create new images by applying transformations to the existing images. Modifications like rotation, scaling, flipping, and adding noise or distortions to the existing images. Or in voice recognition tasks, we can add noise and background sounds (e.g., crowd, music, car, wind, busy street, etc) to the existing audio files.
+
+**Data Synthesis:**<br>
+In this approach we use artificial data inputs to create a new training example to address imbalances in the dataset or the areas which model struggles with. Techniques like SMOTE (Synthetic Minority Over-sampling Technique) or Generative models can be used to create synthetic data points.
+
+> Note: Data augmentation goal is to improve the model's performance on test data (unseen data) by increasing the size of the training data. So, if adding random modification or generate synthetic data points which are not representative of the real data, is not helpful, but rather harmful as it can lead to overfitting (high performance on training data but poor performance on test data).
+>
+> So, what ever new examples we create in Data Augmentation, should be representative of the test data and overall to the real world data for that particular problem.
