@@ -180,12 +180,12 @@ In the right side, we have a model which has high variance. This model has a hig
 
 - While increasing the training data, helps to reduce the high variance, we can't do the reverse to fix high bias. In other words, reducing the training data will **not** help to reduce the high bias. It may reduce the training error, but it hasn't helped the capability of the model to learn the underlying patterns and it will generalize poorly to the validation and test data.
 
-- Add more data of types which the step of [Error Analysis](model_evaluation_machine_learning.md#error-analysis) indicated it might be useful. Instead of getting any types of new data, we can focus on the types of data that the model is struggling with.
+- Add more data of types which the step of [Error Analysis](model_evaluation_machine_learning.md#error-analysis) indicated it might be useful. Instead of getting any types of new data, we better focus on the types of data that the model is struggling with.
 
- - **Data Augmentation**: If we can't collect more data, we can use data augmentation techniques to artificially increase the size of the training dataset.
-   - Modify existing training data: For example, in an image classification task, we can create new images by applying transformations to the existing images. Modifications like rotation, scaling, flipping, and adding noise to the existing images.
+- Use [Data Augmentation](feature_engineering_machine_learning.md#data-augmentation) technique to artificially increase the size of the training dataset by creating modified versions of existing data points or synthesizing new data points.
 
-   - Generate synthetic data: Generate synthetic new data points to address imbalances in the dataset or the areas which model struggles with. Techniques like SMOTE (Synthetic Minority Over-sampling Technique) or Generative models can be used to create synthetic data points.
+- Use [Transfer Learning](ai_machine_learning_overview.md#transfer-learning) to leverage pre-trained models on large datasets (of the same data type) and fine-tune them on your specific task. This is especially useful when you have limited data for your specific task, and can save a lot of time and resources.
+
 
 ### Feature Selection and Reduce Model Complexity
 There are several ways to simplify a model. One of the most common ways is to reduce the number of features. [**Feature selection**](feature_engineering.md#feature-selection) is an important technique to choose the most relevant features to train the model.
