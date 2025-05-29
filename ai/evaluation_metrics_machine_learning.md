@@ -145,17 +145,131 @@ $$\text{Recall} = \frac{TP}{TP + FN} = \frac{8}{8 + 7} = \frac{8}{15} \approx 0.
 **Intuitions:**<br>
 When our model says a patient has a disease, there is a 80% chance that the patient actually has the disease (Precision). Also our model can catch 53% of the patients that actually have the disease, or in other words, our model misses 47% of the patients that actually have the disease (Recall).
 
-The goal is to maximize both Precision and Recall. However, case by case, we may prefer to have a higher Recall or higher Precision.
+> Note: Using Precision and Recall you can catch the Naive model. For example, if we have a naive model which predicts all samples as negative (y=0), then True Positive (TP) and False Positive (FP) are both 0, which means the Recall = 0, and the Precision = $\frac{0}{0}$. So, we can weed out the naive models using Precision and Recall as evaluation metrics.
+
+
+#### Trade-off between Precision and Recall
+In the ideal case, we want to get high Precision and Recall. However, these two metrics are in **tension** with each other.
+
+
+Let's say our classification model which uses a sigmoid function to predict the probability of $y=1$ or $y=0$, has a threshold of $0.5$ to classify the samples.
+
+$$
+\begin{aligned}
+  \begin{cases}
+    f_\theta(x) \geq 0.5 & (\hat{y}=1) \\
+    f_\theta(x) < 0.5 & (\hat{y}=0)
+  \end{cases}
+\end{aligned}
+$$
+
+Let's say we in a scenario which getting false positives (FP) is costly. For example, a medical test which is invasive and expensive with high risk of complications. In this case, we want to minimize the number of false positives (FP), which means when our model predicts a sample as positive (y=1), we want it to be with high confidence. So, we want to increase our Precision.
+
+To increase the Precision, we can increase the threshold, let's say from $0.5$ to $0.7$. Then it means the model predicts the samples with probability greater than $0.7$ as positive (y=1).
+
+$$
+\begin{aligned}
+  \begin{cases}
+    f_\theta(x) \geq 0.7 & (\hat{y}=1) \\
+    f_\theta(x) < 0.7 & (\hat{y}=0)
+  \end{cases}
+\end{aligned}
+$$
+
+Then in this case, we have increased the chance of missing the actual positive samples. However, this will decrease the Recall.
+
+$$
+\text{Recall} = \frac{\text{True Positive}}{\text{Actual Positive}}
+$$
+
+The number of Actual Positive samples (y=1) is fixed, but the number of True Positive (TP) samples is decreased, as our threshold has a more strict condition to classify a sample as positive (y=1). So, the number of True Positive (TP) samples is decreased, which means the Recall is decreased.
+
+In another scenarion, if we are detecting a disease which very dangerous and we want our model to predict positive (y=1) even if it's not very confident about it. Then we want to decrease the threshold, let's say from $0.5$ to $0.3$.
+
+
+$$
+\begin{aligned}
+  \begin{cases}
+    f_\theta(x) \geq 0.3 & (\hat{y}=1) \\
+    f_\theta(x) < 0.3 & (\hat{y}=0)
+  \end{cases}
+\end{aligned}
+$$
+
+Then in this case, we have decreased the chance of missing the actual positive samples. However, lowering the threshold means that we are more likely to classify a sample as positive (y=1) even if it's not very confident about it. So, we along with the True Positive (TP) predictions, we inevitably drag in some False Positive (FP) predictions as well. Hence, decrease in Precision.
+
+
+**Precision-Recall Curve**<br>
+So, as we increase the threshold, the Precision increases but the Recall decreases. Similarly, if we decrease the threshold, the Recall increases but the Precision decreases (i.e. we detect more positive samples, but many of them are not actually positive), hence the **tension** between Precision and Recall. See the following curve:
+
+
+![](images/precision_recall_tradeoff.png)
+
+Raising your score-threshold (making the classifier more **picky** about what counts as positive) typically increases precision (fewer false positives) but decreases recall (more false negatives).
+
 
 - High precision: few healthy people get falsely alarmed (low FP).
 - High recall: few sick people go undetected (low FN).
 
-For example, in a rare-disease setting you often care more about **recall** (so you don’t miss true cases), but you must balance it against precision (to avoid overwhelming follow-up tests with too many false positives).
+**Choosing the Right Threshold**<br>
+In many cases, we choose the threshold based on domain knowledge, the requirements of the task, and the cost of false positives and false negatives.
 
-> Note: Using Precision and Recall can catch the Naive model. For example, if we have a naive model which predicts all samples as negative (y=0), then True Positive (TP) and False Positive (FP) are both 0, which means the Recall = 0, and the Precision = $\frac{0}{0}$. So, we can weed out the naive models using Precision and Recall as evaluation metrics.
+- If false positives are very costly (e.g. sending spam alerts to doctors), you favor high precision.
+
+- If false negatives are very costly (e.g. missing a cancer diagnosis), you favor high recall.
+
+For example, in a rare-disease setting you often care more about **recall** (so you don’t miss true cases), but you must also balance it against precision (to avoid overwhelming follow-up tests with too many false positives). So, in this case, the lower threshold is preferred.
+
+However, if we don't have a strong preference for either precision or recall, we can use the **F1 Score** to find a balance between the two.
+
+#### F1 score
+F1 score is the harmonic mean of Precision and Recall. It is a single score that balances both precision and recall in one number.
+
+Let's say we have trained three different models, and the Precision and Recall of them are as follows:
+| Model | Precision (P) | Recall (R) |
+|-|-|-|
+| Model 1 | 0.4 | 0.55 |
+| Model 2 | 0.1 | 0.8 |
+| Model 3 | 0.01 | 0.99 |
 
 
-**Trade-off between Precision and Recall**<br>
+The formula for F1 Score is:
+$$
+
+F_1 = \frac{2}{\frac{1}{Precision} + \frac{1}{Recall}} = \frac{2PR}{P + R}
+$$
+
+F1 score combines these two numbers into a single score with emphasize on the lower of the two. Looking at the above formula, as either precision or recall approaches zero, the denominator approaches infinity, and thus the F1 score approaches zero. This means that if either precision or recall is very low, the F1 score will also be very low.
+
+> **F1 Score** (also written as $F_1$-score) is part of family of metrics called **F-score**.
+>
+> The F-score is harmonic mean of two numbers of Precision and Recall. In general, the harmonic mean $H$ of $n$ positive values $x_1, x_2, \dots, x_n$ is:
+>
+>$$
+>H \;=\;\frac{n}{\displaystyle\sum_{i=1}^n \frac1{x_i}}
+>$$
+> The harmonic mean gives you a _rate‐balanced_ average that can never exceed the arithmetic mean, and that closely reflects the smaller input. Think of the harmonic mean as the _fair average_ when you’re combining rates or ratios and want your overall score to really reflect your weakest link.
+>
+>In F1 score, when we have two numbers, $n=2$, and $x_1 = \text{Precision}$, $x_2 = \text{Recall}$, this becomes:
+>
+>$$
+>H \;=\;\frac{2}{\displaystyle\frac1{\!P} + \frac1{\!R}}
+>$$
+> Because the harmonic mean is dominated by the smaller of its inputs, if either $P$ or $R$ goes to zero then $\tfrac1P+\tfrac1R$ (the denominator) goes to infinity, and hence $F_1\to0$.
+
+We could also aruge that instead of using the harmonic mean, we could use the simple average of Precision and Recall. However, the harmonic mean is more appropriate in this case because it punishes low values more than the arithmetic mean. In other words, if either precision or recall is very low, the F1 score will also be low.
+
+Let's calculate both average and F1 score for the above models:
+| Model | Precision (P) | Recall (R) | Average (A) | F1 Score |
+|-|-|-|-|-|
+| Model 1 | 0.4 | 0.55 | 0.475 | 0.46 |
+| Model 2 | 0.1 | 0.8 | 0.45 | 0.18 |
+| Model 3 | 0.01 | 0.99 | 0.5 | 0.02 |
+
+Using average, we would say model 3 is the best model, however, model 3 predict postivie for almost all the samples (similar to the naive model), but has a very low precision, meaning out of every 100 samples it predicts as positive, only 1 of them is actually positive. So, model 3 is not a good model at all, and using average to score the models is misleading.
+
+However, F1 score (the harmonic mean) takes the average of Precision and Recall with emphasizing on the lower of the two. So, model 1 with the low precision, or model 2 with low recall, gets lower F1 score (a _fair average_), and model 1 is the best model with the highest F1 score.
+
 
 
 ## Clustering Metrics

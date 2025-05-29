@@ -72,6 +72,8 @@ In the following image, the x-axis represents the models with increasing complex
 
 ![](images/model_selection_and_validation_training_error.png)
 
+Note: The above image is a simplified representation of the bias-variance tradeoff. In practice, these curves may not be as smooth as shown, however, the general idea remains the same. The goal is to find a model that cross-validation error is **minimized**.
+
 **Model Evaluation**:<br>
 [Model Evaluation](model_evaluation_machine_learning.md) involves the methods and metrics (e.g., cross-validation, test accuracy, precision-recall) used to assess the generalization performance and ensure that the model is not overfitting or underfitting.
 
