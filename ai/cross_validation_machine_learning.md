@@ -71,9 +71,7 @@ The common splits are:
 
 **Three-way Split is Superior to Two-way Split**<br>
 
-When using a two-way split, we have training and test sets. Let's say we want to train 10 different models and pick the best one.
-
-Let's say our models are neural networks with different architectures. We define a new parameter called **nn** that simply an integer referencing the model. We have 10 different models with different architectures, and we want to pick the best one.
+When using a two-way split, we have training and test sets. Let's say we want to train 10 different models and pick the best one. Our models are neural networks with different architectures. We define a new parameter called **nn** that simply an integer referencing the model. We have 10 different models with different architectures, and we want to pick the best one.
 - nn=1: 3 hidden layers, 100 neurons each, ReLU and Adam, etc
 - nn=2: 5 hidden layers, 50 neurons each, Tanh and SGD, etc
 - ...
@@ -89,7 +87,9 @@ The solve this problem, we use a three-way split. We split the data into trainin
 
 > We ideally want to avoid making decisions based on the test set during the model tuning and selection process. When we come up with the final model, then at the **very end** we estimate the generalization performance using the test set to fairly estimate the performance of the model on unseen data. In other words, by reserving a separate test set, you insulate your final evaluation from all tuning decisions. Hence, the three-way split is superior to the two-way split.
 >
-> Note: In model selection, we evaluate those model against the **validation set** not the **test set** to pick the best model.
+> In simple terms, if you use the **test** dataset and evaluate the error to guide improvements in the model, then the model will perform well on the **test** data, but then you have no idea how your model will perform on the unseen new data (the test data supposed to represent **new** data). To address this, we divide our overall dataset to three parts (training, validation, and test sets). We evaluate against the **validation set** to improve and select the right model. Then performance of our model against the **test set** is the final estimate which is equivalent to how well the model will perform on unseen data.
+
+>
 
 **Benchmark Datasets**<br>
 Benchmark datasets like MNIST often come with predefined splits (MNIST is split approximately 86/14 with 60,000 training and 10,000 test images).
